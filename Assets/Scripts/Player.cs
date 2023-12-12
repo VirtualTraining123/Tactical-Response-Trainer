@@ -7,11 +7,11 @@ public class Player : MonoBehaviour
 {
     [SerializeField] float health;
     [SerializeField] Transform head;
-    public Connection vest;
+    public ConnectionV2 vest;
     public void TakeDamage(float damage)
     {
         health -= damage;
-        vest.sendMessage("F"); //send value
+        vest.Send("F"); //send value
         Debug.LogError(string.Format("Player health: {0}", health));
 
         // Verificar si la salud llega a cero o menos
