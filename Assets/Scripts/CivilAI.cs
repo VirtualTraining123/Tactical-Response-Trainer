@@ -16,6 +16,7 @@ public class CivilAI : MonoBehaviour, ITakeDamage
     [Range(0, 100)]
     [SerializeField] private ParticleSystem bloodSplatterFX;
 
+
     private NavMeshAgent agent;
     private Player player;
     private Transform occupiedCoverSpot;
@@ -26,6 +27,8 @@ public class CivilAI : MonoBehaviour, ITakeDamage
     private static int woundedCount = 0;
     private static int deadCount = 0;
 
+    [SerializeField] private AudioClip[] audios;
+    private AudioSource controlAudio;
     public float health
     {
         get { return _health; }
@@ -35,6 +38,8 @@ public class CivilAI : MonoBehaviour, ITakeDamage
     private void Awake()
     {
         Initialize();
+        controlAudio = GetComponent<AudioSource>();
+
     }
 
     private void Initialize()
@@ -57,6 +62,7 @@ public class CivilAI : MonoBehaviour, ITakeDamage
     {
         agent.isStopped = false;
         agent.SetDestination(occupiedCoverSpot.position);
+        SeleccionAudio(0, 0.2f);
     }
 
     private void Update()
@@ -66,10 +72,14 @@ public class CivilAI : MonoBehaviour, ITakeDamage
         if (agent.isStopped == false && (transform.position - occupiedCoverSpot.position).sqrMagnitude <= 0.1f)
         {
             agent.isStopped = true;
+            controlAudio.Stop();
             HideBehindCover();
         }
     }
-
+    private void SeleccionAudio(int indice, float volumen)
+    {
+        controlAudio.PlayOneShot(audios[indice], volumen);
+    }
     private void HideBehindCover()
     {
         animator.SetTrigger(CROUCH_TRIGGER);

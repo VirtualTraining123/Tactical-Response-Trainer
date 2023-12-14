@@ -6,6 +6,7 @@ using System.Security.Permissions;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
+
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(XRGrabInteractable))]
 public class Weapon : MonoBehaviour
@@ -15,14 +16,19 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float recoilForce;
     [SerializeField] private float damage;
 
+    [SerializeField] private AudioClip[] audios;
+    private AudioSource controlAudio;
+
     private Rigidbody rigidBody;
     private XRGrabInteractable interactableWeapon;
-
+    private AudioManagerEasy audioManagerEasy;
     protected virtual void Awake()
     {
         interactableWeapon = GetComponent<XRGrabInteractable>();
         rigidBody = GetComponent<Rigidbody>();
         SetupInteractableWeaponEvents();
+        controlAudio = GetComponent<AudioSource>();
+
     }
 
     private void SetupInteractableWeaponEvents()
@@ -33,6 +39,10 @@ public class Weapon : MonoBehaviour
         interactableWeapon.onDeactivate.AddListener(StopShooting);
     }
 
+    private void SeleccionAudio(int indice, float volumen)
+    {
+        controlAudio.PlayOneShot(audios[indice], volumen);
+    }
     private void PickUpWeapon(XRBaseInteractor interactor)
     {
         interactor.GetComponent<MeshHidder>().Hide();
@@ -57,6 +67,9 @@ public class Weapon : MonoBehaviour
     protected virtual void Shoot()
     {
         ApplyRecoil();
+        SeleccionAudio(0, 0.2f);
+        Invoke("SeleccionAudio(1, 0.2f)", 0.5f);
+
     }
 
     private void ApplyRecoil()

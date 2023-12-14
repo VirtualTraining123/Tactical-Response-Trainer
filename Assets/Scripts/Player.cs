@@ -8,16 +8,26 @@ public class Player : MonoBehaviour
     [SerializeField] float health;
     [SerializeField] Transform head;
     public CameraShake cameraShake;
-
+    private AudioManagerEasy audioManagerEasy;
     private void Start()
     {
         BluetoothService.StartBluetoothConnection("ESP32_BT");
     }
-
+    private void Awake()
+    {
+        audioManagerEasy = FindObjectOfType<AudioManagerEasy>();
+    }
     public void TakeDamage(float damage)
     {
+
+       
+
         StartCoroutine(cameraShake.Shake());
         health -= damage;
+        audioManagerEasy.SeleccionAudio(0, 3f);
+       
+        
+
         Debug.LogWarning(string.Format("Player health: {0}", health));
         //BluetoothService.WritetoBluetooth("F");
         // Verificar si la salud llega a cero o menos
@@ -25,14 +35,11 @@ public class Player : MonoBehaviour
         {
 
             // ir a la escena de Game Over pero a los 5 segundos
-            Invoke("GameOver", 5f);
-           
-            
-
-
+            Invoke("GameOver", 3f);
+          
         }
     }
-
+   
     private void GameOver()
     {
         // Obtener el nombre de la escena actual
@@ -47,12 +54,5 @@ public class Player : MonoBehaviour
         return head.position;
     }
 
-    private void RestartScene()
-    {
-        // Obtener el nombre de la escena actual
-        string currentSceneName = SceneManager.GetActiveScene().name;
-
-        // Reiniciar la escena actual
-        SceneManager.LoadScene(currentSceneName);
-    }
+    
 }

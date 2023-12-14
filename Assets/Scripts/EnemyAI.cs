@@ -3,15 +3,18 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
+
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyAI : MonoBehaviour, ITakeDamage
 {
+    EnemyAudioScript enemyAudioScript= new EnemyAudioScript();
     const string RUN_TRIGGER = "Run";
     const string CROUCH_TRIGGER = "Crouch";
     const string SHOOT_TRIGGER = "Shoot";
 
-    [SerializeField] private AudioManager audioManager;
+    
     [SerializeField] private float startingHealth;
     [SerializeField] private float minTimeUnderCover;
     [SerializeField] private float maxTimeUnderCover;
@@ -29,8 +32,8 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
     [SerializeField] private UnityEvent hapticEvent1;
     [SerializeField] private UnityEvent hapticEvent2;
 
-    //[Header("Scene Transition")]
-    //[SerializeField] private string nextSceneName; // Nombre de la siguiente escena
+    [Header("Scene Transition")]
+    [SerializeField] private string nextSceneName; // Nombre de la siguiente escena
     
     private int remainingEnemies;
     private bool isShooting;
@@ -40,6 +43,12 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
     private Player player;
     private Transform occupiedCoverSpot;
     private Animator animator;
+
+    //private AudioManagerEasy audioManagerEasy;
+
+    [SerializeField] private AudioClip[] audios;
+
+    private AudioSource controlAudio;
 
     private float _health;
     public float health
@@ -56,11 +65,13 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
 
     private void Awake()
     {
+        //audioManagerEasy = FindObjectOfType<AudioManagerEasy>();
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         animator.SetTrigger(RUN_TRIGGER);
         _health = startingHealth;
-       // remainingEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        remainingEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        controlAudio = GetComponent<AudioSource>();
     }
 
     public void Init(Player player, Transform coverSpot)
@@ -74,6 +85,7 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
     {
         agent.isStopped = false;
         agent.SetDestination(occupiedCoverSpot.position);
+        SeleccionAudio(1, 0.2f);
     }
 
     private void Update()
@@ -81,7 +93,10 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
         if (agent.isStopped == false && (transform.position - occupiedCoverSpot.position).sqrMagnitude <= 0.1f)
         {
             agent.isStopped = true;
+            //detenemos el la reproduccion de sonido por unica vez
+            controlAudio.Stop();
             StartCoroutine(InitializeShootingCO());
+           
         }
         if (isShooting)
         {
@@ -107,12 +122,16 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
         currentMaxShotsToTake = UnityEngine.Random.Range(minShotsToTake, maxShotsToTake);
         currentShotsTaken = 0;
         animator.SetTrigger(SHOOT_TRIGGER);
+        //SeleccionAudio(0, 0.5f);
+    }
 
-      //  PlayEnemyShootSound();
+    private void SeleccionAudio(int indice, float volumen)
+    {
+        controlAudio.PlayOneShot(audios[indice], volumen);
     }
 
     public void Shoot()
-    {
+    {   
         bool hitPlayer = UnityEngine.Random.Range(0, 100) < shootingAccuracy;
 
         if (hitPlayer)
@@ -122,13 +141,22 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
             Vector3 direction = player.GetHeadPosition() - shootingPosition.position;
             if (Physics.Raycast(shootingPosition.position, direction, out hit))
             {
+                enemyAudioScript.PlayShootSound();
+
                 Debug.DrawRay(shootingPosition.position, direction, Color.green, 2.0f);
                 Player player = hit.collider.GetComponentInParent<Player>();
-                
+
+
                 if (player)
                 {
-                    
-                    player.TakeDamage(damage);
+                    SeleccionAudio(0, 0.5f);
+
+                    //probabilidad del 50% de que el enemigo acierte
+                    if(Random.Range(0, 1) == 0)
+                    {
+                        player.TakeDamage(damage);
+                    }
+                 
                    
                     // Ejecutar uno de los eventos al azar
                     if (Random.Range(0, 1) == 0)
@@ -174,18 +202,18 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
         if (health <= 0)
         {
             Destroy(gameObject);
-            //remainingEnemies--;
-            //if (remainingEnemies <= 0)
-            //{
-            //    Invoke("LoadNextScene", 30f);
-            //}
+            remainingEnemies--;
+            if (remainingEnemies <= 0)
+            {
+               Invoke("LoadNextScene", 20f);
+            }
         }
             ParticleSystem effect = Instantiate(bloodSplatterFX, contactPoint, Quaternion.LookRotation(weapon.transform.position - contactPoint));
         effect.Stop();
         effect.Play();
     }
 
-    /*
+    
      private void LoadNextScene()
      {
          // Verificar si el nombre de la siguiente escena está configurado
@@ -200,7 +228,7 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
          }
      } 
 
-
+    /*
      private void PlayEnemyShootSound()
      {
          audioManager.Play("EnemyShootSound");

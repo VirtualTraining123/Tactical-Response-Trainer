@@ -2,14 +2,16 @@ using UnityEngine;
 
 public class EnemyFootsteps : MonoBehaviour
 {
-    [SerializeField] private AudioManager audioManager; // Asocia el AudioManager aquí
+    private AudioManager audioManager;
 
-    // ...
-
-    // Llama a este método para reproducir el sonido de pasos del enemigo
+    private void Start()
+    {
+        // Obtén la instancia del AudioManager
+        audioManager = AudioManager.instance;
+    }
     public void PlayFootstepSound()
     {
-        audioManager.Play("EnemyFootstepSound");
+        AudioManager.instance.Play("EnemyFootstepSound");
     }
 }
 

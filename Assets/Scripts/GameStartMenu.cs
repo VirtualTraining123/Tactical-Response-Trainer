@@ -9,7 +9,7 @@ public class GameStartMenu : MonoBehaviour
     public GameObject mainMenu;
     public GameObject options;
     public GameObject about;
-
+    
     [Header("Main Menu Buttons")]
     public Button startButton;
     public Button optionButton;
