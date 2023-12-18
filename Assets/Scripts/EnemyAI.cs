@@ -133,8 +133,7 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
     {
         bool hitPlayer = true;
 
-        if (hitPlayer)
-        {
+       
             
             RaycastHit hit;
             Vector3 direction = player.GetHeadPosition() - shootingPosition.position;
@@ -177,7 +176,7 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
                 Debug.DrawRay(shootingPosition.position, direction, Color.red, 2.0f);
                 Debug.LogWarning("Ray did not hit anything.");
             }
-        }
+        
         
         currentShotsTaken++;
         if (currentShotsTaken >= currentMaxShotsToTake)
