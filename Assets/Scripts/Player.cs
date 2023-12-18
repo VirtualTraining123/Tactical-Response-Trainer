@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     public string motor1 = "F";
     public string motor2 = "B";
 
+
+
     private void Start()
     {
         #if UNITY_2020_2_OR_NEWER
@@ -58,6 +60,7 @@ public class Player : MonoBehaviour
        
 
         StartCoroutine(cameraShake.Shake());
+
         health -= damage;
         audioManagerEasy.SeleccionAudio(0, 3f);
        
@@ -68,10 +71,12 @@ public class Player : MonoBehaviour
         if( UnityEngine.Random.Range(0, 100) < 50)
         {
             BluetoothService.WritetoBluetooth(motor1);
+            BluetoothService.WritetoBluetooth("F");
         }
         else
         {
             BluetoothService.WritetoBluetooth(motor2);
+            BluetoothService.WritetoBluetooth("B");
         }
 
         

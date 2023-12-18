@@ -2584,6 +2584,9 @@ MonoBehaviour:
   head: {fileID: 452463688}
   cameraShake: {fileID: 1393510209}
   textoPrefab: {fileID: 6579398722401678558, guid: 3d40f66d435a43940b0a6e0f56ee8393, type: 3}
+  deviceName: ESP32_BT
+  motor1: F
+  motor2: B
 --- !u!4 &1107799010 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
@@ -3388,7 +3391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 1.5
-  magnitude: 0.08
+  magnitude: 0.1
 --- !u!1001 &1450476956
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4212,6 +4215,9 @@ MonoBehaviour:
   head: {fileID: 452463688}
   cameraShake: {fileID: 1393510209}
   textoPrefab: {fileID: 0}
+  deviceName: ESP32_BT
+  motor1: F
+  motor2: B
 --- !u!136 &1831201396
 CapsuleCollider:
   m_ObjectHideFlags: 0

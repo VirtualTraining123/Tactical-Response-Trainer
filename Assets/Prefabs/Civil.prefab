@@ -1746,8 +1746,8 @@ GameObject:
   - component: {fileID: 636024049388745283}
   - component: {fileID: 689020915974083437}
   - component: {fileID: -50876361215868113}
-  - component: {fileID: 7591617645351598606}
   - component: {fileID: -7496827152748881169}
+  - component: {fileID: 7591617645351598606}
   - component: {fileID: 3608065208284880248}
   m_Layer: 0
   m_Name: Civil
@@ -1814,28 +1814,6 @@ MonoBehaviour:
   bloodSplatterFX: {fileID: 0}
   audios:
   - {fileID: 8300000, guid: bc12328c075384948813a4a72507205f, type: 3}
---- !u!195 &7591617645351598606
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 639143790757031335}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 5.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!64 &-7496827152748881169
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1858,6 +1836,28 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!195 &7591617645351598606
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639143790757031335}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 5.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!82 &3608065208284880248
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1914,7 +1914,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
