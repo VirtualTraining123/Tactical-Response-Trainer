@@ -24,8 +24,8 @@ public class CivilAI : MonoBehaviour, ITakeDamage
     private float _health;
 
     // Contadores
-    private static int woundedCount = 0;
-    private static int deadCount = 0;
+    public static int woundedCount = 0;
+    public static int deadCount = 0;
 
     [SerializeField] private AudioClip[] audios;
     private AudioSource controlAudio;
@@ -39,7 +39,7 @@ public class CivilAI : MonoBehaviour, ITakeDamage
     {
         Initialize();
         controlAudio = GetComponent<AudioSource>();
-
+        
     }
 
     private void Initialize()
@@ -106,25 +106,35 @@ public class CivilAI : MonoBehaviour, ITakeDamage
     public void TakeDamage(Weapon weapon, Projectile projectile, Vector3 contactPoint)
     {
         health -= weapon.GetDamage();
-        Debug.Log("Civil Health: " + health);
-
+       
         if (health <= 0)
         {
             Destroy(gameObject);
             Debug.Log("Civil destroyed!");
             deadCount++;
+            
         }
         else
         {
             woundedCount++;
+            
         }
 
         ParticleSystem effect = Instantiate(bloodSplatterFX, contactPoint, Quaternion.LookRotation(weapon.transform.position - contactPoint));
         effect.Stop();
         effect.Play();
-
-        // Imprimir los contadores
-        Debug.Log("Civiles heridos: " + woundedCount);
-        Debug.Log("Civiles muertos: " + deadCount);
     }
+    public int GetCivilAIref()
+        {
+            return deadCount;
+        }
+
+    //se muestra en la camara pirncipal un texto flotante con civiles heridos y muertos
+     private void OnGUI()
+    {
+        GUI.Label(new Rect(10, 10, 100, 20), "Wounded: " + woundedCount);
+        GUI.Label(new Rect(10, 30, 100, 20), "Dead: " + deadCount);
+    }
+
+
 }

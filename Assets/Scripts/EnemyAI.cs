@@ -44,7 +44,6 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
     private Transform occupiedCoverSpot;
     private Animator animator;
 
-    //private AudioManagerEasy audioManagerEasy;
 
     [SerializeField] private AudioClip[] audios;
 
@@ -65,7 +64,7 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
 
     private void Awake()
     {
-        //audioManagerEasy = FindObjectOfType<AudioManagerEasy>();
+        
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         animator.SetTrigger(RUN_TRIGGER);
@@ -131,8 +130,8 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
     }
 
     public void Shoot()
-    {   
-        bool hitPlayer = UnityEngine.Random.Range(0, 100) < shootingAccuracy;
+    {
+        bool hitPlayer = true;
 
         if (hitPlayer)
         {
@@ -152,7 +151,7 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
                     SeleccionAudio(0, 0.5f);
 
                     //probabilidad del 50% de que el enemigo acierte
-                    if(Random.Range(0, 1) == 0)
+                    if(UnityEngine.Random.Range(0, 100) < shootingAccuracy)
                     {
                         player.TakeDamage(damage);
                     }
