@@ -33,12 +33,16 @@ public class EnemySpawner : MonoBehaviour
 		}
 	}
 
+public static int totalEnemiesSpawned = 0; // Variable estática para almacenar el número total de enemigos spawneados
+
 	private void SpawnEnemy()
 	{
 		EnemyAI enemy = Instantiate(enemyPrefab, transform.position, transform.rotation);
 		int spawnPointindex = spawnedEnemies.Count % spawnPoints.Length;
 		enemy.Init(player, spawnPoints[spawnPointindex]);
 		spawnedEnemies.Add(enemy);
+
+		totalEnemiesSpawned++;
 	}
 
 	

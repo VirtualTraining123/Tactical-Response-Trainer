@@ -43,8 +43,6 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
     private Player player;
     private Transform occupiedCoverSpot;
     private Animator animator;
-
-
     [SerializeField] private AudioClip[] audios;
 
     private AudioSource controlAudio;
@@ -69,7 +67,7 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
         agent = GetComponent<NavMeshAgent>();
         animator.SetTrigger(RUN_TRIGGER);
         _health = startingHealth;
-        remainingEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+       
         controlAudio = GetComponent<AudioSource>();
     }
 
@@ -131,7 +129,6 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
 
     public void Shoot()
     {
-        bool hitPlayer = true;
 
        
             
@@ -156,7 +153,7 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
                     }
                  
                    
-                   
+                    
                 }
                 else
                 {
@@ -192,16 +189,27 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
         if (health <= 0)
         {
             Destroy(gameObject);
-            remainingEnemies--;
-            if (remainingEnemies <= 0)
-            {
-               Invoke("LoadNextScene", 20f);
-            }
+            
+            NotifyEnemyDestroyed();
         }
             ParticleSystem effect = Instantiate(bloodSplatterFX, contactPoint, Quaternion.LookRotation(weapon.transform.position - contactPoint));
         effect.Stop();
         effect.Play();
     }
+
+
+private void NotifyEnemyDestroyed()
+{
+    // Restar al contador de enemigos spawneados cuando un enemigo sea destruido
+    EnemySpawner.totalEnemiesSpawned--;
+
+    // Verificar si se han eliminado todos los enemigos
+    if (EnemySpawner.totalEnemiesSpawned <= 0)
+    {
+        // Llamar a la función de victoria
+        SceneManager.LoadScene(nextSceneName); // Aquí asumiendo que GameManager es un singleton que maneja la lógica del juego
+    }
+}
 
     
      private void LoadNextScene()

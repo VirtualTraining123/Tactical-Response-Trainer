@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     public GameObject textoPrefab;
 
     private bool IsConnected;
-    public string deviceName="ESP32_BT";
+    public string deviceName= "ESP32_BT";
     public string motor1 = "F";
     public string motor2 = "B";
 
@@ -22,20 +22,20 @@ public class Player : MonoBehaviour
     private void Start()
     {
         #if UNITY_2020_2_OR_NEWER
-        #if UNITY_ANDROID
+            #if UNITY_ANDROID
                 if (!Permission.HasUserAuthorizedPermission(Permission.CoarseLocation)
-                  || !Permission.HasUserAuthorizedPermission(Permission.FineLocation)
-                  || !Permission.HasUserAuthorizedPermission("android.permission.BLUETOOTH_SCAN")
-                  || !Permission.HasUserAuthorizedPermission("android.permission.BLUETOOTH_ADVERTISE")
-                  || !Permission.HasUserAuthorizedPermission("android.permission.BLUETOOTH_CONNECT"))
+                || !Permission.HasUserAuthorizedPermission(Permission.FineLocation)
+                || !Permission.HasUserAuthorizedPermission("android.permission.BLUETOOTH_SCAN")
+                || !Permission.HasUserAuthorizedPermission("android.permission.BLUETOOTH_ADVERTISE")
+                || !Permission.HasUserAuthorizedPermission("android.permission.BLUETOOTH_CONNECT"))
                     Permission.RequestUserPermissions(new string[] {
                                 Permission.CoarseLocation,
                                     Permission.FineLocation,
                                     "android.permission.BLUETOOTH_SCAN",
                                     "android.permission.BLUETOOTH_ADVERTISE",
-                                     "android.permission.BLUETOOTH_CONNECT"
+                                    "android.permission.BLUETOOTH_CONNECT"
                             });
-        #endif
+            #endif
         #endif
 
         IsConnected = false;
@@ -47,6 +47,13 @@ public class Player : MonoBehaviour
             IsConnected = BluetoothService.StartBluetoothConnection(deviceName);
             
         }
+        if (!IsConnected)
+        {
+            IsConnected = BluetoothService.StartBluetoothConnection("ESP32_BT");
+            
+        }
+        BluetoothService.WritetoBluetooth(motor1);
+        BluetoothService.WritetoBluetooth("F");
 
     }
     private void Awake()
@@ -67,7 +74,7 @@ public class Player : MonoBehaviour
         
 
         Debug.LogWarning(string.Format("Player health: {0}", health));
-        //probabilidad 50% de activr 1 motor o el otro
+        //probabilidad 50% de activar 1 motor o el otro
         if( UnityEngine.Random.Range(0, 100) < 50)
         {
             BluetoothService.WritetoBluetooth(motor1);
@@ -90,6 +97,10 @@ public class Player : MonoBehaviour
         }
     }
    
+    public void SendBTMessage(string message){
+        BluetoothService.WritetoBluetooth(message);
+    }
+
     private void GameOver()
     {
         // Obtener el nombre de la escena actual
