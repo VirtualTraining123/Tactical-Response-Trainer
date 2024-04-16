@@ -1374,6 +1374,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7313654230448209575, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1107799011}
+    - targetCorrespondingSourceObject: {fileID: 7313654230448209575, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1107799012}
     - targetCorrespondingSourceObject: {fileID: 7696548424635294048, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1831201389}
@@ -1383,9 +1386,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9014170783809206332, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 452463682}
-    - targetCorrespondingSourceObject: {fileID: 9014170783809206332, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1393510209}
     - targetCorrespondingSourceObject: {fileID: 6733349667411237925, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 454449747}
@@ -2606,7 +2606,7 @@ MonoBehaviour:
   health: 100
   head: {fileID: 452463688}
   bloodEffectPlane: {fileID: 1807571235}
-  cameraShake: {fileID: 1393510209}
+  cameraShake: {fileID: 0}
   textoPrefab: {fileID: 6579398722401678558, guid: 3d40f66d435a43940b0a6e0f56ee8393, type: 3}
   deviceName: ESP32_BT
   motor1: F
@@ -2712,6 +2712,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1107799012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107799007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d87495393b5077b49ad4b88d92aa5602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 1.5
+  magnitude: 0.01
 --- !u!1 &1128283682
 GameObject:
   m_ObjectHideFlags: 0
@@ -3402,20 +3416,6 @@ Transform:
   - {fileID: 1249617921}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1393510209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 452463681}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d87495393b5077b49ad4b88d92aa5602, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration: 1.5
-  magnitude: 0.1
 --- !u!1001 &1450476956
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4137,7 +4137,7 @@ Transform:
   m_GameObject: {fileID: 1807571230}
   serializedVersion: 2
   m_LocalRotation: {x: 0.4724484, y: -0.47245076, z: 0.5348942, w: -0.51717603}
-  m_LocalPosition: {x: 0.17, y: 0, z: 0.198}
+  m_LocalPosition: {x: 0.176, y: 0, z: 0.094}
   m_LocalScale: {x: 0.1, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4357,7 +4357,7 @@ MonoBehaviour:
   health: 100
   head: {fileID: 452463688}
   bloodEffectPlane: {fileID: 1807571235}
-  cameraShake: {fileID: 1393510209}
+  cameraShake: {fileID: 1107799012}
   textoPrefab: {fileID: 0}
   deviceName: ESP32_BT
   motor1: F

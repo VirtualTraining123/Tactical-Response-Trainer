@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour //Asociado a XR Origin
 {
     [SerializeField] float health;
     [SerializeField] Transform head;
@@ -18,6 +18,9 @@ public class Player : MonoBehaviour
     public string deviceName= "ESP32_BT";
     public string motor1 = "F";
     public string motor2 = "B";
+
+
+    bool flag=false;
 
 
 
@@ -67,10 +70,15 @@ public class Player : MonoBehaviour
     {
 
        
+        
+        StartCoroutine(cameraShake.Shake()); //en complete XR Origin
 
-       // StartCoroutine(cameraShake.Shake());
 
-        bloodEffectPlane.ShowBloodEffect();
+        if(flag==false){
+        bloodEffectPlane.ShowBloodEffect(); //En XR Origin
+        flag=true;
+        }
+        
 
         health -= damage;
         audioManagerEasy.SeleccionAudio(0, 3f);
