@@ -8,10 +8,12 @@ public class Player : MonoBehaviour
 {
     [SerializeField] float health;
     [SerializeField] Transform head;
+    [SerializeField] private BloodEffectPlane bloodEffectPlane;
     public CameraShake cameraShake;
     private AudioManagerEasy audioManagerEasy;
     public GameObject textoPrefab;
 
+    
     private bool IsConnected;
     public string deviceName= "ESP32_BT";
     public string motor1 = "F";
@@ -66,7 +68,9 @@ public class Player : MonoBehaviour
 
        
 
-        StartCoroutine(cameraShake.Shake());
+       // StartCoroutine(cameraShake.Shake());
+
+        bloodEffectPlane.ShowBloodEffect();
 
         health -= damage;
         audioManagerEasy.SeleccionAudio(0, 3f);

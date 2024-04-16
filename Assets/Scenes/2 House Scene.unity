@@ -2605,6 +2605,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   head: {fileID: 452463688}
+  bloodEffectPlane: {fileID: 1807571235}
   cameraShake: {fileID: 1393510209}
   textoPrefab: {fileID: 6579398722401678558, guid: 3d40f66d435a43940b0a6e0f56ee8393, type: 3}
   deviceName: ESP32_BT
@@ -3689,7 +3690,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9039354818175742212, guid: 5dce19da93842034188ca2615a5d2c58, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4119,6 +4120,7 @@ GameObject:
   - component: {fileID: 1807571234}
   - component: {fileID: 1807571233}
   - component: {fileID: 1807571232}
+  - component: {fileID: 1807571235}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -4158,7 +4160,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -4213,6 +4215,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1807571230}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1807571235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807571230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 669bf661e3b5d8e42935361129c9aa8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1817794051
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4342,6 +4356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   head: {fileID: 452463688}
+  bloodEffectPlane: {fileID: 1807571235}
   cameraShake: {fileID: 1393510209}
   textoPrefab: {fileID: 0}
   deviceName: ESP32_BT
