@@ -7,6 +7,7 @@ public class PhysicsProjectile : Projectile
 {
     [SerializeField] private float lifeTime;
     private Rigidbody rigidBody;
+    public GameObject bulletHolePrefab;
 
     private void Awake()
     {
@@ -27,12 +28,20 @@ public class PhysicsProjectile : Projectile
 
     private void OnTriggerEnter(Collider other)
     {
+        // Destroy the projectile
         Destroy(gameObject);
-        ITakeDamage[] damageTakers = other.GetComponentsInParent<ITakeDamage>();
 
+        // Get the point of contact
+        Vector3 contactPoint = other.ClosestPointOnBounds(transform.position);
+
+        // Instantiate the bullet hole at the contact point
+        Instantiate(bulletHolePrefab, contactPoint, Quaternion.identity, other.transform);
+
+        // Deal damage to objects in the vicinity (if any)
+        ITakeDamage[] damageTakers = other.GetComponentsInParent<ITakeDamage>();
         foreach (var taker in damageTakers)
         {
-            taker.TakeDamage(weapon, this, transform.position);
+            taker.TakeDamage(weapon, this, contactPoint);
         }
     }
 }
