@@ -1806,12 +1806,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ed140b7a18511b448d17e5346082487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bloodSplatterFX: {fileID: 19886758, guid: 8c27aeead6d968e4ba986702d6b84335, type: 3}
   startingHealth: 100
   minTimeUnderCover: 3
   maxTimeUnderCover: 8
   rotationSpeed: 250
   damage: 0
-  bloodSplatterFX: {fileID: 0}
   audios:
   - {fileID: 8300000, guid: bc12328c075384948813a4a72507205f, type: 3}
 --- !u!64 &-7496827152748881169

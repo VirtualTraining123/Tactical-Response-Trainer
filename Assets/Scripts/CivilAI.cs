@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class CivilAI : MonoBehaviour, ITakeDamage
@@ -8,13 +11,14 @@ public class CivilAI : MonoBehaviour, ITakeDamage
     const string RUN_TRIGGER = "Run";
     const string CROUCH_TRIGGER = "Crouch";
 
+    [SerializeField] private ParticleSystem bloodSplatterFX;
     [SerializeField] private float startingHealth;
     [SerializeField] private float minTimeUnderCover;
     [SerializeField] private float maxTimeUnderCover;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float damage;
     [Range(0, 100)]
-    [SerializeField] private ParticleSystem bloodSplatterFX;
+    
 
 
     private NavMeshAgent agent;
@@ -120,7 +124,7 @@ public class CivilAI : MonoBehaviour, ITakeDamage
             
         }
 
-        ParticleSystem effect = Instantiate(bloodSplatterFX, contactPoint, Quaternion.LookRotation(weapon.transform.position - contactPoint));
+            ParticleSystem effect = Instantiate(bloodSplatterFX, contactPoint, Quaternion.LookRotation(weapon.transform.position - contactPoint));
         effect.Stop();
         effect.Play();
     }
