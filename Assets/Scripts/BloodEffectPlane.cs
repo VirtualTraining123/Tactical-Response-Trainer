@@ -6,7 +6,7 @@ public class BloodEffectPlane : MonoBehaviour
     private Renderer rend;
     private Color startColor;
     private Coroutine currentCoroutine;
-    private float duration = 3f; // Duración del efecto en segundos
+    private float duration = 2.5f; // Duración del efecto en segundos
 
     void Start()
     {
