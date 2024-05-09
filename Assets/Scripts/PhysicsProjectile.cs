@@ -35,7 +35,7 @@ public class PhysicsProjectile : Projectile
         Vector3 contactPoint = other.ClosestPointOnBounds(transform.position);
 
         // Instantiate the bullet hole at the contact point
-        Instantiate(bulletHolePrefab, contactPoint, Quaternion.identity, other.transform);
+      
 
         // Deal damage to objects in the vicinity (if any)
         ITakeDamage[] damageTakers = other.GetComponentsInParent<ITakeDamage>();

@@ -42,19 +42,27 @@ public class StaticShooter : Weapon
 
     protected override void Shoot()
     {
+        
         base.Shoot();
-
-         RaycastHit hit;
-        if (Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out hit))
-        {
-            // Instanciar el objeto bullet hole en el punto de impacto
-            InstantiateBulletHole(hit.point, hit.normal, hit.collider.transform);
-        }
-
-
+        
         Projectile projectileInstance = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
         projectileInstance.Init(this);
         projectileInstance.Launch();
+        
+         RaycastHit hit;
+        if (Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out hit))
+        {
+             if (hit.collider.CompareTag("Enemy") || hit.collider.CompareTag("Civil"))
+            {
+            // No hacer nada si el objeto impactado es un enemigo o un civil
+            return; 
+            }
+            // Instanciar el objeto bullet hole en el punto de impacto// Instanciar el objeto bullet hole en el punto de impacto
+            InstantiateBulletHole(hit.point, hit.normal, hit.collider.transform);
+            
+        }
+
+
     }
 
     private void InstantiateBulletHole(Vector3 position, Vector3 normal, Transform parent)
@@ -64,6 +72,14 @@ public class StaticShooter : Weapon
 
     // Instanciar el objeto bullet hole en el punto de impacto con la rotación adecuada y como hijo del objeto impactado
     GameObject bulletHoleInstance = Instantiate(bulletHolePrefab, position, rotation, parent);
-    }
+    Vector3 normalizedScale = new Vector3(
+        0.4f / parent.localScale.x,
+        0.005f / parent.localScale.y,
+        0.4f / parent.localScale.z
+    );
+
+    // Establecer la escala normalizada para el agujero de bala
+    bulletHoleInstance.transform.localScale = normalizedScale;
+}
 
 }

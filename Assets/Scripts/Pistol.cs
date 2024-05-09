@@ -23,18 +23,26 @@ public class Pistol : Weapon
     {
 
         base.Shoot();
+        
+        
+        Projectile projectileInstance = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
+        projectileInstance.Init(this);
+        projectileInstance.Launch();
 
          RaycastHit hit;
         if (Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out hit))
         {
+            if (hit.collider.CompareTag("Enemy") || hit.collider.CompareTag("Civil"))
+            {
+            // No hacer nada si el objeto impactado es un enemigo o un civil
+            return; 
+            }
             // Instanciar el objeto bullet hole en el punto de impacto
             InstantiateBulletHole(hit.point, hit.normal, hit.collider.transform);
         }
 
 
-        Projectile projectileInstance = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
-        projectileInstance.Init(this);
-        projectileInstance.Launch();
+       
          
        
 

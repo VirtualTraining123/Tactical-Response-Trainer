@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -10,7 +10,8 @@ public class CivilAI : MonoBehaviour, ITakeDamage
 {
     const string RUN_TRIGGER = "Run";
     const string CROUCH_TRIGGER = "Crouch";
-
+    [SerializeField] private Material deadMaterial; // Material para el estado destruido
+    [SerializeField] private Collider civilCollider; // Collider del civil
     [SerializeField] private ParticleSystem bloodSplatterFX;
     [SerializeField] private float startingHealth;
     [SerializeField] private float minTimeUnderCover;
@@ -27,9 +28,11 @@ public class CivilAI : MonoBehaviour, ITakeDamage
     private Animator animator;
     private float _health;
 
+    private Renderer civilRenderer; // Renderer del modelo del civil
+    private bool isDestroyed = false; // Flag para verificar si el civil ha sido destruido
     // Contadores
-    public static int woundedCount = 0;
-    public static int deadCount = 0;
+    public static int CivilwoundedCount = 0;
+    public static int CivildeadCount = 0;
 
     [SerializeField] private AudioClip[] audios;
     private AudioSource controlAudio;
@@ -41,6 +44,7 @@ public class CivilAI : MonoBehaviour, ITakeDamage
 
     private void Awake()
     {
+        civilRenderer = GetComponentInChildren<Renderer>();
         Initialize();
         controlAudio = GetComponent<AudioSource>();
         
@@ -109,35 +113,57 @@ public class CivilAI : MonoBehaviour, ITakeDamage
 
     public void TakeDamage(Weapon weapon, Projectile projectile, Vector3 contactPoint)
     {
+        ParticleSystem effect = Instantiate(bloodSplatterFX, contactPoint, Quaternion.LookRotation(weapon.transform.position - contactPoint));
+        effect.Play();
         health -= weapon.GetDamage();
        
-        if (health <= 0)
+        if (health <= 0 && !isDestroyed)
         {
-            Destroy(gameObject);
+            if (deadMaterial != null && civilRenderer != null)
+            {
+            
+                civilRenderer.material = deadMaterial;
+            }
+
+            // Desactivar el collider del enemigo
+            if (civilCollider != null)
+            {
+                civilCollider.enabled = false;
+            }
+            
+            if (projectile != null)
+            {
+               // Destroy(projectile.gameObject);
+            }
+
+            // Establecer el flag de destruido a true
+            isDestroyed = true;
+
+            // Detener el comportamiento del enemigo (pausarlo)
+            agent.isStopped = true;
+            animator.enabled = false;
             Debug.Log("Civil destroyed!");
-            deadCount++;
+            CivildeadCount++;
             
         }
         else
         {
-            woundedCount++;
+            CivilwoundedCount++;
             
         }
 
-            ParticleSystem effect = Instantiate(bloodSplatterFX, contactPoint, Quaternion.LookRotation(weapon.transform.position - contactPoint));
-        effect.Stop();
-        effect.Play();
+           
     }
     public int GetCivilAIref()
         {
-            return deadCount;
+            return CivildeadCount;
         }
 
     //se muestra en la camara pirncipal un texto flotante con civiles heridos y muertos
      private void OnGUI()
     {
-        GUI.Label(new Rect(10, 10, 100, 20), "Wounded: " + woundedCount);
-        GUI.Label(new Rect(10, 30, 100, 20), "Dead: " + deadCount);
+        GUI.Label(new Rect(10, 10, 100, 20), "Wounded: " + CivilwoundedCount);
+        GUI.Label(new Rect(10, 30, 100, 20), "Dead: " + CivildeadCount);
     }
 
 

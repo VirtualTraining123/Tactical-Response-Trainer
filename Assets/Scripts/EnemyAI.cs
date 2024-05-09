@@ -14,7 +14,8 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
     const string CROUCH_TRIGGER = "Crouch";
     const string SHOOT_TRIGGER = "Shoot";
 
-    
+    [SerializeField] private Material deadMaterial; // Material para el estado destruido
+    [SerializeField] private Collider enemyCollider; // Collider del enemigo
     [SerializeField] private float startingHealth;
     [SerializeField] private float minTimeUnderCover;
     [SerializeField] private float maxTimeUnderCover;
@@ -44,8 +45,14 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
     private Transform occupiedCoverSpot;
     private Animator animator;
     [SerializeField] private AudioClip[] audios;
-
     private AudioSource controlAudio;
+    private Renderer enemyRenderer; // Renderer del modelo del enemigo
+    private bool isDestroyed = false; // Flag para verificar si el enemigo ha sido destruido
+    
+    // Contadores
+    public static int EnemywoundedCount = 0;
+    public static int EnemydeadCount = 0;
+
 
     private float _health;
     public float health
@@ -62,6 +69,8 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
 
     private void Awake()
     {
+
+        enemyRenderer = GetComponentInChildren<Renderer>(); // Obtener el renderer del modelo del enemigo
         
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
@@ -184,17 +193,44 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
     }
 
     public void TakeDamage(Weapon weapon, Projectile projectile, Vector3 contactPoint)
-    {
+    {   
+        ParticleSystem effect = Instantiate(bloodSplatterFX, contactPoint, Quaternion.LookRotation(weapon.transform.position - contactPoint));
+        effect.Play();
         health -= weapon.GetDamage();
-        if (health <= 0)
+        if (health <= 0 && !isDestroyed)
         {
-            Destroy(gameObject);
+           if (deadMaterial != null && enemyRenderer != null)
+            {
+                enemyRenderer.material = deadMaterial;
+            }
+
+            // Desactivar el collider del enemigo
+            if (enemyCollider != null)
+            {
+                enemyCollider.enabled = false;
+            }
+            
+            if (projectile != null)
+            {
+                Destroy(projectile.gameObject);
+            }
+
+            // Establecer el flag de destruido a true
+            isDestroyed = true;
+
+            // Detener el comportamiento del enemigo (pausarlo)
+            agent.isStopped = true;
+            animator.enabled = false;
             
             NotifyEnemyDestroyed();
+            EnemydeadCount++;
         }
-            ParticleSystem effect = Instantiate(bloodSplatterFX, contactPoint, Quaternion.LookRotation(weapon.transform.position - contactPoint));
-        effect.Stop();
-        effect.Play();
+        else
+        {
+            EnemywoundedCount++;
+        }
+           
+
     }
 
 
@@ -232,5 +268,12 @@ private void NotifyEnemyDestroyed()
          audioManager.Play("EnemyShootSound");
      }
       */
+
+
+      private void OnGUI()
+    {
+        GUI.Label(new Rect(30, 50, 100, 20), "Wounded: " + EnemywoundedCount);
+        GUI.Label(new Rect(30, 70, 100, 20), "Dead: " + EnemydeadCount);
+    }
 }
 

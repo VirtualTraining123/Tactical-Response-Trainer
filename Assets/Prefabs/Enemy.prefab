@@ -1085,12 +1085,12 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.21
-  m_Height: 1.26
+  m_Height: 1.8
   m_Direction: 0
-  m_Center: {x: -0.24, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &637782995658537139
 GameObject:
   m_ObjectHideFlags: 0
@@ -1808,6 +1808,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7141cff49d931e74985bd4d01dfc24a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deadMaterial: {fileID: 2100000, guid: 2d9674097da42b2448220c5e2805bb27, type: 2}
+  enemyCollider: {fileID: -3212868849663698601}
   startingHealth: 100
   minTimeUnderCover: 1
   maxTimeUnderCover: 1
@@ -1885,7 +1887,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 2dc7b382d25903545b405802eb2198ab, type: 3}
 --- !u!82 &1554065485334277339
 AudioSource:
   m_ObjectHideFlags: 0
