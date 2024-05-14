@@ -10,6 +10,8 @@ public class StaticShooter : Weapon
     [SerializeField] private float shootingInterval = 3f; // Intervalo de tiempo entre disparos en segundos
     [SerializeField] private float debugRayDuration = 2f; // Duración del rayo de debug en segundos
     public GameObject bulletHolePrefab;
+
+    public static int shotsFiredProbe = 0;
     private void Update()
     {
         // Dibujar el rayo de debug en cada frame
@@ -44,7 +46,8 @@ public class StaticShooter : Weapon
     {
         
         base.Shoot();
-        
+        shotsFiredProbe++;
+
         Projectile projectileInstance = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
         projectileInstance.Init(this);
         projectileInstance.Launch();
@@ -81,5 +84,12 @@ public class StaticShooter : Weapon
     // Establecer la escala normalizada para el agujero de bala
     bulletHoleInstance.transform.localScale = normalizedScale;
 }
+
+
+private void OnGUI()
+    {
+        GUI.Label(new Rect(40, 110, 200, 20), "Disparos realizados T:" + shotsFiredProbe);
+        
+    }
 
 }

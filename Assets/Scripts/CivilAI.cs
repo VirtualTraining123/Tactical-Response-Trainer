@@ -147,13 +147,21 @@ public class CivilAI : MonoBehaviour, ITakeDamage
             
         }
         else
-        {
+        { //agregar 1 flag con un if aca para que solo se active 1 vez si se desea implementarlo
             CivilwoundedCount++;
             
         }
 
            
     }
+/*
+    private void OnDestroy()
+    {
+        // Almacenar el número de civiles eliminados al momento del Game Over o Victoria
+        PlayerPrefs.SetInt("CivildeadCount", CivildeadCount);
+        PlayerPrefs.Save();
+    }
+*/
     public int GetCivilAIref()
         {
             return CivildeadCount;
@@ -162,8 +170,8 @@ public class CivilAI : MonoBehaviour, ITakeDamage
     //se muestra en la camara pirncipal un texto flotante con civiles heridos y muertos
      private void OnGUI()
     {
-        GUI.Label(new Rect(10, 10, 100, 20), "Wounded: " + CivilwoundedCount);
-        GUI.Label(new Rect(10, 30, 100, 20), "Dead: " + CivildeadCount);
+       // GUI.Label(new Rect(30, 10, 100, 20), "Wounded: " + CivilwoundedCount);
+        GUI.Label(new Rect(40, 30, 200, 20), "Civiles abatidos: " + CivildeadCount);
     }
 
 

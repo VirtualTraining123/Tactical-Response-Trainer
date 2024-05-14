@@ -4,6 +4,7 @@ using UnityEngine.AI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using System;
 
 
 [RequireComponent(typeof(NavMeshAgent))]
@@ -52,6 +53,8 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
     // Contadores
     public static int EnemywoundedCount = 0;
     public static int EnemydeadCount = 0;
+
+    bool flag=false;
 
 
     private float _health;
@@ -226,13 +229,19 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
             EnemydeadCount++;
         }
         else
-        {
+        { //agregar 1 flag con un if aca para que solo se active 1 vez si se desea implementarlo
             EnemywoundedCount++;
         }
            
 
     }
-
+/*
+private void OnDestroy()
+    {
+        // Almacenar el número de enemigos eliminados al momento del Game Over o Victoria
+        PlayerPrefs.SetInt("EnemydeadCount", EnemydeadCount);
+        PlayerPrefs.Save();
+    }*/
 
 private void NotifyEnemyDestroyed()
 {
@@ -242,13 +251,44 @@ private void NotifyEnemyDestroyed()
     // Verificar si se han eliminado todos los enemigos
     if (EnemySpawner.totalEnemiesSpawned <= 0)
     {
+       // PlayerPrefs.SetInt("EnemydeadCount", EnemydeadCount);
+       // PlayerPrefs.Save();
+        Player player = FindObjectOfType<Player>();
+        if (player != null)
+        {
+            player.StopTimer();
+        }
+        flag=true;
+        PlayerPrefs.SetFloat("Elapsed_Time", Player.elapsedTime);
+        PlayerPrefs.SetInt("Shots_Fired_Pistol", Pistol.shotsFiredPistol);
+        PlayerPrefs.SetInt("Shots_Fired_Tester", StaticShooter.shotsFiredProbe);
+        PlayerPrefs.SetInt("Enemy_Dead_Count", EnemydeadCount);
+        PlayerPrefs.SetInt("Enemy_Wounded_Count", EnemywoundedCount);
+        PlayerPrefs.SetInt("Civil_Dead_Count", CivilAI.CivildeadCount);
+        PlayerPrefs.SetInt("Civil_Wounded_Count", CivilAI.CivilwoundedCount);
+
         // Llamar a la función de victoria
-        SceneManager.LoadScene(nextSceneName); // Aquí asumiendo que GameManager es un singleton que maneja la lógica del juego
+        
+        
+        //esperamos 5 segundos antes de cambiar de escena con el SceneManager sin usar invoke
+        StartCoroutine(WaitAndLoadScene(5f));
+
+    
+
+
+        //SceneManager.LoadScene(nextSceneName); // Aquí asumiendo que GameManager es un singleton que maneja la lógica del juego
     }
+    
+}
+
+private IEnumerator WaitAndLoadScene(float seconds)
+{
+    yield return new WaitForSeconds(seconds);
+    SceneManager.LoadScene(nextSceneName);
 }
 
     
-     private void LoadNextScene()
+    /* private void LoadNextScene()
      {
          // Verificar si el nombre de la siguiente escena está configurado
          if (!string.IsNullOrEmpty(nextSceneName))
@@ -260,7 +300,7 @@ private void NotifyEnemyDestroyed()
          {
              Debug.LogWarning("El nombre de la siguiente escena no está configurado en el inspector.");
          }
-     } 
+     } */
 
     /*
      private void PlayEnemyShootSound()
@@ -272,8 +312,16 @@ private void NotifyEnemyDestroyed()
 
       private void OnGUI()
     {
-        GUI.Label(new Rect(30, 50, 100, 20), "Wounded: " + EnemywoundedCount);
-        GUI.Label(new Rect(30, 70, 100, 20), "Dead: " + EnemydeadCount);
+      //  GUI.Label(new Rect(30, 50, 100, 20), "Wounded: " + EnemywoundedCount);
+        GUI.Label(new Rect(40, 50, 200, 20), "Amenazas abatidas: " + EnemydeadCount);
+        if(flag==true){
+            //texto ubicado en el medio de la pantalla, de gran tamaño
+            GUI.Label(new Rect(Screen.width/2-100, Screen.height/2-50, 200, 100), "Misión cumplida");
+        
+
+        
+
+        }
     }
 }
 

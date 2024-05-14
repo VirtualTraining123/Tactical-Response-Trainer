@@ -43,6 +43,7 @@ public class GameStartMenu : MonoBehaviour
     public void StartGame()
     {
         HideAll();
+        ClearPlayerPrefsData();
         SceneTransitionManager.singleton.GoToSceneAsync(1);
     }
 
@@ -71,4 +72,12 @@ public class GameStartMenu : MonoBehaviour
         options.SetActive(false);
         about.SetActive(true);
     }
+
+     public void ClearPlayerPrefsData()
+{
+    PlayerPrefs.DeleteKey("EnemiesEliminated");
+    PlayerPrefs.DeleteKey("CiviliansEliminated");
+    PlayerPrefs.DeleteKey("ShotsFired");
+    PlayerPrefs.DeleteKey("TimeElapsed");
+}
 }

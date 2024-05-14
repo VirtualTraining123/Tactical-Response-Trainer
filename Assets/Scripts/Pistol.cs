@@ -10,6 +10,8 @@ public class Pistol : Weapon
     //////////////////////////
     [SerializeField] private float debugRayDuration = 2f;
     public GameObject bulletHolePrefab;
+
+    public static int shotsFiredPistol = 0;
     
     protected override void StartShooting(XRBaseInteractor interactor)
     {
@@ -24,6 +26,8 @@ public class Pistol : Weapon
 
         base.Shoot();
         
+        // Registrar disparo realizado
+        shotsFiredPistol++;
         
         Projectile projectileInstance = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
         projectileInstance.Init(this);
@@ -70,5 +74,20 @@ public class Pistol : Weapon
         Debug.DrawRay(bulletSpawn.position, bulletSpawn.forward * 100f, Color.yellow, debugRayDuration);
     }
 
+
+private void OnGUI()
+    {
+        GUI.Label(new Rect(40, 90, 200, 20), "Disparos realizados: " + shotsFiredPistol);
+        
+    }
+
+/*
+ private void OnDestroy()
+    {
+        // Almacenar el número de disparos realizados al momento del Game Over o Victoria
+        PlayerPrefs.SetInt("PistolShotsFired", shotsFiredPistol);
+        PlayerPrefs.Save();
+    }
+*/
     
 }

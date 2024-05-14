@@ -19,8 +19,12 @@ public class Player : MonoBehaviour //Asociado a XR Origin
     public string motor1 = "F";
     public string motor2 = "B";
 
+    private float startTime; // Tiempo de inicio de la escena
+    private bool isTimerRunning = false; // Flag para indicar si el temporizador está en funcionamiento
 
     bool flag=false;
+
+    public static float elapsedTime;
 
 
 
@@ -60,12 +64,38 @@ public class Player : MonoBehaviour //Asociado a XR Origin
         BluetoothService.WritetoBluetooth(motor1);
         BluetoothService.WritetoBluetooth("F");
 
+
+        // Iniciar el temporizador cuando comience la escena
+        startTime = Time.time;
+        isTimerRunning = true;
+
     }
     private void Awake()
     {
         audioManagerEasy = FindObjectOfType<AudioManagerEasy>();
      
     }
+
+    private void Update()
+    {
+        // Verificar si el temporizador está en funcionamiento
+        if (isTimerRunning)
+        {
+            // Calcular el tiempo transcurrido desde el inicio de la escena
+            elapsedTime = Time.time - startTime;
+
+            // Puedes usar "elapsedTime" para mostrar el tiempo transcurrido en algún lugar de la interfaz de usuario
+        }
+    }
+
+
+    
+
+    public void StopTimer()
+    {
+        isTimerRunning = false;
+    }
+
     public void TakeDamage(float damage)
     {
 
@@ -102,6 +132,8 @@ public class Player : MonoBehaviour //Asociado a XR Origin
         // Verificar si la salud llega a cero o menos
         if (health <= 0)
         {
+            // Detener el temporizador
+           StopTimer();
 
             // ir a la escena de Game Over pero a los 5 segundos
             Invoke("GameOver", 3f);
@@ -115,6 +147,14 @@ public class Player : MonoBehaviour //Asociado a XR Origin
 
     private void GameOver()
     {
+
+        PlayerPrefs.SetFloat("Elapsed_Time", elapsedTime);
+        PlayerPrefs.SetInt("Shots_Fired_Pistol", Pistol.shotsFiredPistol);
+        PlayerPrefs.SetInt("Shots_Fired_Tester", StaticShooter.shotsFiredProbe);
+        PlayerPrefs.SetInt("Enemy_Dead_Count", EnemyAI.EnemydeadCount);
+        PlayerPrefs.SetInt("Enemy_Wounded_Count", EnemyAI.EnemywoundedCount);
+        PlayerPrefs.SetInt("Civil_Dead_Count", CivilAI.CivildeadCount);
+        PlayerPrefs.SetInt("Civil_Wounded_Count", CivilAI.CivilwoundedCount);
         // Obtener el nombre de la escena actual
         string currentSceneName = SceneManager.GetActiveScene().name;
 
@@ -127,5 +167,9 @@ public class Player : MonoBehaviour //Asociado a XR Origin
         return head.position;
     }
 
-    
+    private void OnGUI()
+    {
+      
+        GUI.Label(new Rect(450, 20, 300, 20), "Tiempo transcurrido: " + elapsedTime);
+    }
 }
