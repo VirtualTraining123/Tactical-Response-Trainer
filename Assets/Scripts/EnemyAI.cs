@@ -151,7 +151,9 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
                 enemyAudioScript.PlayShootSound();
 
                 Debug.DrawRay(shootingPosition.position, direction, Color.green, 2.0f);
+                //tomamos el componente Player del objeto que colisiono con el rayo, pero en su padre Complete XR
                 Player player = hit.collider.GetComponentInParent<Player>();
+                //Player player = hit.collider.GetComponentInParent<Player>();
 
 
                 if (player)

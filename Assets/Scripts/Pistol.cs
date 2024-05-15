@@ -62,10 +62,18 @@ public class Pistol : Weapon
      private void InstantiateBulletHole(Vector3 position, Vector3 normal, Transform parent)
     {
         // Calcular la rotación necesaria para alinear el eje hacia arriba con la normal de la superficie
-    Quaternion rotation = Quaternion.FromToRotation(Vector3.up, normal);
+        Quaternion rotation = Quaternion.FromToRotation(Vector3.up, normal);
 
-    // Instanciar el objeto bullet hole en el punto de impacto con la rotación adecuada y como hijo del objeto impactado
-    GameObject bulletHoleInstance = Instantiate(bulletHolePrefab, position, rotation, parent);
+        // Instanciar el objeto bullet hole en el punto de impacto con la rotación adecuada y como hijo del objeto impactado
+        GameObject bulletHoleInstance = Instantiate(bulletHolePrefab, position, rotation, parent);
+        Vector3 normalizedScale = new Vector3(
+            0.4f / parent.localScale.x,
+            0.005f / parent.localScale.y,
+            0.4f / parent.localScale.z
+        );
+
+        // Establecer la escala normalizada para el agujero de bala
+        bulletHoleInstance.transform.localScale = normalizedScale;
     }
 
     private void DrawDebugRaycast()
