@@ -4422,7 +4422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 673302962114993132, guid: 8982947ca528ca245b96194b681b189d, type: 3}
       propertyPath: shootingForce
-      value: 30
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 673302962114993132, guid: 8982947ca528ca245b96194b681b189d, type: 3}
       propertyPath: bulletHolePrefab
@@ -9616,7 +9616,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 673302962114993132, guid: 8982947ca528ca245b96194b681b189d, type: 3}
       propertyPath: shootingForce
-      value: 50
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 673302962114993132, guid: 8982947ca528ca245b96194b681b189d, type: 3}
       propertyPath: bulletHolePrefab
