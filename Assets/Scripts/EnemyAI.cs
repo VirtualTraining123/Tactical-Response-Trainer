@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic; // Necesario para usar List<>
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -16,7 +17,8 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
     const string SHOOT_TRIGGER = "Shoot";
 
     [SerializeField] private Material deadMaterial; // Material para el estado destruido
-    [SerializeField] private Collider enemyCollider; // Collider del enemigo
+    [SerializeField] private List<Collider> enemyColliders; // Lista de Colliders del enemigo
+    [SerializeField] private List<Renderer> enemyRenderers; // Lista de Renderers del enemigo
     [SerializeField] private float startingHealth;
     [SerializeField] private float minTimeUnderCover;
     [SerializeField] private float maxTimeUnderCover;
@@ -47,7 +49,7 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
     private Animator animator;
     [SerializeField] private AudioClip[] audios;
     private AudioSource controlAudio;
-    private Renderer enemyRenderer; // Renderer del modelo del enemigo
+ //   private Renderer enemyRenderer; // Renderer del modelo del enemigo
     private bool isDestroyed = false; // Flag para verificar si el enemigo ha sido destruido
     
     // Contadores
@@ -73,7 +75,7 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
     private void Awake()
     {
 
-        enemyRenderer = GetComponentInChildren<Renderer>(); // Obtener el renderer del modelo del enemigo
+        enemyRenderers = new List<Renderer>(GetComponentsInChildren<Renderer>());
         
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
@@ -204,15 +206,21 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
         health -= weapon.GetDamage();
         if (health <= 0 && !isDestroyed)
         {
-           if (deadMaterial != null && enemyRenderer != null)
+           if (deadMaterial != null && enemyRenderers != null)
             {
-                enemyRenderer.material = deadMaterial;
+                foreach (Renderer renderer in enemyRenderers)
+                {
+                    renderer.material = deadMaterial;
+                }
             }
 
-            // Desactivar el collider del enemigo
-            if (enemyCollider != null)
+            // Desactivar todos los colliders del enemigo
+            foreach (Collider collider in enemyColliders)
             {
-                enemyCollider.enabled = false;
+                if (collider != null)
+                {
+                    collider.enabled = false;
+                }
             }
             
             if (projectile != null)

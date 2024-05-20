@@ -1807,7 +1807,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deadMaterial: {fileID: 2100000, guid: 2d9674097da42b2448220c5e2805bb27, type: 2}
-  civilCollider: {fileID: -7496827152748881169}
+  civilCollider:
+  - {fileID: -7496827152748881169}
+  civilRenderers:
+  - {fileID: 664940348577021277}
   bloodSplatterFX: {fileID: 19886758, guid: 8c27aeead6d968e4ba986702d6b84335, type: 3}
   startingHealth: 100
   minTimeUnderCover: 3

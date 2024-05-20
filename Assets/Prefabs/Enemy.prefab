@@ -1809,7 +1809,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deadMaterial: {fileID: 2100000, guid: 2d9674097da42b2448220c5e2805bb27, type: 2}
-  enemyCollider: {fileID: -3212868849663698601}
+  enemyColliders:
+  - {fileID: -3212868849663698601}
+  enemyRenderers:
+  - {fileID: 664940348577021277}
   startingHealth: 100
   minTimeUnderCover: 1
   maxTimeUnderCover: 1

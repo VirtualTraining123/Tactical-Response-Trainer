@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Enemy
   - Civil
+  - Fire
+  - Anchor
+  - Bullet
   layers:
   - Default
   - TransparentFX

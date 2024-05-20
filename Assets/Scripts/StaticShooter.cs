@@ -55,7 +55,7 @@ public class StaticShooter : Weapon
          RaycastHit hit;
         if (Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out hit))
         {
-             if (hit.collider.CompareTag("Enemy") || hit.collider.CompareTag("Civil"))
+             if (hit.collider.CompareTag("Enemy") || hit.collider.CompareTag("Civil")|| hit.collider.CompareTag("Bullet"))
             {
             // No hacer nada si el objeto impactado es un enemigo o un civil
             return; 

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic; // Necesario para usar List<>
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -11,7 +12,9 @@ public class CivilAI : MonoBehaviour, ITakeDamage
     const string RUN_TRIGGER = "Run";
     const string CROUCH_TRIGGER = "Crouch";
     [SerializeField] private Material deadMaterial; // Material para el estado destruido
-    [SerializeField] private Collider civilCollider; // Collider del civil
+    [SerializeField] private List<Collider>civilCollider; // Collider del civil
+    [SerializeField] private List<Renderer> civilRenderers; // Lista de Renderers del enemigo
+
     [SerializeField] private ParticleSystem bloodSplatterFX;
     [SerializeField] private float startingHealth;
     [SerializeField] private float minTimeUnderCover;
@@ -28,7 +31,7 @@ public class CivilAI : MonoBehaviour, ITakeDamage
     private Animator animator;
     private float _health;
 
-    private Renderer civilRenderer; // Renderer del modelo del civil
+  //  private Renderer civilRenderer; // Renderer del modelo del civil
     private bool isDestroyed = false; // Flag para verificar si el civil ha sido destruido
     // Contadores
     public static int CivilwoundedCount = 0;
@@ -44,7 +47,7 @@ public class CivilAI : MonoBehaviour, ITakeDamage
 
     private void Awake()
     {
-        civilRenderer = GetComponentInChildren<Renderer>();
+        civilRenderers = new List<Renderer>(GetComponentsInChildren<Renderer>()); 
         Initialize();
         controlAudio = GetComponent<AudioSource>();
         
@@ -119,16 +122,20 @@ public class CivilAI : MonoBehaviour, ITakeDamage
        
         if (health <= 0 && !isDestroyed)
         {
-            if (deadMaterial != null && civilRenderer != null)
+            if (deadMaterial != null && civilRenderers != null)
             {
-            
-                civilRenderer.material = deadMaterial;
+                foreach (Renderer renderer in civilRenderers)
+                {
+                    renderer.material = deadMaterial;
+                }
             }
-
             // Desactivar el collider del enemigo
-            if (civilCollider != null)
+            foreach (Collider collider in civilCollider)
             {
-                civilCollider.enabled = false;
+                if (collider != null)
+                {
+                    collider.enabled = false;
+                }
             }
             
             if (projectile != null)
