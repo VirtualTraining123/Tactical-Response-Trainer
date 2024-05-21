@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Cloud Definition
   m_EditorClassIdentifier: 
   cloudiness: 0.06
-  dynamicCloudiness: 0
+  dynamicCloudiness: 1
   cloudinessMin: 0
-  cloudinessMax: 1
-  currentCloudiness: 0.06
+  cloudinessMax: 0.6
+  currentCloudiness: 0.45937502
   inScatteringMultiplier: 100
   inScatteringStrength: 0.8
   stepCount: 128
@@ -38,21 +38,21 @@ MonoBehaviour:
   HGStrength: 1
   celestialBodySelection: 0
   planetRadius: 6378
-  cloudLayerHeight: 1000
+  cloudLayerHeight: 10
   cloudLayerThickness: 3507
   cloudFadeDistance: 30000
-  visibility: 40000
+  visibility: 4000000
   overrideAtmosphericVisibility: 0
   renderInSceneView: 1
-  temporalDenoisingFactor: 0.03
+  temporalDenoisingFactor: 0.334
   subpixelJitterEnabled: 0
   castShadowsEnabled: 1
   shadowStepCount: 12
   screenShadows: 1
-  shadowStrength: 1
-  shadowResolution: 1024
+  shadowStrength: 0.5
+  shadowResolution: 512
   shadowDistance: 5000
-  extinctionCoefficient: 15
+  extinctionCoefficient: 7
   maxLightingDistance: 4000
   shadingStrengthFalloff: 1
   multipleScatteringAmpGain: 0.3
@@ -70,15 +70,15 @@ MonoBehaviour:
   weathermapOctaves: 3
   weathermapVelocity: {x: 0, y: 0}
   weathermapScale: 3
-  baseTextureID: 3
+  baseTextureID: 1
   baseTextureQuality: 2
-  baseTexture: {fileID: 11700000, guid: a94e323da6fa17b438a63735d087be03, type: 2}
+  baseTexture: {fileID: 11700000, guid: 9404a7474c89dcc44b8553a26615bcf0, type: 2}
   baseTextureScale: {x: 3, y: 3, z: 3}
   baseTextureTimescale: {x: 0, y: 0, z: 0}
-  detail1TextureID: 4
+  detail1TextureID: 3
   detail1TextureQuality: 0
-  detail1Texture: {fileID: 11700000, guid: d7a265a939136364981a58977d4e2554, type: 2}
-  detail1TextureInfluence: 0.3
+  detail1Texture: {fileID: 11700000, guid: da99182c93e9fd948babc03a78107760, type: 2}
+  detail1TextureInfluence: 0.34
   detail1TextureScale: {x: 20, y: 20, z: 20}
   detail1TextureTimescale: {x: 0, y: 0, z: 0}
   curlTexture: {fileID: 2800000, guid: 3ad2d7c7d756ac34c8587a90a123ceb9, type: 3}
