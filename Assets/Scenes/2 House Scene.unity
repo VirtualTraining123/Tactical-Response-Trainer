@@ -20,9 +20,9 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.4216811, g: 0.15163982, b: 0.3060302, a: 0}
-  m_AmbientEquatorColor: {r: 0.441488, g: 0.3117088, b: 0.26156712, a: 0}
-  m_AmbientGroundColor: {r: 0.05600568, g: 0.038391784, b: 0.03285607, a: 0}
+  m_AmbientSkyColor: {r: 0.036348738, g: 0.08195167, b: 0.2629257, a: 0}
+  m_AmbientEquatorColor: {r: 0.39576814, g: 0.42787877, b: 0.50574195, a: 0.5042905}
+  m_AmbientGroundColor: {r: 0.03556221, g: 0.028628374, b: 0.025795309, a: 0}
   m_AmbientIntensity: 1
   m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
@@ -572,7 +572,7 @@ WindZone:
   m_Enabled: 1
   m_Mode: 0
   m_Radius: 20
-  m_WindMain: 1.5161867
+  m_WindMain: 1.7879653
   m_WindTurbulence: 1
   m_WindPulseMagnitude: 0.5
   m_WindPulseFrequency: 0.01
@@ -584,7 +584,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 165445238}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.15990973, z: -0, w: 0.98713166}
+  m_LocalRotation: {x: 0, y: -0.05893338, z: -0, w: 0.9982619}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1134,7 +1134,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &377451576
 Transform:
   m_ObjectHideFlags: 0
@@ -2903,7 +2903,7 @@ MonoBehaviour:
   precipitationDefinition: {fileID: 11400000, guid: da023feea2017d4468e1ea16c827eb11, type: 2}
   data: {fileID: 11400000, guid: e6990eecea305604aa0e95f413f107d1, type: 2}
   windZone: {fileID: 165445239}
-  daytimeFactor: 0.5
+  daytimeFactor: 0.75
   enableDebugView: 0
 --- !u!4 &1036692781
 Transform:
@@ -4074,8 +4074,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1362401983}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5000001, y: 0.49999988, z: -0.5, w: -0.5}
-  m_LocalPosition: {x: 3.9999998, y: -0.00000071525574, z: 0}
+  m_LocalRotation: {x: -0.65328157, y: -0.27059793, z: 0.27059814, w: 0.65328145}
+  m_LocalPosition: {x: 2.828427, y: -2.8284273, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4260,13 +4260,13 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   lightingColorMask: {r: 0.16237983, g: 0.573857, b: 0.8396226, a: 1}
-  positionRelative: {x: 3.9999998, y: -0.00000071525574, z: 0}
+  positionRelative: {x: 2.828427, y: -2.8284273, z: 0}
   sortOrder: 4
   orbitOffset: 180
   inclinationOffset: 0
   orientationOffset: 0
   positionIsStatic: 0
-  direction: {x: 1, y: -0.00000017881395, z: 0}
+  direction: {x: 0.70710677, y: -0.7071068, z: 0}
   falloff: 1
   handleColor: {r: 0.08926773, g: 0, b: 1, a: 1}
 --- !u!1 &1399923961
@@ -6079,8 +6079,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1832278338}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -4.9999995, y: -0.00000023841858, z: 0}
+  m_LocalRotation: {x: 0.6532815, y: 0.27059796, z: 0.27059796, w: 0.6532815}
+  m_LocalPosition: {x: -3.5355334, y: 3.535535, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6265,13 +6265,13 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   lightingColorMask: {r: 1, g: 1, b: 1, a: 1}
-  positionRelative: {x: -4.9999995, y: -0.00000023841858, z: 0}
+  positionRelative: {x: -3.5355334, y: 3.535535, z: 0}
   sortOrder: 5
   orbitOffset: 0
   inclinationOffset: 0
   orientationOffset: 0
   positionIsStatic: 0
-  direction: {x: -1, y: -0.00000004768372, z: 0}
+  direction: {x: -0.7071066, y: 0.70710695, z: 0}
   falloff: 1
   handleColor: {r: 1, g: 0.7276479, b: 0, a: 1}
 --- !u!1001 &1868352233
