@@ -21,6 +21,12 @@ public class GameRestartMenu : MonoBehaviour
     public TMP_Text shotsFiredText;
     public TMP_Text timeElapsedText;
     // Start is called before the first frame update
+
+    [Header("Player Camera")]
+    public Transform playerCamera; // Assign the player's camera in the inspector
+
+    public float distanceFromPlayer = 2f; // Distance from the player to display the menu
+
     void Start()
     {
         EnableGameOverMenu();
@@ -30,6 +36,22 @@ public class GameRestartMenu : MonoBehaviour
         quitButton.onClick.AddListener(QuitGame);
 
         DisplayCollectedData();
+    }
+
+    void Update()
+    {
+        // Position the menu in front of the player
+        if (playerCamera != null)
+        {
+            Vector3 directionToMenu = playerCamera.forward;
+            Vector3 menuPosition = playerCamera.position + directionToMenu * distanceFromPlayer;
+
+           
+
+            // Rotate the menu to face the player
+            gameOverMenu.transform.LookAt(playerCamera);
+            gameOverMenu.transform.Rotate(0f, 180f, 0f); // Adjust the rotation to face the player correctly
+        }
     }
 
     public void QuitGame()

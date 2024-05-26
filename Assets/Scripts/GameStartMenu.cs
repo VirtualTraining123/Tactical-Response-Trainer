@@ -18,6 +18,11 @@ public class GameStartMenu : MonoBehaviour
 
     public List<Button> returnButtons;
 
+    [Header("Player Camera")]
+    public Transform playerCamera; // Assign the player's camera in the inspector
+
+    public float distanceFromPlayer = 2f; // Distance from the player to display the menu
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +37,22 @@ public class GameStartMenu : MonoBehaviour
         foreach (var item in returnButtons)
         {
             item.onClick.AddListener(EnableMainMenu);
+        }
+    }
+
+    void Update()
+    {
+        // Position the menu in front of the player
+        if (playerCamera != null)
+        {
+            Vector3 directionToMenu = playerCamera.forward;
+            Vector3 menuPosition = playerCamera.position + directionToMenu * distanceFromPlayer;
+
+
+
+            // Rotate the menu to face the player
+            mainMenu.transform.LookAt(playerCamera);
+            mainMenu.transform.Rotate(0f, 180f, 0f); // Adjust the rotation to face the player correctly
         }
     }
 
