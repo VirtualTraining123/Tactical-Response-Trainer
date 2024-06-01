@@ -15,12 +15,11 @@ public class GameRestartMenu : MonoBehaviour
 
     public List<Button> returnButtons;
 
-     [Header("Data Display")]
+    [Header("Data Display")]
     public TMP_Text enemiesEliminatedText;
     public TMP_Text civiliansEliminatedText;
     public TMP_Text shotsFiredText;
     public TMP_Text timeElapsedText;
-    // Start is called before the first frame update
 
     [Header("Player Camera")]
     public Transform playerCamera; // Assign the player's camera in the inspector
@@ -31,7 +30,7 @@ public class GameRestartMenu : MonoBehaviour
     {
         EnableGameOverMenu();
 
-        //Hook events
+        // Hook events
         restartButton.onClick.AddListener(RestartGame);
         quitButton.onClick.AddListener(QuitGame);
 
@@ -46,7 +45,8 @@ public class GameRestartMenu : MonoBehaviour
             Vector3 directionToMenu = playerCamera.forward;
             Vector3 menuPosition = playerCamera.position + directionToMenu * distanceFromPlayer;
 
-           
+            // Position the menu
+            //gameOverMenu.transform.position = menuPosition;
 
             // Rotate the menu to face the player
             gameOverMenu.transform.LookAt(playerCamera);
@@ -56,6 +56,7 @@ public class GameRestartMenu : MonoBehaviour
 
     public void QuitGame()
     {
+        ClearPlayerPrefsData();
         Application.Quit();
     }
 
@@ -78,7 +79,7 @@ public class GameRestartMenu : MonoBehaviour
 
     private void DisplayCollectedData()
     {
-       // Retrieve collected data from PlayerPrefs or wherever it's stored
+        // Retrieve collected data from PlayerPrefs or wherever it's stored
         int enemiesEliminated = PlayerPrefs.GetInt("Enemy_Dead_Count", 0);
         int civiliansEliminated = PlayerPrefs.GetInt("Civil_Dead_Count", 0);
         int shotsFired = PlayerPrefs.GetInt("Shots_Fired_Pistol", 0);
@@ -92,11 +93,11 @@ public class GameRestartMenu : MonoBehaviour
     }
 
     public void ClearPlayerPrefsData()
-{
-    PlayerPrefs.DeleteKey("EnemiesEliminated");
-    PlayerPrefs.DeleteKey("CiviliansEliminated");
-    PlayerPrefs.DeleteKey("ShotsFired");
-    PlayerPrefs.DeleteKey("TimeElapsed");
-}
-
+    {
+        PlayerPrefs.DeleteKey("Enemy_Dead_Count");
+        PlayerPrefs.DeleteKey("Civil_Dead_Count");
+        PlayerPrefs.DeleteKey("Shots_Fired_Pistol");
+        PlayerPrefs.DeleteKey("Elapsed_Time");
+        PlayerPrefs.Save(); // Ensure changes are saved immediately
+    }
 }

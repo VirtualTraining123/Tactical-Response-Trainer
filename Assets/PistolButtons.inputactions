@@ -1,0 +1,94 @@
+{
+    "name": "PistolButtons",
+    "maps": [
+        {
+            "name": "PistolaActions",
+            "id": "9309f023-f60f-451b-96b1-8111f7f04ecd",
+            "actions": [
+                {
+                    "name": "AButton",
+                    "type": "Button",
+                    "id": "3438b7a9-d145-4aa6-9311-ccc023060bc0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BButton",
+                    "type": "Button",
+                    "id": "ab627ad5-b6b2-448e-9ecc-7b252a3b1a56",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AButtonL",
+                    "type": "Button",
+                    "id": "600c6840-eb3f-4590-8855-c9cf577c1248",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BButtonL",
+                    "type": "Button",
+                    "id": "e99a85ef-90bd-4593-a105-9a449bd740cf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "40cf72db-dba4-4642-92a2-ebf7d381ea23",
+                    "path": "<XRController>{RightHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "967abf74-4ea0-49e3-a834-96d4c22f5454",
+                    "path": "<XRController>{RightHand}/{SecondaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a17552b3-0405-4b31-845b-289601fb881d",
+                    "path": "<XRController>{LeftHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AButtonL",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "49a8c5fc-889f-40fb-ba21-44184c056af0",
+                    "path": "<XRController>{LeftHand}/{SecondaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BButtonL",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

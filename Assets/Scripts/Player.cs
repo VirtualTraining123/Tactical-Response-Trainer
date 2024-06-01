@@ -26,12 +26,21 @@ public class Player : MonoBehaviour //Asociado a XR Origin
 
     public static float elapsedTime;
 
-
+     private Evaluator evaluator;
 
     private void Start()
     {
-        #if UNITY_2020_2_OR_NEWER
-            #if UNITY_ANDROID
+
+
+         PlayerPrefs.SetInt("Shots_Fired_Pistol", Pistol.shotsFiredPistol=0);
+        PlayerPrefs.SetInt("Shots_Fired_Tester", StaticShooter.shotsFiredProbe=0);
+        PlayerPrefs.SetInt("Enemy_Dead_Count", EnemyAI.EnemydeadCount=0);
+        PlayerPrefs.SetInt("Enemy_Wounded_Count", EnemyAI.EnemywoundedCount=0);
+        PlayerPrefs.SetInt("Civil_Dead_Count", CivilAI.CivildeadCount=0);
+        PlayerPrefs.SetInt("Civil_Wounded_Count", CivilAI.CivilwoundedCount=0);
+
+#if UNITY_2020_2_OR_NEWER
+#if UNITY_ANDROID
                 if (!Permission.HasUserAuthorizedPermission(Permission.CoarseLocation)
                 || !Permission.HasUserAuthorizedPermission(Permission.FineLocation)
                 || !Permission.HasUserAuthorizedPermission("android.permission.BLUETOOTH_SCAN")
@@ -44,8 +53,8 @@ public class Player : MonoBehaviour //Asociado a XR Origin
                                     "android.permission.BLUETOOTH_ADVERTISE",
                                     "android.permission.BLUETOOTH_CONNECT"
                             });
-            #endif
-        #endif
+#endif
+#endif
 
         IsConnected = false;
         
@@ -68,14 +77,14 @@ public class Player : MonoBehaviour //Asociado a XR Origin
         // Iniciar el temporizador cuando comience la escena
         startTime = Time.time;
         isTimerRunning = true;
-
+        evaluator = FindObjectOfType<Evaluator>();
     }
     private void Awake()
     {
         audioManagerEasy = FindObjectOfType<AudioManagerEasy>();
      
     }
-
+/*
     private void Update()
     {
         // Verificar si el temporizador está en funcionamiento
@@ -88,14 +97,14 @@ public class Player : MonoBehaviour //Asociado a XR Origin
         }
     }
 
-
+*/
     
-
+/*
     public void StopTimer()
     {
         isTimerRunning = false;
     }
-
+*/
     public void TakeDamage(float damage)
     {
 
@@ -104,10 +113,7 @@ public class Player : MonoBehaviour //Asociado a XR Origin
         StartCoroutine(cameraShake.Shake()); //en complete XR Origin
 
 
-        if(flag==false){
-        bloodEffectPlane.ShowBloodEffect(); //En XR Origin
-        flag=true;
-        }
+        
         
 
         health -= damage;
@@ -133,8 +139,11 @@ public class Player : MonoBehaviour //Asociado a XR Origin
         if (health <= 0)
         {
             // Detener el temporizador
-           StopTimer();
-
+          // StopTimer();
+        if(flag==false){
+        bloodEffectPlane.ShowBloodEffect(); //En XR Origin
+        flag=true;
+        }
             // ir a la escena de Game Over pero a los 5 segundos
             Invoke("GameOver", 3f);
           
@@ -148,7 +157,7 @@ public class Player : MonoBehaviour //Asociado a XR Origin
     private void GameOver()
     {
 
-        PlayerPrefs.SetFloat("Elapsed_Time", elapsedTime);
+        //PlayerPrefs.SetFloat("Elapsed_Time", elapsedTime);
         PlayerPrefs.SetInt("Shots_Fired_Pistol", Pistol.shotsFiredPistol);
         PlayerPrefs.SetInt("Shots_Fired_Tester", StaticShooter.shotsFiredProbe);
         PlayerPrefs.SetInt("Enemy_Dead_Count", EnemyAI.EnemydeadCount);
@@ -159,17 +168,18 @@ public class Player : MonoBehaviour //Asociado a XR Origin
         string currentSceneName = SceneManager.GetActiveScene().name;
 
         // Ir a la escena de Game Over
-        SceneManager.LoadScene("3 GameOver");
+        //SceneManager.LoadScene("3 GameOver");
+        evaluator.ReceiveShot();
     }
 
     public Vector3 GetHeadPosition()
     {
         return head.position;
     }
-
+/*
     private void OnGUI()
     {
       
         GUI.Label(new Rect(450, 20, 300, 20), "Tiempo transcurrido: " + elapsedTime);
-    }
+    }*/
 }

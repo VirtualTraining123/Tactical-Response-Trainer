@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Security.Permissions;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
 
@@ -22,12 +23,19 @@ public class Weapon : MonoBehaviour
     private Rigidbody rigidBody;
     private XRGrabInteractable interactableWeapon;
     private AudioManagerEasy audioManagerEasy;
+      public InputActionProperty aButtonAction;
+    public InputActionProperty bButtonAction;
+
     protected virtual void Awake()
     {
         interactableWeapon = GetComponent<XRGrabInteractable>();
         rigidBody = GetComponent<Rigidbody>();
         SetupInteractableWeaponEvents();
         controlAudio = GetComponent<AudioSource>();
+
+        // Configurar las acciones de los botones A y B
+        aButtonAction.action.performed += context => Reload();
+        bButtonAction.action.performed += context => ToggleSafety();
 
     }
 
@@ -37,15 +45,21 @@ public class Weapon : MonoBehaviour
         interactableWeapon.onSelectExited.AddListener(DropWeapon);
         interactableWeapon.onActivate.AddListener(StartShooting);
         interactableWeapon.onDeactivate.AddListener(StopShooting);
+        //a continuacion se asocia el boton A del controlador con el metodo Reload
+        
     }
 
-    private void SeleccionAudio(int indice, float volumen)
+    protected void SeleccionAudio(int indice, float volumen)
     {
         controlAudio.PlayOneShot(audios[indice], volumen);
     }
+
+  
     private void PickUpWeapon(XRBaseInteractor interactor)
     {
+        
         interactor.GetComponent<MeshHidder>().Hide();
+        
     }
  
     private void DropWeapon(XRBaseInteractor interactor)
@@ -87,4 +101,15 @@ public class Weapon : MonoBehaviour
     {
         return damage;
     }
+
+
+    protected virtual void Reload() { 
+        SeleccionAudio(2, 0.2f);
+    }
+
+    protected virtual void ToggleSafety() { 
+        SeleccionAudio(3, 0.2f);
+    }
+
 }
+

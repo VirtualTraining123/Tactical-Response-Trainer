@@ -37,6 +37,8 @@ public class CivilAI : MonoBehaviour, ITakeDamage
     public static int CivilwoundedCount = 0;
     public static int CivildeadCount = 0;
 
+    private Evaluator evaluator;
+
     [SerializeField] private AudioClip[] audios;
     private AudioSource controlAudio;
     public float health
@@ -151,6 +153,7 @@ public class CivilAI : MonoBehaviour, ITakeDamage
             animator.enabled = false;
             Debug.Log("Civil destroyed!");
             CivildeadCount++;
+            evaluator.CivilianHit();
             
         }
         else

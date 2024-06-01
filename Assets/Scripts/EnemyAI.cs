@@ -57,9 +57,9 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
     public static int EnemydeadCount = 0;
 
     bool flag=false;
-
-
     private float _health;
+    private Evaluator evaluator;
+
     public float health
     {
         get
@@ -81,8 +81,8 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
         agent = GetComponent<NavMeshAgent>();
         animator.SetTrigger(RUN_TRIGGER);
         _health = startingHealth;
-       
         controlAudio = GetComponent<AudioSource>();
+         evaluator = FindObjectOfType<Evaluator>(); // Get the Evaluator instance
     }
 
     public void Init(Player player, Transform coverSpot)
@@ -237,6 +237,7 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
             
             NotifyEnemyDestroyed();
             EnemydeadCount++;
+            evaluator.EnemyNeutralized();
         }
         else
         { //agregar 1 flag con un if aca para que solo se active 1 vez si se desea implementarlo
@@ -264,10 +265,10 @@ private void NotifyEnemyDestroyed()
        // PlayerPrefs.SetInt("EnemydeadCount", EnemydeadCount);
        // PlayerPrefs.Save();
         Player player = FindObjectOfType<Player>();
-        if (player != null)
+       /* if (player != null)
         {
             player.StopTimer();
-        }
+        }*/
         flag=true;
         PlayerPrefs.SetFloat("Elapsed_Time", Player.elapsedTime);
         PlayerPrefs.SetInt("Shots_Fired_Pistol", Pistol.shotsFiredPistol);
@@ -323,15 +324,15 @@ private IEnumerator WaitAndLoadScene(float seconds)
       private void OnGUI()
     {
       //  GUI.Label(new Rect(30, 50, 100, 20), "Wounded: " + EnemywoundedCount);
-        GUI.Label(new Rect(40, 50, 200, 20), "Amenazas abatidas: " + EnemydeadCount);
-        if(flag==true){
+        //GUI.Label(new Rect(40, 50, 200, 20), "Amenazas abatidas: " + EnemydeadCount);
+       // if(flag==true){
             //texto ubicado en el medio de la pantalla, de gran tamaño
-            GUI.Label(new Rect(Screen.width/2-100, Screen.height/2-50, 200, 100), "Misión cumplida");
+            //GUI.Label(new Rect(Screen.width/2-100, Screen.height/2-50, 200, 100), "Misión cumplida");
         
 
         
 
-        }
+       // }
     }
 }
 
