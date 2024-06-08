@@ -32,12 +32,7 @@ public class Player : MonoBehaviour //Asociado a XR Origin
     {
 
 
-         PlayerPrefs.SetInt("Shots_Fired_Pistol", Pistol.shotsFiredPistol=0);
-        PlayerPrefs.SetInt("Shots_Fired_Tester", StaticShooter.shotsFiredProbe=0);
-        PlayerPrefs.SetInt("Enemy_Dead_Count", EnemyAI.EnemydeadCount=0);
-        PlayerPrefs.SetInt("Enemy_Wounded_Count", EnemyAI.EnemywoundedCount=0);
-        PlayerPrefs.SetInt("Civil_Dead_Count", CivilAI.CivildeadCount=0);
-        PlayerPrefs.SetInt("Civil_Wounded_Count", CivilAI.CivilwoundedCount=0);
+       
 
 #if UNITY_2020_2_OR_NEWER
 #if UNITY_ANDROID
@@ -158,14 +153,7 @@ public class Player : MonoBehaviour //Asociado a XR Origin
     {
 
         //PlayerPrefs.SetFloat("Elapsed_Time", elapsedTime);
-        PlayerPrefs.SetInt("Shots_Fired_Pistol", Pistol.shotsFiredPistol);
-        PlayerPrefs.SetInt("Shots_Fired_Tester", StaticShooter.shotsFiredProbe);
-        PlayerPrefs.SetInt("Enemy_Dead_Count", EnemyAI.EnemydeadCount);
-        PlayerPrefs.SetInt("Enemy_Wounded_Count", EnemyAI.EnemywoundedCount);
-        PlayerPrefs.SetInt("Civil_Dead_Count", CivilAI.CivildeadCount);
-        PlayerPrefs.SetInt("Civil_Wounded_Count", CivilAI.CivilwoundedCount);
-        // Obtener el nombre de la escena actual
-        string currentSceneName = SceneManager.GetActiveScene().name;
+        
 
         // Ir a la escena de Game Over
         //SceneManager.LoadScene("3 GameOver");

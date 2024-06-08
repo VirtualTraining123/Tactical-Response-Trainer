@@ -17,10 +17,11 @@ public class Evaluator : MonoBehaviour
     public float scorePenaltyForExtraBullet = 0.25f;
     public float scorePenaltyForUnloading = 1f;
 
-    private float currentScore=10f;
+    private float currentScore;
     private float elapsedTime;
     private bool simulationEnded = false;
     private bool PlayerDead = false;
+    private String PlayerDeadString="No";
 
     private int enemytoneutralize=0;
     private int civilianhit=0;
@@ -38,9 +39,22 @@ public class Evaluator : MonoBehaviour
         bullettouse=spawnManager.GetTotalEnemies();
         bulletused=0;
         
-        //currentScore = maxScore;
+            // Restablecer variables al inicio de la simulación
         elapsedTime = 0f;
         pistol = FindObjectOfType<Pistol>();
+
+        totalEnemys=0;
+        enemytoneutralize=0;
+        bulletused=0;
+        bullettouse=0;
+        PlayerDeadString="No";
+        civilianhit=0;
+        currentScore=10;
+    }
+
+    void RestScore(float score){
+         currentScore -= score;
+    currentScore = Mathf.Clamp(currentScore, 1f, 10f); // Restringir la puntuación dentro del rango de 1 a 10
     }
 
     void Update()
@@ -61,12 +75,13 @@ public class Evaluator : MonoBehaviour
     }
     public void EnemyMissed()
     {
-        currentScore -= scorePenaltyPerEnemy*(totalEnemys+enemytoneutralize);
+        RestScore(scorePenaltyPerEnemy*(totalEnemys+enemytoneutralize));
     }
 
     public void CivilianHit()
     {
-        currentScore -= scorePenaltyForCivilian;
+        civilianhit++;
+        RestScore(scorePenaltyForCivilian);
     }
 
     public void BulletUsed()
@@ -76,7 +91,7 @@ public class Evaluator : MonoBehaviour
 
     public void TotalpointBulletUsed()
     {
-        currentScore -= scorePenaltyForExtraBullet*(bulletused-bullettouse);
+        RestScore(scorePenaltyForExtraBullet*(bulletused-bullettouse));
     }
 
     public void CheckUnloadPenalty()
@@ -90,12 +105,13 @@ public class Evaluator : MonoBehaviour
 
     public void UnloadPenalty()
     {
-        currentScore -= scorePenaltyForUnloading;
+        RestScore(scorePenaltyForUnloading);
         
     }
     
     public void ReceiveShot()
     {   PlayerDead=true;
+        PlayerDeadString="Si";
         EndSimulation();
     }
 
@@ -110,20 +126,36 @@ public class Evaluator : MonoBehaviour
         TotalpointBulletUsed();
 
         simulationEnded = true;
-
+        PlayerPrefs.SetFloat("Tiempo", elapsedTime);
+        PlayerPrefs.SetInt("Civiles_Heridos",civilianhit);
+        PlayerPrefs.SetInt("Enemigos_Faltantes", totalEnemys + enemytoneutralize);
+        PlayerPrefs.SetInt("Cartuchos_extra_gastados", bulletused - bullettouse);
+        PlayerPrefs.SetFloat("Puntaje_Final", currentScore);
+        PlayerPrefs.SetString("Muerte_de_agente", PlayerDeadString);
+       
+        
+        // Obtener el nombre de la escena actual
+        string currentSceneName = SceneManager.GetActiveScene().name;
         //SaveDataToCSV();
+
+        //realizamos una saturacion de currentScore para que no sea negativo
+      
+
         if (currentScore < minPassingScore || PlayerDead==true)
         {
             condition='D';
+            
+
             SceneManager.LoadScene("3 GameOver");
         }
-        else
+        else if (currentScore >= minPassingScore && currentScore < maxScore && PlayerDead==false)
         {
             condition='A';
+            
+
             SceneManager.LoadScene("4 Victory");
         }
-
-        //mover todos los playerPrefs aca
+       
 
     }
 

@@ -9,6 +9,9 @@ public class GameStartMenu : MonoBehaviour
     public GameObject mainMenu;
     public GameObject options;
     public GameObject about;
+    public GameObject Introductionpage1;
+    public GameObject Introductionpage2;
+    public GameObject Introductionpage3;
     
     [Header("Main Menu Buttons")]
     public Button startButton;
@@ -17,6 +20,7 @@ public class GameStartMenu : MonoBehaviour
     public Button quitButton;
 
     public List<Button> returnButtons;
+    public List<Button> nextButtons;
 
     [Header("Player Camera")]
     public Transform playerCamera; // Assign the player's camera in the inspector
@@ -29,10 +33,14 @@ public class GameStartMenu : MonoBehaviour
         EnableMainMenu();
 
         //Hook events
-        startButton.onClick.AddListener(StartGame);
+        startButton.onClick.AddListener(EnableIntroductionMenu1);
         optionButton.onClick.AddListener(EnableOption);
         aboutButton.onClick.AddListener(EnableAbout);
         quitButton.onClick.AddListener(QuitGame);
+        nextButtons[0].onClick.AddListener(EnableIntroductionMenu2);
+        nextButtons[1].onClick.AddListener(EnableIntroductionMenu3);
+        nextButtons[2].onClick.AddListener(StartGame);
+        nextButtons[3].onClick.AddListener(StartTutorial);
 
         foreach (var item in returnButtons)
         {
@@ -60,12 +68,51 @@ public class GameStartMenu : MonoBehaviour
     {
         Application.Quit();
     }
-
+    
     public void StartGame()
     {
         HideAll();
         ClearPlayerPrefsData();
+        SceneTransitionManager.singleton.GoToSceneAsync(2);
+    }
+
+    public void StartTutorial()
+    {
+        HideAll();
         SceneTransitionManager.singleton.GoToSceneAsync(1);
+    }
+
+
+     public void EnableIntroductionMenu1()
+    {
+        mainMenu.SetActive(false);
+        options.SetActive(false);
+        about.SetActive(false);
+        Introductionpage1.SetActive(true);
+        Introductionpage2.SetActive(false);
+        Introductionpage3.SetActive(false);
+
+       
+    }
+
+    public void EnableIntroductionMenu2()
+    {
+        mainMenu.SetActive(false);
+        options.SetActive(false);
+        about.SetActive(false);
+        Introductionpage1.SetActive(false);
+        Introductionpage2.SetActive(true);
+        Introductionpage3.SetActive(false);
+    }
+
+     public void EnableIntroductionMenu3()
+    {
+        mainMenu.SetActive(false);
+        options.SetActive(false);
+        about.SetActive(false);
+        Introductionpage1.SetActive(false);
+        Introductionpage2.SetActive(false);
+        Introductionpage3.SetActive(true);
     }
 
     public void HideAll()
@@ -80,6 +127,10 @@ public class GameStartMenu : MonoBehaviour
         mainMenu.SetActive(true);
         options.SetActive(false);
         about.SetActive(false);
+        Introductionpage1.SetActive(false);
+        Introductionpage2.SetActive(false);
+        Introductionpage3.SetActive(false);
+        
     }
     public void EnableOption()
     {

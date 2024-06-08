@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Gradient Skybox
+  m_Name: Gradient Skybox 1
   m_Shader: {fileID: 4800000, guid: f870c618efe6c2d499bb28b864be41a9, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -33,7 +33,7 @@ Material:
     - _DirectionYaw: 0
     - _Exponent: 1.63
     - _Exposure: 1.19
-    - _Intensity: 1.67
+    - _Intensity: 2
     - _SunDisk: 0
     - _SunSize: 0
     - _SunSizeConvergence: 5
@@ -41,7 +41,7 @@ Material:
     m_Colors:
     - _BottomColor: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 0}
     - _Color1: {r: 0.0754717, g: 0.0754717, b: 0.0754717, a: 0}
-    - _Color2: {r: 0.83396226, g: 0.9963301, b: 1, a: 0}
+    - _Color2: {r: 1, g: 0.7490566, b: 0.7660123, a: 0}
     - _Direction: {r: 0, g: 1, b: 0, a: 0}
     - _GroundColor: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 1}
     - _HorizonColor: {r: 1, g: 1, b: 1, a: 0}

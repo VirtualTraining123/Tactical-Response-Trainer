@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
+using System.IO;
 
 public class GameRestartMenu : MonoBehaviour
 {
@@ -16,10 +18,12 @@ public class GameRestartMenu : MonoBehaviour
     public List<Button> returnButtons;
 
     [Header("Data Display")]
-    public TMP_Text enemiesEliminatedText;
-    public TMP_Text civiliansEliminatedText;
-    public TMP_Text shotsFiredText;
-    public TMP_Text timeElapsedText;
+    public TMP_Text Enemigos_Faltantes;
+    public TMP_Text Civiles_Heridos;
+    public TMP_Text Cartuchos_extra_gastados;
+    public TMP_Text Tiempo;
+    public TMP_Text Muerte_de_agente;
+    public TMP_Text Puntaje_Final;
 
     [Header("Player Camera")]
     public Transform playerCamera; // Assign the player's camera in the inspector
@@ -56,15 +60,16 @@ public class GameRestartMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        ClearPlayerPrefsData();
+        PlayerPrefs.DeleteAll();
         Application.Quit();
     }
 
     public void RestartGame()
     {
         HideAll();
-        ClearPlayerPrefsData(); // Limpia los datos almacenados en PlayerPrefs
-        SceneTransitionManager.singleton.GoToSceneAsync(1);
+        PlayerPrefs.DeleteAll();
+       // ClearPlayerPrefsData(); // Limpia los datos almacenados en PlayerPrefs
+        SceneTransitionManager.singleton.GoToSceneAsync(2);
     }
 
     public void HideAll()
@@ -80,16 +85,20 @@ public class GameRestartMenu : MonoBehaviour
     private void DisplayCollectedData()
     {
         // Retrieve collected data from PlayerPrefs or wherever it's stored
-        int enemiesEliminated = PlayerPrefs.GetInt("Enemy_Dead_Count", 0);
-        int civiliansEliminated = PlayerPrefs.GetInt("Civil_Dead_Count", 0);
-        int shotsFired = PlayerPrefs.GetInt("Shots_Fired_Pistol", 0);
-        float timeElapsed = PlayerPrefs.GetFloat("Elapsed_Time", 0f);
+        float time = PlayerPrefs.GetFloat("Tiempo", 0f);
+        int enemiesNotEliminated = PlayerPrefs.GetInt("Enemigos_Faltantes", 0);
+        int civiliansEliminated = PlayerPrefs.GetInt("Civiles_Heridos", 0);
+        int ExtraShotsFired = PlayerPrefs.GetInt("Cartuchos_extra_gastados", 0);
+        String agente = PlayerPrefs.GetString("Muerte_de_agente", "No");
+        float finalScore = PlayerPrefs.GetFloat("Puntaje_Final", 0f);
 
         // Update UI elements with collected data
-        enemiesEliminatedText.text = "Enemies Eliminated: " + enemiesEliminated;
-        civiliansEliminatedText.text = "Civilians Eliminated: " + civiliansEliminated;
-        shotsFiredText.text = "Shots Fired: " + shotsFired;
-        timeElapsedText.text = "Time Elapsed: " + timeElapsed.ToString("F2") + "s";
+        Enemigos_Faltantes.text ="Enemigos Faltanes: " + enemiesNotEliminated;
+        Civiles_Heridos.text = "Civiles Heridos: " + civiliansEliminated;
+        Tiempo.text = "Tiempo en escena: " + time.ToString() + "s";
+        Cartuchos_extra_gastados.text = "Cartuchos extra gastados: " + ExtraShotsFired;
+        Muerte_de_agente.text = "Muerte de agente: " + agente;
+        Puntaje_Final.text = "Puntaje Final: " + finalScore;
     }
 
     public void ClearPlayerPrefsData()

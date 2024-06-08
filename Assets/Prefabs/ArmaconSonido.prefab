@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2000356256744448683}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0005, y: 0.0719, z: 0.278}
+  m_LocalPosition: {x: -0.0005, y: 0.0719, z: 1.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -988,7 +988,7 @@ MonoBehaviour:
   aButtonAction:
     m_UseReference: 0
     m_Action:
-      m_Name: 
+      m_Name: A Button
       m_Type: 0
       m_ExpectedControlType: 
       m_Id: 441eeaa2-f955-4ffb-97a5-b138d1b28c11
@@ -1000,7 +1000,7 @@ MonoBehaviour:
   bButtonAction:
     m_UseReference: 0
     m_Action:
-      m_Name: 
+      m_Name: B Button
       m_Type: 0
       m_ExpectedControlType: 
       m_Id: 017b3e53-9be3-42c5-9de5-56b914146a7a

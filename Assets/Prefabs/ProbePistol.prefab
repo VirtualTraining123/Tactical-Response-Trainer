@@ -313,7 +313,35 @@ MonoBehaviour:
   bulletSpawn: {fileID: 3159120110820351943}
   recoilForce: 2
   damage: 100
+  audios: []
+  aButtonAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: A Button
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: b83fb40b-6748-4fd5-9fa6-e56ea5eab7a4
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  bButtonAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: B Button
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 3bb897b9-9f93-48f6-9de9-005b31d6975e
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
   bulletPrefab: {fileID: -3281485610557029835, guid: 28b50149f29a723429270c4ae38ebbae, type: 3}
+  debugRayDuration: 2
+  bulletHolePrefab: {fileID: 0}
+  isSafetyOn: 1
 --- !u!1 &7020434726548005550 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1171266974439338, guid: c6865c562fd3f2841a92dc0cbbd6b4b4, type: 3}
@@ -514,7 +542,35 @@ MonoBehaviour:
   bulletSpawn: {fileID: 3159120110820351943}
   recoilForce: 2
   damage: 80
+  audios: []
+  aButtonAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 5186e02c-8238-445e-a5a4-8bedf2385774
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  bButtonAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 132b9352-3f67-43fb-ad78-e41ee6b46f9c
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
   bulletPrefab: {fileID: -3281485610557029835, guid: 28b50149f29a723429270c4ae38ebbae, type: 3}
+  debugRayDuration: 2
+  bulletHolePrefab: {fileID: 0}
+  isSafetyOn: 1
 --- !u!4 &7023746336017706110 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4764624344734074, guid: c6865c562fd3f2841a92dc0cbbd6b4b4, type: 3}

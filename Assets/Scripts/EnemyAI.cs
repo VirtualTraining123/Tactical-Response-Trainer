@@ -235,7 +235,7 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
             agent.isStopped = true;
             animator.enabled = false;
             
-            NotifyEnemyDestroyed();
+         //   NotifyEnemyDestroyed();
             EnemydeadCount++;
             evaluator.EnemyNeutralized();
         }
@@ -253,7 +253,7 @@ private void OnDestroy()
         PlayerPrefs.SetInt("EnemydeadCount", EnemydeadCount);
         PlayerPrefs.Save();
     }*/
-
+/*
 private void NotifyEnemyDestroyed()
 {
     // Restar al contador de enemigos spawneados cuando un enemigo sea destruido
@@ -265,10 +265,10 @@ private void NotifyEnemyDestroyed()
        // PlayerPrefs.SetInt("EnemydeadCount", EnemydeadCount);
        // PlayerPrefs.Save();
         Player player = FindObjectOfType<Player>();
-       /* if (player != null)
+       if (player != null)
         {
             player.StopTimer();
-        }*/
+        }
         flag=true;
         PlayerPrefs.SetFloat("Elapsed_Time", Player.elapsedTime);
         PlayerPrefs.SetInt("Shots_Fired_Pistol", Pistol.shotsFiredPistol);
@@ -291,13 +291,14 @@ private void NotifyEnemyDestroyed()
     }
     
 }
-
+*/
+/*
 private IEnumerator WaitAndLoadScene(float seconds)
 {
     yield return new WaitForSeconds(seconds);
     SceneManager.LoadScene(nextSceneName);
 }
-
+*/
     
     /* private void LoadNextScene()
      {

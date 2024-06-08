@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class Pistol : Weapon
+public class PistolTraining : Weapon
 {
     [SerializeField] private Projectile bulletPrefab;
     [SerializeField] private float debugRayDuration = 2f;
@@ -78,7 +78,7 @@ public class Pistol : Weapon
             }
             InstantiateBulletHole(hit.point, hit.normal, hit.collider.transform);
         }
-        evaluator.BulletUsed();
+        //evaluator.BulletUsed();
     }
     }
 

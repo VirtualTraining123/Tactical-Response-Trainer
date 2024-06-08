@@ -3480,10 +3480,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deadMaterial: {fileID: 2100000, guid: 20bd5875b57c32241a0de542e2be91fe, type: 2}
   civilCollider:
-  - {fileID: 2839359204647574015, guid: 336b3cbbc7dcdd446a9ae8943195c5a0, type: 3}
-  - {fileID: 1722339023913810905, guid: 336b3cbbc7dcdd446a9ae8943195c5a0, type: 3}
-  - {fileID: 7589230994776911756, guid: 336b3cbbc7dcdd446a9ae8943195c5a0, type: 3}
-  - {fileID: 5771015684925827041, guid: 336b3cbbc7dcdd446a9ae8943195c5a0, type: 3}
+  - {fileID: 2839359204647574015}
+  - {fileID: 1722339023913810905}
+  - {fileID: 7589230994776911756}
+  - {fileID: 5771015684925827041}
   civilRenderers:
   - {fileID: 8636926368583096199, guid: 336b3cbbc7dcdd446a9ae8943195c5a0, type: 3}
   - {fileID: 8636926368583096209, guid: 336b3cbbc7dcdd446a9ae8943195c5a0, type: 3}
