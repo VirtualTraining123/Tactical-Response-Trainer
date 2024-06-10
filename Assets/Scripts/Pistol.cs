@@ -114,11 +114,21 @@ public class Pistol : Weapon
        
     }
 
+    public void callReload()
+    {
+        Reload();
+    }
+
     protected override void ToggleSafety()
     {
       base.ToggleSafety();
 
         isSafetyOn = !isSafetyOn;
+    }
+
+    public void callToggleSafety()
+    {
+        ToggleSafety();
     }
 
     private void OnGUI()

@@ -9,6 +9,7 @@ TagManager:
   - Fire
   - Anchor
   - Bullet
+  - LeftHand
   layers:
   - Default
   - TransparentFX

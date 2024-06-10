@@ -24,6 +24,7 @@ public class GameRestartMenu : MonoBehaviour
     public TMP_Text Tiempo;
     public TMP_Text Muerte_de_agente;
     public TMP_Text Puntaje_Final;
+    public TMP_Text Seguro_Colocado;
 
     [Header("Player Camera")]
     public Transform playerCamera; // Assign the player's camera in the inspector
@@ -91,6 +92,7 @@ public class GameRestartMenu : MonoBehaviour
         int ExtraShotsFired = PlayerPrefs.GetInt("Cartuchos_extra_gastados", 0);
         String agente = PlayerPrefs.GetString("Muerte_de_agente", "No");
         float finalScore = PlayerPrefs.GetFloat("Puntaje_Final", 0f);
+        String SeguroAlFinal = PlayerPrefs.GetString("Seguro_Colocado", "Si");
 
         // Update UI elements with collected data
         Enemigos_Faltantes.text ="Enemigos Faltanes: " + enemiesNotEliminated;
@@ -98,6 +100,7 @@ public class GameRestartMenu : MonoBehaviour
         Tiempo.text = "Tiempo en escena: " + time.ToString() + "s";
         Cartuchos_extra_gastados.text = "Cartuchos extra gastados: " + ExtraShotsFired;
         Muerte_de_agente.text = "Muerte de agente: " + agente;
+        Seguro_Colocado.text = "Seguro Colocado: " + SeguroAlFinal;
         Puntaje_Final.text = "Puntaje Final: " + finalScore;
     }
 

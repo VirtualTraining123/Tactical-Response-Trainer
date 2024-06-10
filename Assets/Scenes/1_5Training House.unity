@@ -5809,7 +5809,7 @@ MonoBehaviour:
   recoilForce: 2
   damage: 100
   audios:
-  - {fileID: 8300000, guid: 8602b7d5cd15c1943a50aa53f171c8cf, type: 3}
+  - {fileID: 8300000, guid: c00a1ac1041960044a962c0e1672717f, type: 3}
   - {fileID: 8300000, guid: 06df58efa12d0b04a8e5bb2fc2dd7ace, type: 3}
   - {fileID: 8300000, guid: 2d9136badad7044448f53c4e83642545, type: 3}
   - {fileID: 8300000, guid: 52c5b95bdd05b06448a80c9a0e7d45ca, type: 3}
@@ -26782,7 +26782,7 @@ MonoBehaviour:
   aButtonAction:
     m_UseReference: 0
     m_Action:
-      m_Name: 
+      m_Name: A Button
       m_Type: 0
       m_ExpectedControlType: 
       m_Id: d1253ca7-ecea-44a5-b5a9-238131835487
@@ -26794,7 +26794,7 @@ MonoBehaviour:
   bButtonAction:
     m_UseReference: 0
     m_Action:
-      m_Name: 
+      m_Name: B Button
       m_Type: 0
       m_ExpectedControlType: 
       m_Id: e6c221d0-b10a-4230-a70b-aefaf9f50442

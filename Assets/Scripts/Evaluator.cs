@@ -22,6 +22,7 @@ public class Evaluator : MonoBehaviour
     private bool simulationEnded = false;
     private bool PlayerDead = false;
     private String PlayerDeadString="No";
+    private String SeguroAlFinal="Si";
 
     private int enemytoneutralize=0;
     private int civilianhit=0;
@@ -37,7 +38,7 @@ public class Evaluator : MonoBehaviour
         spawnManager = FindObjectOfType<SpawnManager>();
         
         bullettouse=spawnManager.GetTotalEnemies();
-        bulletused=0;
+        
         
             // Restablecer variables al inicio de la simulación
         elapsedTime = 0f;
@@ -46,7 +47,7 @@ public class Evaluator : MonoBehaviour
         totalEnemys=0;
         enemytoneutralize=0;
         bulletused=0;
-        bullettouse=0;
+        
         PlayerDeadString="No";
         civilianhit=0;
         currentScore=10;
@@ -82,6 +83,7 @@ public class Evaluator : MonoBehaviour
     {
         civilianhit++;
         RestScore(scorePenaltyForCivilian);
+        Debug.Log("Tota civil impacted: " + civilianhit);
     }
 
     public void BulletUsed()
@@ -91,7 +93,13 @@ public class Evaluator : MonoBehaviour
 
     public void TotalpointBulletUsed()
     {
-        RestScore(scorePenaltyForExtraBullet*(bulletused-bullettouse));
+        int total=bulletused-bullettouse;
+        if(total>0){
+            RestScore(scorePenaltyForExtraBullet*total);
+        }else{
+            RestScore(0);
+        }
+       
     }
 
     public void CheckUnloadPenalty()
@@ -105,6 +113,7 @@ public class Evaluator : MonoBehaviour
 
     public void UnloadPenalty()
     {
+        SeguroAlFinal="No";
         RestScore(scorePenaltyForUnloading);
         
     }
@@ -132,6 +141,7 @@ public class Evaluator : MonoBehaviour
         PlayerPrefs.SetInt("Cartuchos_extra_gastados", bulletused - bullettouse);
         PlayerPrefs.SetFloat("Puntaje_Final", currentScore);
         PlayerPrefs.SetString("Muerte_de_agente", PlayerDeadString);
+        PlayerPrefs.SetString("Seguro", SeguroAlFinal);
        
         
         // Obtener el nombre de la escena actual

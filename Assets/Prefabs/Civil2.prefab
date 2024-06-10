@@ -3060,7 +3060,6 @@ GameObject:
   - component: {fileID: 8636926368578176801}
   - component: {fileID: 8636926368587213121}
   - component: {fileID: 1842670171177527491}
-  - component: {fileID: 5727995734271827610}
   - component: {fileID: 2839359204647574015}
   - component: {fileID: 1722339023913810905}
   - component: {fileID: 7589230994776911756}
@@ -3141,53 +3140,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &5727995734271827610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8636926368577821441}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7141cff49d931e74985bd4d01dfc24a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deadMaterial: {fileID: 2100000, guid: 6c9c3473cfb12054f967af57849357b9, type: 2}
-  enemyColliders:
-  - {fileID: 2839359204647574015}
-  - {fileID: 1722339023913810905}
-  - {fileID: 7589230994776911756}
-  - {fileID: 5771015684925827041}
-  enemyRenderers:
-  - {fileID: 2866087372201185053}
-  - {fileID: 1097048844929543926}
-  - {fileID: 5157298216726634872}
-  - {fileID: 6508319521998420977}
-  - {fileID: 9120246151994344661}
-  - {fileID: 4379312986598919486}
-  - {fileID: 7605186895430006119}
-  - {fileID: 8419771400213672810}
-  startingHealth: 100
-  minTimeUnderCover: 1
-  maxTimeUnderCover: 1
-  minShotsToTake: 4
-  maxShotsToTake: 8
-  rotationSpeed: 250
-  damage: 100
-  shootingAccuracy: 34.6
-  shootingPosition: {fileID: 0}
-  bloodSplatterFX: {fileID: 19886758, guid: 8c27aeead6d968e4ba986702d6b84335, type: 3}
-  hapticEvent1:
-    m_PersistentCalls:
-      m_Calls: []
-  hapticEvent2:
-    m_PersistentCalls:
-      m_Calls: []
-  nextSceneName: 4 Victory
-  audios:
-  - {fileID: 8300000, guid: 58719cb2ed96a124d8341895d25aa1d0, type: 3}
-  - {fileID: 8300000, guid: bc12328c075384948813a4a72507205f, type: 3}
 --- !u!64 &2839359204647574015
 MeshCollider:
   m_ObjectHideFlags: 0

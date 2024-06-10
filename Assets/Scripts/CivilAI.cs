@@ -62,6 +62,7 @@ public class CivilAI : MonoBehaviour, ITakeDamage
         _health = startingHealth;
         // Otras inicializaciones si es necesario
         animator.SetTrigger(RUN_TRIGGER);
+        evaluator = FindObjectOfType<Evaluator>(); // Get the Evaluator instance
     }
 
     public void Init(Player player, Transform coverSpot)
@@ -124,6 +125,7 @@ public class CivilAI : MonoBehaviour, ITakeDamage
        
         if (health <= 0 && !isDestroyed)
         {
+            evaluator.CivilianHit();
             if (deadMaterial != null && civilRenderers != null)
             {
                 foreach (Renderer renderer in civilRenderers)
@@ -153,7 +155,7 @@ public class CivilAI : MonoBehaviour, ITakeDamage
             animator.enabled = false;
             Debug.Log("Civil destroyed!");
             CivildeadCount++;
-            evaluator.CivilianHit();
+            
             
         }
         else
