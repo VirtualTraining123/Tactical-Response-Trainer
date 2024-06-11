@@ -13,7 +13,6 @@ Library: C:\Users\Silvia\Documents\GitHub\PTraining\Temp\BurstOutput\tempburstli
 --assembly-defines=Assembly-CSharp;
 --assembly-defines=Mono.Security;
 --assembly-defines=mscorlib;
---assembly-defines=Pinwheel.Polaris.Runtime;
 --assembly-defines=System.Configuration;
 --assembly-defines=System.Core;
 --assembly-defines=System;
@@ -24,7 +23,6 @@ Library: C:\Users\Silvia\Documents\GitHub\PTraining\Temp\BurstOutput\tempburstli
 --assembly-defines=Unity.InputSystem;
 --assembly-defines=Unity.InputSystem.ForUI;
 --assembly-defines=Unity.Mathematics;
---assembly-defines=Unity.Postprocessing.Runtime;
 --assembly-defines=Unity.RenderPipeline.Universal.ShaderLibrary;
 --assembly-defines=Unity.RenderPipelines.Core.Runtime;
 --assembly-defines=Unity.RenderPipelines.Universal.Runtime;
@@ -66,7 +64,6 @@ Library: C:\Users\Silvia\Documents\GitHub\PTraining\Temp\BurstOutput\tempburstli
 --assembly-defines=Assembly-CSharp;
 --assembly-defines=Mono.Security;
 --assembly-defines=mscorlib;
---assembly-defines=Pinwheel.Polaris.Runtime;
 --assembly-defines=System.Configuration;
 --assembly-defines=System.Core;
 --assembly-defines=System;
@@ -77,7 +74,6 @@ Library: C:\Users\Silvia\Documents\GitHub\PTraining\Temp\BurstOutput\tempburstli
 --assembly-defines=Unity.InputSystem;
 --assembly-defines=Unity.InputSystem.ForUI;
 --assembly-defines=Unity.Mathematics;
---assembly-defines=Unity.Postprocessing.Runtime;
 --assembly-defines=Unity.RenderPipeline.Universal.ShaderLibrary;
 --assembly-defines=Unity.RenderPipelines.Core.Runtime;
 --assembly-defines=Unity.RenderPipelines.Universal.Runtime;
