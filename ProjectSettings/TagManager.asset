@@ -10,6 +10,7 @@ TagManager:
   - Anchor
   - Bullet
   - LeftHand
+  - Button
   layers:
   - Default
   - TransparentFX

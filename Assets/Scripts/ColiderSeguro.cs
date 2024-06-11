@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ColiderSeguro : MonoBehaviour
 {
-
+     
+  [SerializeField] private SafetyColor SafetyColor;
   [SerializeField] private Pistol Pistol;
     
  private void OnTriggerEnter(Collider collision)
@@ -14,6 +15,7 @@ public class ColiderSeguro : MonoBehaviour
         {
             Debug.LogAssertion("Colision con la mano izquierda");
             Pistol.callToggleSafety();
+            SafetyColor.ToggleMaterial();
         }
 
     }

@@ -85,9 +85,11 @@ public class Pistol : Weapon
     private void InstantiateBulletHole(Vector3 position, Vector3 normal, Transform parent)
     {
         Quaternion rotation = Quaternion.FromToRotation(Vector3.up, normal);
+        
         GameObject bulletHoleInstance = Instantiate(bulletHolePrefab, position, rotation);
-        bulletHoleInstance.transform.SetParent(parent, true);
         bulletHoleInstance.transform.localScale = new Vector3(0.2f, 0.005f, 0.2f);
+        bulletHoleInstance.transform.SetParent(parent, true);
+        
     }
 
     private void DrawDebugRaycast()
@@ -117,6 +119,11 @@ public class Pistol : Weapon
     public void callReload()
     {
         Reload();
+    }
+
+    public int GetBullets()
+    {
+        return currentBullets;
     }
 
     protected override void ToggleSafety()

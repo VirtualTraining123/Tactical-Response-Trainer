@@ -51,6 +51,7 @@ public class Evaluator : MonoBehaviour
         PlayerDeadString="No";
         civilianhit=0;
         currentScore=10;
+
     }
 
     void RestScore(float score){
@@ -105,7 +106,7 @@ public class Evaluator : MonoBehaviour
     public void CheckUnloadPenalty()
     {
        
-        if (pistol != null && (!pistol.isSafetyOn))
+        if (pistol.isSafetyOn != true)
         {
             UnloadPenalty();
         }
@@ -179,11 +180,37 @@ public class Evaluator : MonoBehaviour
         return elapsedTime;
     }
 
+    public int GetCiviliansInjured()
+    {
+        return civilianhit;
+    }
+
+    public int GetEnemiesEliminated()
+    {
+        return -enemytoneutralize;
+    }
+
     public bool IsSimulationEnded()
     {
         return simulationEnded;
     }
 
+    public String GetSafetyLock()
+    {
+        if(pistol.isSafetyOn){
+            return "Si";
+        }else{
+            return "No";
+        }
+        
+    }
+
+    public int GetBullets()
+    {
+        // se verifican las balas actuales del cartucho de pistol
+        return pistol.GetBullets();
+    }
+/*
     private void OnGUI()
     {
         GUI.Label(new Rect(40, 50, 200, 20), "Amenazas restantes: " + enemytoneutralize);
@@ -191,6 +218,7 @@ public class Evaluator : MonoBehaviour
         GUI.Label(new Rect(40, 90, 200, 20), "Disparos realizados: " + bulletused);
         GUI.Label(new Rect(40, 110, 200, 20), "Puntaje actual: " + currentScore);
     }
+    */
 /*
     private void SaveDataToCSV()
 {
