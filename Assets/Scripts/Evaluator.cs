@@ -157,14 +157,14 @@ public class Evaluator : MonoBehaviour
             condition='D';
             
 
-            SceneManager.LoadScene("3 GameOver");
+           SceneTransitionManager.singleton.GoToSceneAsync(3);
         }
         else if (currentScore >= minPassingScore && currentScore < maxScore && PlayerDead==false)
         {
             condition='A';
             
 
-            SceneManager.LoadScene("4 Victory");
+           SceneTransitionManager.singleton.GoToSceneAsync(4);
         }
        
 
