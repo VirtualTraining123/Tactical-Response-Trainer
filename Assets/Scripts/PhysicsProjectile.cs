@@ -6,8 +6,13 @@ using UnityEngine;
 public class PhysicsProjectile : Projectile
 {
     [SerializeField] private float lifeTime;
+    [SerializeField] private float gravity = 9.81f; // Gravedad aplicada a la bala
+    private float currentGravity = 0f;
     private Rigidbody rigidBody;
     public GameObject bulletHolePrefab;
+    public GameObject bulletTrailPrefab;  // Prefab del rastro de bala
+    private GameObject bulletTrail;       // Instancia del rastro de bala
+    private bool destroying = false;      // Indica si la bala se está destruyendo
 
     private void Awake()
     {
@@ -24,24 +29,58 @@ public class PhysicsProjectile : Projectile
     {
         base.Launch();
         rigidBody.AddRelativeForce(Vector3.forward * weapon.GetShootingForce(), ForceMode.Impulse);
+
+        // Instanciar el rastro de bala
+        if (bulletTrailPrefab != null)
+        {
+            bulletTrail = Instantiate(bulletTrailPrefab, transform.position, Quaternion.identity);
+            bulletTrail.transform.SetParent(transform);  // Hacer que el rastro siga la bala
+        }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void FixedUpdate()
     {
-        // Destroy the projectile
-        Destroy(gameObject);
+        if (destroying)
+        {
+            return;
+        }
+        currentGravity -= gravity * Time.deltaTime;
+        Vector3 moveVector = transform.forward * weapon.GetShootingForce() * Time.deltaTime;
+        moveVector += Vector3.up * currentGravity;
 
-        // Get the point of contact
-        Vector3 contactPoint = other.ClosestPointOnBounds(transform.position);
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, moveVector, out hit, moveVector.magnitude))
+        {
+            destroying = true;
+            if (bulletHolePrefab != null)
+            {
+                GameObject exp = Instantiate(bulletHolePrefab, hit.point - moveVector.normalized * .01f, Quaternion.LookRotation(hit.normal));
+                exp.transform.SetParent(hit.transform);
+            }
+            OnBulletHit(hit);
+        }
+        else
+        {
+            transform.position += moveVector;
+        }
+    }
 
-        // Instantiate the bullet hole at the contact point
-      
-
-        // Deal damage to objects in the vicinity (if any)
-        ITakeDamage[] damageTakers = other.GetComponentsInParent<ITakeDamage>();
+    private void OnBulletHit(RaycastHit hit)
+    {
+        // Infligir daño a los objetos en las cercanías (si los hay)
+        Vector3 contactPoint = hit.point;
+        ITakeDamage[] damageTakers = hit.collider.GetComponentsInParent<ITakeDamage>();
         foreach (var taker in damageTakers)
         {
             taker.TakeDamage(weapon, this, contactPoint);
         }
+
+        // Destruir la bala
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // Esta función se mantiene para compatibilidad, pero ahora está integrada en FixedUpdate
     }
 }

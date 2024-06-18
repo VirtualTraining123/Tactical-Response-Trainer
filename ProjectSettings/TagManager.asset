@@ -11,6 +11,11 @@ TagManager:
   - Bullet
   - LeftHand
   - Button
+  - Grabbable
+  - Weapon
+  - Magazine
+  - ColiderRecarga
+  - RightHand
   layers:
   - Default
   - TransparentFX

@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.014, y: -0.0157}
+  m_AnchoredPosition: {x: 0.0199, y: 0.0481}
   m_SizeDelta: {x: 0.1, y: 0.005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &316438510882935308
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0.065799735, w: -0.010101809}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -151,7 +151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1820998618636352519
 RectTransform:
   m_ObjectHideFlags: 0
@@ -285,7 +285,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2899788032949480842
 RectTransform:
   m_ObjectHideFlags: 0
@@ -579,7 +579,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5007711683181921432
 RectTransform:
   m_ObjectHideFlags: 0
@@ -713,7 +713,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7288542909031333687
 RectTransform:
   m_ObjectHideFlags: 0
@@ -844,15 +844,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8374199421134935773, guid: 4341ffb2fdaa6564ea79b92eb5b8f889, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.030010954
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 8374199421134935773, guid: 4341ffb2fdaa6564ea79b92eb5b8f889, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.03598804
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 8374199421134935773, guid: 4341ffb2fdaa6564ea79b92eb5b8f889, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.02
+      value: 0.015
       objectReference: {fileID: 0}
     - target: {fileID: 8374199421134935773, guid: 4341ffb2fdaa6564ea79b92eb5b8f889, type: 3}
       propertyPath: m_LocalPosition.x
