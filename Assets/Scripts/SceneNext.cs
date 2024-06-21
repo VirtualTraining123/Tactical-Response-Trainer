@@ -22,7 +22,7 @@ protected void Start()
         if (collision.gameObject.CompareTag("Button"))
         {
             Debug.LogAssertion("Boton pulsado");
-            SceneTransitionManager.singleton.GoToSceneAsync(3);
+            SceneTransitionManager.singleton.GoToSceneAsync(2);
         }
 
     }
