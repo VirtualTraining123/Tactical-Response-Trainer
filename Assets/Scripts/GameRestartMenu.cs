@@ -67,15 +67,27 @@ public class GameRestartMenu : MonoBehaviour
 
     public void RestartGame()
     {
-        HideAll();
         PlayerPrefs.DeleteAll();
+
+        HideAll();
+       
        // ClearPlayerPrefsData(); // Limpia los datos almacenados en PlayerPrefs
+       //espera 2 segundos antes de reiniciar el juego
+       
+        StartCoroutine(RestartGameRoutine());
+       
+    }
+
+    IEnumerator RestartGameRoutine()
+    {
+        yield return new WaitForSeconds(2f);
         SceneTransitionManager.singleton.GoToSceneAsync(2);
     }
 
     public void HideAll()
     {
         gameOverMenu.SetActive(false);
+
     }
 
     public void EnableGameOverMenu()

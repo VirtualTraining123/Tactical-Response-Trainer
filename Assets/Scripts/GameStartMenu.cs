@@ -120,6 +120,10 @@ public class GameStartMenu : MonoBehaviour
         mainMenu.SetActive(false);
         options.SetActive(false);
         about.SetActive(false);
+        Introductionpage1.SetActive(false);
+        Introductionpage2.SetActive(false);
+        Introductionpage3.SetActive(false);
+        
     }
 
     public void EnableMainMenu()

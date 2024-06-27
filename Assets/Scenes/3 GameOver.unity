@@ -1931,7 +1931,6 @@ GameObject:
   - component: {fileID: 1212402843}
   - component: {fileID: 1212402846}
   - component: {fileID: 1212402848}
-  - component: {fileID: 1212402847}
   m_Layer: 5
   m_Name: Game Menu UI
   m_TagString: Untagged
@@ -2025,34 +2024,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RaycastTriggerInteraction: 1
---- !u!114 &1212402847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1212402841}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af07645f3014a1347a5b1232afc24251, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainMenu: {fileID: 1163744328}
-  options: {fileID: 0}
-  about: {fileID: 0}
-  Introductionpage1: {fileID: 0}
-  Introductionpage2: {fileID: 0}
-  Introductionpage3: {fileID: 0}
-  startButton: {fileID: 448256129}
-  optionButton: {fileID: 0}
-  aboutButton: {fileID: 0}
-  quitButton: {fileID: 1101969936}
-  returnButtons:
-  - {fileID: 0}
-  - {fileID: 0}
-  nextButtons: []
-  playerCamera: {fileID: 0}
-  distanceFromPlayer: 2
 --- !u!114 &1212402848
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,6 +16,7 @@ public class Pistol : Weapon
     private int maxBullets = 12;
     private int currentBullets;
     public bool isSafetyOn = false;
+    private XRBaseInteractor currentInteractor;
    // public bool isMagazineLoaded = false;
 
     //public InputActionProperty aButtonAction;
@@ -45,6 +46,7 @@ public class Pistol : Weapon
             return;
         }else {
         base.StartShooting(interactor);
+        currentInteractor = interactor;
         DrawDebugRaycast();
         Shoot();
         }
@@ -67,7 +69,10 @@ public class Pistol : Weapon
         projectileInstance.Init(this);
         projectileInstance.Launch();
 
-        
+         if (currentInteractor != null)
+            {
+                SendHapticImpulse(currentInteractor);
+            }
 
         RaycastHit hit;
         if (Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out hit))
@@ -137,6 +142,20 @@ public class Pistol : Weapon
     {
         ToggleSafety();
     }
+
+    private void SendHapticImpulse(XRBaseInteractor interactor)
+    {
+        XRBaseControllerInteractor controllerInteractor = interactor as XRBaseControllerInteractor;
+        if (controllerInteractor != null)
+        {
+            XRBaseController controller = controllerInteractor.xrController;
+            if (controller != null)
+            {
+                controller.SendHapticImpulse(1f, 0.3f); // Ajusta la intensidad y la duración según sea necesario
+            }
+        }
+    }
+
 
     private void OnGUI()
     {
