@@ -183,7 +183,7 @@ public class CivilAI : MonoBehaviour, ITakeDamage
      private void OnGUI()
     {
        // GUI.Label(new Rect(30, 10, 100, 20), "Wounded: " + CivilwoundedCount);
-        GUI.Label(new Rect(40, 30, 200, 20), "Civiles abatidos: " + CivildeadCount);
+       // GUI.Label(new Rect(40, 30, 200, 20), "Civiles abatidos: " + CivildeadCount);
     }
 
 

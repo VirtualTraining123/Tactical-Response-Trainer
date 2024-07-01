@@ -22,7 +22,7 @@ public class Evaluator : MonoBehaviour
     private bool simulationEnded = false;
     private bool PlayerDead = false;
     private String PlayerDeadString="No";
-    private String SeguroAlFinal="Si";
+    public String SeguroAlFinal="Si";
 
     private int enemytoneutralize=0;
     private int civilianhit=0;
@@ -67,7 +67,7 @@ public class Evaluator : MonoBehaviour
         elapsedTime += Time.deltaTime;
         if (elapsedTime >= maxSimulationTime)
         {
-            CheckUnloadPenalty();
+           
             EndSimulation();
         }
     }
@@ -133,7 +133,9 @@ public class Evaluator : MonoBehaviour
         Debug.Log("Total Enemies to Spawn: " + spawnManager.GetTotalEnemies());
         Debug.Log("Total Civilians to Spawn: " + spawnManager.GetTotalCivilians());
         EnemyMissed();
+        CheckUnloadPenalty();
         TotalpointBulletUsed();
+        
 
         simulationEnded = true;
         PlayerPrefs.SetFloat("Tiempo", elapsedTime);

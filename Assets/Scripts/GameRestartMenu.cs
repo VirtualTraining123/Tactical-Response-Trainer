@@ -80,13 +80,14 @@ public class GameRestartMenu : MonoBehaviour
 
     IEnumerator RestartGameRoutine()
     {
-        yield return new WaitForSeconds(2f);
-        SceneTransitionManager.singleton.GoToSceneAsync(2);
+        yield return new WaitForSeconds(5f);
+        SceneTransitionManager.singleton.GoToScene(2);
     }
 
     public void HideAll()
     {
         gameOverMenu.SetActive(false);
+
 
     }
 
@@ -104,7 +105,7 @@ public class GameRestartMenu : MonoBehaviour
         int ExtraShotsFired = PlayerPrefs.GetInt("Cartuchos_extra_gastados", 0);
         String agente = PlayerPrefs.GetString("Muerte_de_agente", "No");
         float finalScore = PlayerPrefs.GetFloat("Puntaje_Final", 0f);
-        String SeguroAlFinal = PlayerPrefs.GetString("Seguro_Colocado", "Si");
+        String Seguro = PlayerPrefs.GetString("Seguro", "No");
 
         // Update UI elements with collected data
         Enemigos_Faltantes.text ="Enemigos Faltanes: " + enemiesNotEliminated;
@@ -112,7 +113,7 @@ public class GameRestartMenu : MonoBehaviour
         Tiempo.text = "Tiempo en escena: " + time.ToString() + "s";
         Cartuchos_extra_gastados.text = "Cartuchos extra gastados: " + ExtraShotsFired;
         Muerte_de_agente.text = "Muerte de agente: " + agente;
-        Seguro_Colocado.text = "Seguro Colocado: " + SeguroAlFinal;
+        Seguro_Colocado.text = "Seguro Colocado: " + Seguro;
         Puntaje_Final.text = "Puntaje Final: " + finalScore;
     }
 
