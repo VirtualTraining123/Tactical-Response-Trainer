@@ -46,6 +46,9 @@ public class MagazineAnchor : MonoBehaviour
     {
         isHeld = true;
         rb.isKinematic = false;
+
+        // Cambiar la etiqueta al momento de tomarlo
+       // gameObject.tag = "HeldMagazine";
     }
 
     private void OnRelease(XRBaseInteractor interactor)
