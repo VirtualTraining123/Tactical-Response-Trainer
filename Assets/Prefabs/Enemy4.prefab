@@ -3111,7 +3111,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.35, y: 1.35, z: 1.35}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3963449277929730345}
@@ -3200,7 +3200,7 @@ MonoBehaviour:
   maxShotsToTake: 8
   rotationSpeed: 250
   damage: 110
-  shootingAccuracy: 10.1
+  shootingAccuracy: 8
   shootingPosition: {fileID: 8188130160638668785}
   bloodSplatterFX: {fileID: 19886758, guid: 8c27aeead6d968e4ba986702d6b84335, type: 3}
   hapticEvent1:
