@@ -17,7 +17,6 @@ Library: C:\Users\Silvia\Documents\GitHub\PTraining\Temp\BurstOutput\tempburstli
 --assembly-defines=System.Core;
 --assembly-defines=System;
 --assembly-defines=System.Xml;
---assembly-defines=Unity.AI.Navigation;
 --assembly-defines=Unity.Burst;
 --assembly-defines=Unity.Burst.Unsafe;
 --assembly-defines=Unity.InputSystem;
@@ -68,7 +67,6 @@ Library: C:\Users\Silvia\Documents\GitHub\PTraining\Temp\BurstOutput\tempburstli
 --assembly-defines=System.Core;
 --assembly-defines=System;
 --assembly-defines=System.Xml;
---assembly-defines=Unity.AI.Navigation;
 --assembly-defines=Unity.Burst;
 --assembly-defines=Unity.Burst.Unsafe;
 --assembly-defines=Unity.InputSystem;
