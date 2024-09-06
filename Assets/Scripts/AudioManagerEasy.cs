@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManagerEasy : MonoBehaviour
@@ -9,7 +7,7 @@ public class AudioManagerEasy : MonoBehaviour
     private AudioSource controlAudio;
 
     private void Awake()
-    {   
+    {
         controlAudio = GetComponent<AudioSource>();
     }
 
@@ -17,6 +15,4 @@ public class AudioManagerEasy : MonoBehaviour
     {
         controlAudio.PlayOneShot(audios[indice], volumen);
     }
-
-    
 }

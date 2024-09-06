@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RaycastProjectile : Projectile
 {
@@ -8,12 +6,12 @@ public class RaycastProjectile : Projectile
     {
         base.Launch();
         RaycastHit hit;
-        if(Physics.Raycast(transform.position, transform.forward, out hit))
+        if (Physics.Raycast(transform.position, transform.forward, out hit))
         {
             ITakeDamage[] damageTakers = hit.collider.GetComponentsInParent<ITakeDamage>();
             foreach (var taker in damageTakers)
             {
-                taker.TakeDamage(weapon, this, hit.point);
+                taker.TakeDamage(Weapon, this, hit.point);
             }
         }
     }

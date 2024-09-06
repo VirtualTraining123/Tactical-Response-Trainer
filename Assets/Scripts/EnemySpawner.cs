@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -13,8 +11,6 @@ public class EnemySpawner : MonoBehaviour
 
     private List<EnemyAI> spawnedEnemies = new List<EnemyAI>();
     private float timeSinceLastSpawn;
-
-    public static int totalEnemiesSpawned = 0; // Variable estática para almacenar el número total de enemigos spawneados
 
     private void Start()
     {
@@ -37,13 +33,11 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemy()
     {
         // Selecciona un prefab de enemigo aleatoriamente
-        EnemyAI enemyPrefab = enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Length)];
+        EnemyAI enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
         EnemyAI enemy = Instantiate(enemyPrefab, transform.position, transform.rotation);
         int spawnPointIndex = spawnedEnemies.Count % spawnPoints.Length;
         enemy.Init(player, spawnPoints[spawnPointIndex]);
         spawnedEnemies.Add(enemy);
-
-        totalEnemiesSpawned++;
     }
 
     public int GetMaxEnemiesNumber()

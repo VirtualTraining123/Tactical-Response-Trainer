@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using System.Collections;
@@ -17,6 +18,7 @@ public class WeaponAnchor : MonoBehaviour
 
     private Coroutine smoothGrabCoroutine;
 
+    [Obsolete("Obsolete")]
     void Awake()
     {
         rb = GetComponent<Rigidbody>();

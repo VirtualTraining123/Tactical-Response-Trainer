@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class CivilSpawner : MonoBehaviour
@@ -11,7 +9,7 @@ public class CivilSpawner : MonoBehaviour
     [SerializeField] private int maxCivilNumber;
     [SerializeField] private Player player;
 
-    private List<CivilAI> spawnedCivil = new List<CivilAI>();
+    private readonly List<CivilAI> spawnedCivil = new List<CivilAI>();
     private float timeSinceLastSpawn;
 
     private void Start()
@@ -35,7 +33,7 @@ public class CivilSpawner : MonoBehaviour
     private void SpawnCivil()
     {
         // Selecciona un prefab de civil aleatoriamente
-        CivilAI civilPrefab = civilPrefabs[UnityEngine.Random.Range(0, civilPrefabs.Length)];
+        CivilAI civilPrefab = civilPrefabs[Random.Range(0, civilPrefabs.Length)];
         CivilAI civil = Instantiate(civilPrefab, transform.position, transform.rotation);
         int spawnPointIndex = spawnedCivil.Count % spawnPoints.Length;
         civil.Init(player, spawnPoints[spawnPointIndex]);

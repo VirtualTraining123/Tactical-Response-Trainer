@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,18 +16,7 @@ public class StartEvaluationFromTraining : MonoBehaviour
         // Verificar si el objeto que colisiona es una bala o tiene una etiqueta específica
         if (collision.gameObject.CompareTag("Bullet"))
         {
-             SceneManager.LoadScene(nextSceneName);
-            
+            SceneManager.LoadScene(nextSceneName);
         }
-
     }
-
-    // Método para cargar la siguiente escena
-    private void LoadNextScene()
-    {
-        // Cargar la siguiente escena
-       
-    }
-
 }
-

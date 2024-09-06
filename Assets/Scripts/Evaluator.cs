@@ -1,15 +1,11 @@
-using System.Collections;
 using System;
-using System.IO;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.XR;
+using UnityEngine.Serialization;
 
 public class Evaluator : MonoBehaviour
 {
-    [Header("Settings")]
-    public float maxSimulationTime = 90f; // 1 minute and 30 seconds
+    [Header("Settings")] public float maxSimulationTime = 90f; // 1 minute and 30 seconds
     public float maxScore = 10f;
     public float minPassingScore = 6f;
     public float scorePenaltyPerEnemy = 1f;
@@ -19,44 +15,44 @@ public class Evaluator : MonoBehaviour
 
     private float currentScore;
     private float elapsedTime;
-    private bool simulationEnded = false;
-    private bool PlayerDead = false;
-    private String PlayerDeadString="No";
-    public String SeguroAlFinal="Si";
+    private bool simulationEnded;
+    private bool playerDead;
+    private String playerDeadString = "No";
+    [FormerlySerializedAs("SeguroAlFinal")] public String seguroAlFinal = "Si";
 
-    private int enemytoneutralize=0;
-    private int civilianhit=0;
+    private int enemytoneutralize;
+    private int civilianhit;
     private int totalEnemys;
-     private int bullettouse;
-     private int bulletused;
-     private SpawnManager spawnManager;
-     Pistol pistol;
+    private int bullettouse;
+    private int bulletused;
+    private SpawnManager spawnManager;
+    Pistol pistol;
 
-     private char condition;
+
     void Start()
     {
         spawnManager = FindObjectOfType<SpawnManager>();
-        
-        bullettouse=spawnManager.GetTotalEnemies();
-        
-        
-            // Restablecer variables al inicio de la simulación
+
+        bullettouse = spawnManager.GetTotalEnemies();
+
+
+        // Restablecer variables al inicio de la simulación
         elapsedTime = 0f;
         pistol = FindObjectOfType<Pistol>();
 
-        totalEnemys=0;
-        enemytoneutralize=0;
-        bulletused=0;
-        
-        PlayerDeadString="No";
-        civilianhit=0;
-        currentScore=10;
+        totalEnemys = 0;
+        enemytoneutralize = 0;
+        bulletused = 0;
 
+        playerDeadString = "No";
+        civilianhit = 0;
+        currentScore = 10;
     }
 
-    void RestScore(float score){
-         currentScore -= score;
-    currentScore = Mathf.Clamp(currentScore, 1f, 10f); // Restringir la puntuación dentro del rango de 1 a 10
+    void RestScore(float score)
+    {
+        currentScore -= score;
+        currentScore = Mathf.Clamp(currentScore, 1f, 10f); // Restringir la puntuación dentro del rango de 1 a 10
     }
 
     void Update()
@@ -67,17 +63,18 @@ public class Evaluator : MonoBehaviour
         elapsedTime += Time.deltaTime;
         if (elapsedTime >= maxSimulationTime)
         {
-           
             EndSimulation();
         }
     }
+
     public void EnemyNeutralized()
     {
         enemytoneutralize--;
     }
-    public void EnemyMissed()
+
+    private void EnemyMissed()
     {
-        RestScore(scorePenaltyPerEnemy*(totalEnemys+enemytoneutralize));
+        RestScore(scorePenaltyPerEnemy * (totalEnemys + enemytoneutralize));
     }
 
     public void CivilianHit()
@@ -87,89 +84,85 @@ public class Evaluator : MonoBehaviour
         Debug.Log("Tota civil impacted: " + civilianhit);
     }
 
-    public void BulletUsed()
+    public void OnBulletUsed() // shift f6 para renombar rapido// 
     {
-         bulletused++;
+        bulletused++;
     }
 
-    public void TotalpointBulletUsed()
+    private void TotalpointBulletUsed()
     {
-        int total=bulletused-bullettouse;
-        if(total>0){
-            RestScore(scorePenaltyForExtraBullet*total);
-        }else{
+        int total = bulletused - bullettouse;
+        if (total > 0)
+        {
+            RestScore(scorePenaltyForExtraBullet * total);
+        }
+        else
+        {
             RestScore(0);
         }
-       
     }
 
-    public void CheckUnloadPenalty()
+    private void CheckUnloadPenalty()
     {
-       
         if (pistol.isSafetyOn != true)
         {
             UnloadPenalty();
         }
     }
 
-    public void UnloadPenalty()
+    private void UnloadPenalty()
     {
-        SeguroAlFinal="No";
+        seguroAlFinal = "No";
         RestScore(scorePenaltyForUnloading);
-        
     }
-    
+
     public void ReceiveShot()
-    {   PlayerDead=true;
-        PlayerDeadString="Si";
+    {
+        playerDead = true;
+        playerDeadString = "Si";
         EndSimulation();
     }
 
-    public void EarlyEndSimulation(){
-        Invoke("EndSimulation", 5f);
+    public void EarlyEndSimulation()
+    {
+        Invoke(nameof(EndSimulation), 5f);
     }
+
     private void EndSimulation()
-    {   totalEnemys=spawnManager.GetTotalEnemies();
+    {
+        totalEnemys = spawnManager.GetTotalEnemies();
         Debug.Log("Total Enemies to Spawn: " + spawnManager.GetTotalEnemies());
         Debug.Log("Total Civilians to Spawn: " + spawnManager.GetTotalCivilians());
         EnemyMissed();
         CheckUnloadPenalty();
         TotalpointBulletUsed();
-        
+
 
         simulationEnded = true;
         PlayerPrefs.SetFloat("Tiempo", elapsedTime);
-        PlayerPrefs.SetInt("Civiles_Heridos",civilianhit);
+        PlayerPrefs.SetInt("Civiles_Heridos", civilianhit);
         PlayerPrefs.SetInt("Enemigos_Faltantes", totalEnemys + enemytoneutralize);
         PlayerPrefs.SetInt("Cartuchos_extra_gastados", bulletused - bullettouse);
         PlayerPrefs.SetFloat("Puntaje_Final", currentScore);
-        PlayerPrefs.SetString("Muerte_de_agente", PlayerDeadString);
-        PlayerPrefs.SetString("Seguro", SeguroAlFinal);
-       
-        
+        PlayerPrefs.SetString("Muerte_de_agente", playerDeadString);
+        PlayerPrefs.SetString("Seguro", seguroAlFinal);
+
+
         // Obtener el nombre de la escena actual
-        string currentSceneName = SceneManager.GetActiveScene().name;
+        _ = SceneManager.GetActiveScene().name;
         //SaveDataToCSV();
 
         //realizamos una saturacion de currentScore para que no sea negativo
-      
 
-        if (currentScore < minPassingScore || PlayerDead==true)
+
+        if (currentScore < minPassingScore || playerDead)
         {
-            condition='D';
-            
-
-           SceneTransitionManager.singleton.GoToSceneAsync(3);
+            SceneTransitionManager.Singleton.GoToSceneAsync(3);
         }
-        else if (currentScore >= minPassingScore && currentScore < maxScore && PlayerDead==false)
+        else if (currentScore >= minPassingScore && currentScore < maxScore && playerDead == false)
         {
-            condition='A';
-            
-
-           SceneTransitionManager.singleton.GoToSceneAsync(4);
+            SceneTransitionManager.Singleton.GoToSceneAsync(4);
         }
-       
-
     }
 
     public float GetCurrentScore()
@@ -199,12 +192,14 @@ public class Evaluator : MonoBehaviour
 
     public String GetSafetyLock()
     {
-        if(pistol.isSafetyOn){
+        if (pistol.isSafetyOn)
+        {
             return "Si";
-        }else{
+        }
+        else
+        {
             return "No";
         }
-        
     }
 
     public int GetBullets()
@@ -266,8 +261,7 @@ private bool IsOculusQuest2()
             return true;
         }
     }
-    
+
     return false;
 }*/
-
 }

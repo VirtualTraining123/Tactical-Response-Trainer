@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ColiderRecarga : MonoBehaviour
 {
    
-      [SerializeField] private Pistol Pistol;
+      [FormerlySerializedAs("Pistol")] [SerializeField] private Pistol pistol;
     
  private void OnTriggerEnter(Collider collision)
     {
@@ -13,7 +12,7 @@ public class ColiderRecarga : MonoBehaviour
         if (collision.gameObject.CompareTag("Magazine"))
         {
             Debug.Log("Colision con la mano izquierda");
-            Pistol.callReload();
+            pistol.CallReload();
             //destruimos el objeto Magazine
             Destroy(collision.gameObject);
 

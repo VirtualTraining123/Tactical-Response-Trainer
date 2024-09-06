@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class HUDController : MonoBehaviour
 {
-    public TextMeshProUGUI Enemyremaining;
+    public TextMeshProUGUI Enemyremaining; //no lo arreglo porque crashea rider
     public TextMeshProUGUI CiviliansInjured;
     public TextMeshProUGUI Safetylock;
     public TextMeshProUGUI bullets;

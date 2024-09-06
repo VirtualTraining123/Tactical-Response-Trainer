@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic; // Necesario para usar List<>
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class CivilAI : MonoBehaviour, ITakeDamage
@@ -29,22 +26,25 @@ public class CivilAI : MonoBehaviour, ITakeDamage
     private Player player;
     private Transform occupiedCoverSpot;
     private Animator animator;
+    // ReSharper disable once InconsistentNaming,hay un par de conflictos que no entiendo
     private float _health;
 
   //  private Renderer civilRenderer; // Renderer del modelo del civil
-    private bool isDestroyed = false; // Flag para verificar si el civil ha sido destruido
+    private bool isDestroyed; // Flag para verificar si el civil ha sido destruido
     // Contadores
-    public static int CivilwoundedCount = 0;
-    public static int CivildeadCount = 0;
+    public static int CivildeadCount;
+    private static readonly int Run = Animator.StringToHash(RUN_TRIGGER);
+    private static readonly int Crouch = Animator.StringToHash(CROUCH_TRIGGER);
 
     private Evaluator evaluator;
 
     [SerializeField] private AudioClip[] audios;
     private AudioSource controlAudio;
-    public float health
+
+    private float Health
     {
-        get { return _health; }
-        set { _health = Mathf.Clamp(value, 0, startingHealth); }
+        get => _health;
+        set => _health = Mathf.Clamp(value, 0, startingHealth);
     }
 
     private void Awake()
@@ -59,16 +59,16 @@ public class CivilAI : MonoBehaviour, ITakeDamage
     {
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        _health = startingHealth;
+        Health = startingHealth;
         // Otras inicializaciones si es necesario
-        animator.SetTrigger(RUN_TRIGGER);
+        animator.SetTrigger(Run);
         evaluator = FindObjectOfType<Evaluator>(); // Get the Evaluator instance
     }
 
-    public void Init(Player player, Transform coverSpot)
+    public void Init(Player parameterPlayer, Transform coverSpot)
     {
         occupiedCoverSpot = coverSpot;
-        this.player = player;
+        this.player = parameterPlayer;
         GetToCover();
     }
 
@@ -96,7 +96,7 @@ public class CivilAI : MonoBehaviour, ITakeDamage
     }
     private void HideBehindCover()
     {
-        animator.SetTrigger(CROUCH_TRIGGER);
+        animator.SetTrigger(Crouch);
         StartCoroutine(StayUnderCover());
     }
 
@@ -121,24 +121,24 @@ public class CivilAI : MonoBehaviour, ITakeDamage
     {
         ParticleSystem effect = Instantiate(bloodSplatterFX, contactPoint, Quaternion.LookRotation(weapon.transform.position - contactPoint));
         effect.Play();
-        health -= weapon.GetDamage();
+        Health -= weapon.GetDamage();
        
-        if (health <= 0 && !isDestroyed)
+        if (Health <= 0 && !isDestroyed)
         {
             evaluator.CivilianHit();
             if (deadMaterial != null && civilRenderers != null)
             {
-                foreach (Renderer renderer in civilRenderers)
+                foreach (Renderer renderer1 in civilRenderers)
                 {
-                    renderer.material = deadMaterial;
+                    renderer1.material = deadMaterial;
                 }
             }
             // Desactivar el collider del enemigo
-            foreach (Collider collider in civilCollider)
+            foreach (Collider collider1 in civilCollider)
             {
-                if (collider != null)
+                if (collider1 != null)
                 {
-                    collider.enabled = false;
+                    collider1.enabled = false;
                 }
             }
             
@@ -160,31 +160,8 @@ public class CivilAI : MonoBehaviour, ITakeDamage
         }
         else
         { //agregar 1 flag con un if aca para que solo se active 1 vez si se desea implementarlo
-            CivilwoundedCount++;
-            
         }
 
            
     }
-/*
-    private void OnDestroy()
-    {
-        // Almacenar el número de civiles eliminados al momento del Game Over o Victoria
-        PlayerPrefs.SetInt("CivildeadCount", CivildeadCount);
-        PlayerPrefs.Save();
-    }
-*/
-    public int GetCivilAIref()
-        {
-            return CivildeadCount;
-        }
-
-    //se muestra en la camara pirncipal un texto flotante con civiles heridos y muertos
-     private void OnGUI()
-    {
-       // GUI.Label(new Rect(30, 10, 100, 20), "Wounded: " + CivilwoundedCount);
-       // GUI.Label(new Rect(40, 30, 200, 20), "Civiles abatidos: " + CivildeadCount);
-    }
-
-
 }

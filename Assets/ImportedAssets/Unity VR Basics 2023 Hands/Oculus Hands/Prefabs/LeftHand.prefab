@@ -439,9 +439,10 @@ GameObject:
   - component: {fileID: 7072478885644867327}
   - component: {fileID: 7072478885652658473}
   - component: {fileID: 3247558046041877418}
+  - component: {fileID: -3480822074799321631}
   m_Layer: 0
   m_Name: LeftHand
-  m_TagString: Untagged
+  m_TagString: LeftHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -498,6 +499,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gripInputActionReference: {fileID: 6558622148059887818, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   triggerInputActionReference: {fileID: -4289430672226363583, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+--- !u!114 &-3480822074799321631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7072478885645355679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf3f0b7ba4e22b4ca990665088315a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handType: 0
+  root: {fileID: 7072478885644867327}
+  animator: {fileID: 7072478885652658473}
+  fingerBones:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &7072478885645355745
 GameObject:
   m_ObjectHideFlags: 0

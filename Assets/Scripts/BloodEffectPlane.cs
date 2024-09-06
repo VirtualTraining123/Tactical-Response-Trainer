@@ -6,7 +6,7 @@ public class BloodEffectPlane : MonoBehaviour
     private Renderer rend;
     private Color startColor;
     private Coroutine currentCoroutine;
-    private float duration = 2.5f; // Duración del efecto en segundos
+    private readonly float duration = 2.5f; // Duración del efecto en segundos
 
     void Start()
     {
@@ -27,16 +27,15 @@ public class BloodEffectPlane : MonoBehaviour
         currentCoroutine = StartCoroutine(ChangeTransparencyOverTime(startColor.a, 1, duration));
     }
 
-    
 
-    IEnumerator ChangeTransparencyOverTime(float startAlpha, float targetAlpha, float duration)
+    IEnumerator ChangeTransparencyOverTime(float startAlpha, float targetAlpha, float parameterDuration)
     {
         float timer = 0f;
         Color currentColor = rend.material.color;
 
-        while (timer < duration)
+        while (timer < parameterDuration)
         {
-            float alpha = Mathf.Lerp(startAlpha, targetAlpha, timer / duration);
+            float alpha = Mathf.Lerp(startAlpha, targetAlpha, timer / parameterDuration);
             currentColor.a = alpha;
             rend.material.color = currentColor;
             timer += Time.deltaTime;

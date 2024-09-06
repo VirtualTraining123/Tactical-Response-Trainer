@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class EnemyAudioScript : MonoBehaviour
@@ -6,25 +5,20 @@ public class EnemyAudioScript : MonoBehaviour
     public string shootAudioName;
     public string deathAudioName;
 
-    private void Start()
-    {
-        // Puedes reproducir algún sonido al iniciar si lo necesitas
-    }
-
     public void PlayShootSound()
     {
         if (!string.IsNullOrEmpty(shootAudioName))
         {
-            AudioManager.instance.Play(shootAudioName);
+            AudioManager.Instance.Play(shootAudioName);
             //AudioSource.PlayClipAtPoint (shootAudioName, transform.position);
         }
     }
-
+//posible uso futuro
     public void PlayDeathSound()
     {
         if (!string.IsNullOrEmpty(deathAudioName))
         {
-            AudioManager.instance.Play(deathAudioName);
+            AudioManager.Instance.Play(deathAudioName);
         }
     }
 }

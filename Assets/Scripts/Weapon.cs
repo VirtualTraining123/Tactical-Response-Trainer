@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Security.Permissions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -34,11 +30,12 @@ public class Weapon : MonoBehaviour
         controlAudio = GetComponent<AudioSource>();
 
         // Configurar las acciones de los botones A y B
-        aButtonAction.action.performed += context => Reload();
-        bButtonAction.action.performed += context => ToggleSafety();
+        aButtonAction.action.performed += _ => Reload();
+        bButtonAction.action.performed += _ => ToggleSafety();
 
     }
 
+    [Obsolete("Obsolete")]
     private void SetupInteractableWeaponEvents()
     {
         interactableWeapon.onSelectEntered.AddListener(PickUpWeapon);
@@ -82,7 +79,7 @@ public class Weapon : MonoBehaviour
     {
         ApplyRecoil();
         SeleccionAudio(0, 0.2f);
-        Invoke("SeleccionAudio(1, 0.2f)", 0.5f);
+        Invoke("SeleccionAudio(1, 0.2f)", 0.5f); // que usar para reemplazar el invoque pero poder usar el Seleccion audio?
         //Player.SendBTMessage("F");
 
     }

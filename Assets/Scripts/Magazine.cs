@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -11,14 +12,19 @@ public class MagazineAnchor : MonoBehaviour
     private XRGrabInteractable grabInteractable;
     private bool isHeld;
 
+    [Obsolete("Obsolete")]
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         grabInteractable = GetComponent<XRGrabInteractable>();
 
-        // Suscribirse a los eventos de XRGrabInteractable
+        // Suscribirse a los eventos de XRGrabInteractable // ver como aplicarlo actualemte que lo olvide y rider no lo hace solo
+#pragma warning disable CS0618 // Type or member is obsolete
         grabInteractable.onSelectEntered.AddListener(OnGrab);
+#pragma warning restore CS0618 // Type or member is obsolete
+
         grabInteractable.onSelectExited.AddListener(OnRelease);
+
 
         // Inicialmente, el cargador no está sostenido
         isHeld = false;

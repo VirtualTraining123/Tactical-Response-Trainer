@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    protected Weapon weapon;
+    protected Weapon Weapon;
     
     public virtual void Init(Weapon weapon)
     {
-        this.weapon = weapon;
+        this.Weapon = weapon;
     }
 
     public virtual void Launch()

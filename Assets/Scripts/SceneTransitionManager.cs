@@ -1,19 +1,18 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneTransitionManager : MonoBehaviour
 {
     public FadeScreen fadeScreen;
-    public static SceneTransitionManager singleton;
+    public static SceneTransitionManager Singleton;
 
     private void Awake()
     {
-        if (singleton && singleton != this)
-            Destroy(singleton);
+        if (Singleton && Singleton != this)
+            Destroy(Singleton);
 
-        singleton = this;
+        Singleton = this;
     }
 
     public void GoToScene(int sceneIndex)
@@ -40,15 +39,18 @@ public class SceneTransitionManager : MonoBehaviour
         fadeScreen.FadeOut();
         //Launch the new scene
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
-        operation.allowSceneActivation = false;
-
-        float timer = 0;
-        while(timer <= fadeScreen.fadeDuration && !operation.isDone)
+        if (operation != null)
         {
-            timer += Time.deltaTime;
-            yield return null;
-        }
+            operation.allowSceneActivation = false;
 
-        operation.allowSceneActivation = true;
+            float timer = 0;
+            while (timer <= fadeScreen.fadeDuration && !operation.isDone)
+            {
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            operation.allowSceneActivation = true;
+        }
     }
 }

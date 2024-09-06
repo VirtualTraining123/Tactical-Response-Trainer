@@ -6,8 +6,8 @@ public class CivilFootsteps : MonoBehaviour
 
     private void Start()
     {
-        // Obtén la instancia del AudioManager
-        audioManager = AudioManager.instance;
+        // Obtï¿½n la instancia del AudioManager
+        audioManager = AudioManager.Instance;
     }
     public void PlayFootstepSound()
     {

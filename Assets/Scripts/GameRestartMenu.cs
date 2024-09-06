@@ -4,30 +4,38 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using System.IO;
+using UnityEngine.Serialization;
 
 public class GameRestartMenu : MonoBehaviour
 {
-    [Header("UI Pages")]
-    public GameObject gameOverMenu;
+    [Header("UI Pages")] public GameObject gameOverMenu;
 
-    [Header("GameOver Menu Buttons")]
-    public Button restartButton;
+    [Header("GameOver Menu Buttons")] public Button restartButton;
     public Button quitButton;
 
     public List<Button> returnButtons;
 
-    [Header("Data Display")]
-    public TMP_Text Enemigos_Faltantes;
-    public TMP_Text Civiles_Heridos;
-    public TMP_Text Cartuchos_extra_gastados;
-    public TMP_Text Tiempo;
-    public TMP_Text Muerte_de_agente;
-    public TMP_Text Puntaje_Final;
-    public TMP_Text Seguro_Colocado;
+    [FormerlySerializedAs("Enemigos_Faltantes")] [Header("Data Display")]
+    public TMP_Text enemigosFaltantes;
 
-    [Header("Player Camera")]
-    public Transform playerCamera; // Assign the player's camera in the inspector
+    [FormerlySerializedAs("Civiles_Heridos")]
+    public TMP_Text civilesHeridos;
+
+    [FormerlySerializedAs("Cartuchos_extra_gastados")]
+    public TMP_Text cartuchosExtraGastados;
+
+    [FormerlySerializedAs("Tiempo")] public TMP_Text tiempo;
+
+    [FormerlySerializedAs("Muerte_de_agente")]
+    public TMP_Text muerteDeAgente;
+
+    [FormerlySerializedAs("Puntaje_Final")]
+    public TMP_Text puntajeFinal;
+
+    [FormerlySerializedAs("Seguro_Colocado")]
+    public TMP_Text seguroColocado;
+
+    [Header("Player Camera")] public Transform playerCamera; // Assign the player's camera in the inspector
 
     public float distanceFromPlayer = 2f; // Distance from the player to display the menu
 
@@ -47,9 +55,6 @@ public class GameRestartMenu : MonoBehaviour
         // Position the menu in front of the player
         if (playerCamera != null)
         {
-            Vector3 directionToMenu = playerCamera.forward;
-            Vector3 menuPosition = playerCamera.position + directionToMenu * distanceFromPlayer;
-
             // Position the menu
             //gameOverMenu.transform.position = menuPosition;
 
@@ -59,39 +64,36 @@ public class GameRestartMenu : MonoBehaviour
         }
     }
 
-    public void QuitGame()
+    private void QuitGame()
     {
         PlayerPrefs.DeleteAll();
         Application.Quit();
     }
 
-    public void RestartGame()
+    private void RestartGame()
     {
         PlayerPrefs.DeleteAll();
 
         HideAll();
-       
-       // ClearPlayerPrefsData(); // Limpia los datos almacenados en PlayerPrefs
-       //espera 2 segundos antes de reiniciar el juego
-       
+
+        // ClearPlayerPrefsData(); // Limpia los datos almacenados en PlayerPrefs
+        //espera 2 segundos antes de reiniciar el juego
+
         StartCoroutine(RestartGameRoutine());
-       
     }
 
     IEnumerator RestartGameRoutine()
     {
         yield return new WaitForSeconds(5f);
-        SceneTransitionManager.singleton.GoToScene(2);
+        SceneTransitionManager.Singleton.GoToScene(2);
     }
 
-    public void HideAll()
+    private void HideAll()
     {
         gameOverMenu.SetActive(false);
-
-
     }
 
-    public void EnableGameOverMenu()
+    private void EnableGameOverMenu()
     {
         gameOverMenu.SetActive(true);
     }
@@ -102,19 +104,19 @@ public class GameRestartMenu : MonoBehaviour
         float time = PlayerPrefs.GetFloat("Tiempo", 0f);
         int enemiesNotEliminated = PlayerPrefs.GetInt("Enemigos_Faltantes", 0);
         int civiliansEliminated = PlayerPrefs.GetInt("Civiles_Heridos", 0);
-        int ExtraShotsFired = PlayerPrefs.GetInt("Cartuchos_extra_gastados", 0);
+        int extraShotsFired = PlayerPrefs.GetInt("Cartuchos_extra_gastados", 0);
         String agente = PlayerPrefs.GetString("Muerte_de_agente", "No");
         float finalScore = PlayerPrefs.GetFloat("Puntaje_Final", 0f);
-        String Seguro = PlayerPrefs.GetString("Seguro", "No");
+        String seguro = PlayerPrefs.GetString("Seguro", "No");
 
         // Update UI elements with collected data
-        Enemigos_Faltantes.text ="Enemigos Faltanes: " + enemiesNotEliminated;
-        Civiles_Heridos.text = "Civiles Heridos: " + civiliansEliminated;
-        Tiempo.text = "Tiempo en escena: " + time.ToString() + "s";
-        Cartuchos_extra_gastados.text = "Cartuchos extra gastados: " + ExtraShotsFired;
-        Muerte_de_agente.text = "Muerte de agente: " + agente;
-        Seguro_Colocado.text = "Seguro Colocado: " + Seguro;
-        Puntaje_Final.text = "Puntaje Final: " + finalScore;
+        enemigosFaltantes.text = "Enemigos Faltanes: " + enemiesNotEliminated;
+        civilesHeridos.text = "Civiles Heridos: " + civiliansEliminated;
+        tiempo.text = "Tiempo en escena: " + time + "s";
+        cartuchosExtraGastados.text = "Cartuchos extra gastados: " + extraShotsFired;
+        muerteDeAgente.text = "Muerte de agente: " + agente;
+        seguroColocado.text = "Seguro Colocado: " + seguro;
+        puntajeFinal.text = "Puntaje Final: " + finalScore;
     }
 
     public void ClearPlayerPrefsData()

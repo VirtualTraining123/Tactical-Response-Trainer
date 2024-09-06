@@ -6,12 +6,13 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Animator))]
 public class AnimateHandController : MonoBehaviour
 {
-   public InputActionReference gripInputActionReference;
-   public InputActionReference triggerInputActionReference;
-   
-   private Animator _handAnimator;
-   private float _gripValue;
-   private float _triggerValue;
+    public InputActionReference gripInputActionReference;
+    public InputActionReference triggerInputActionReference;
+
+    private Animator _handAnimator;
+    private float _gripValue;
+    private float _triggerValue;
+
     void Start()
     {
         _handAnimator = GetComponent<Animator>();
@@ -35,5 +36,4 @@ public class AnimateHandController : MonoBehaviour
         _triggerValue = triggerInputActionReference.action.ReadValue<float>();
         _handAnimator.SetFloat("Trigger", _triggerValue);
     }
-    
 }

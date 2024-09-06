@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SafetyColor : MonoBehaviour
@@ -8,7 +6,7 @@ public class SafetyColor : MonoBehaviour
     [SerializeField] private Material defaultMaterial;
     [SerializeField] private Material safetyOnMaterial;
 
-     [SerializeField] private bool isSafetyOn = false;
+     [SerializeField] private bool isSafetyOn;
 
     public void ToggleMaterial()
     {

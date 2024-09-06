@@ -1,32 +1,29 @@
-using UnityEngine.Audio;
 using System;
 using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class Sound
 {
     public string name;
     public AudioClip clip;
-    [Range(0, 1)]
-    public float volume = 1;
-    [Range(-3, 3)]
-    public float pitch = 1;
-    public bool loop = false;
-    public bool playOnAwake = false;
+    [Range(0, 1)] public float volume = 1;
+    [Range(-3, 3)] public float pitch = 1;
+    public bool loop;
+    public bool playOnAwake;
     [HideInInspector] public AudioSource source;
 }
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager instance;
+    public static AudioManager Instance;
 
     public Sound[] sounds;
 
     void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {
@@ -47,21 +44,21 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void Play(string name)
+    public void Play(string clipName)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        Sound s = Array.Find(sounds, sound => sound.name == clipName);
         if (s == null)
         {
-            Debug.LogWarning("Sound: " + name + " not found");
+            Debug.LogWarning("Sound: " + clipName + " not found");
             return;
         }
 
         s.source.Play();
     }
 
-    public void Stop(string name)
+    public void Stop(string clipName)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        Sound s = Array.Find(sounds, sound => sound.name == clipName);
 
         if (s != null)
         {

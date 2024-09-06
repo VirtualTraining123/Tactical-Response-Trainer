@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayAudioFromAudioManager : MonoBehaviour
@@ -8,11 +6,11 @@ public class PlayAudioFromAudioManager : MonoBehaviour
 
     public void Play()
     {
-        AudioManager.instance.Play(target);
+        AudioManager.Instance.Play(target);
     }
 
     public void Play(string audioName)
     {
-        AudioManager.instance.Play(audioName);
+        AudioManager.Instance.Play(audioName);
     }
 }

@@ -3,15 +3,17 @@ using System.Collections.Generic; // Necesario para usar List<>
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems;
-using System;
 
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyAI : MonoBehaviour, ITakeDamage
 {
-    EnemyAudioScript enemyAudioScript= new EnemyAudioScript();
+    private static readonly int Run = Animator.StringToHash(RUN_TRIGGER);
+    private static readonly int Crouch = Animator.StringToHash(CROUCH_TRIGGER);
+    private static readonly int Shoot1 = Animator.StringToHash(SHOOT_TRIGGER);
+
+    // ReSharper disable once Unity.IncorrectMonoBehaviourInstantiation, genera un error de sintaxis la solucion sugerida
+    readonly EnemyAudioScript enemyAudioScript = new EnemyAudioScript();
     const string RUN_TRIGGER = "Run";
     const string CROUCH_TRIGGER = "Crouch";
     const string SHOOT_TRIGGER = "Shoot";
@@ -26,19 +28,19 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
     [SerializeField] private int maxShotsToTake;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float damage;
-    [Range(0, 100)]
-    [SerializeField] private float shootingAccuracy;
+    [Range(0, 100)] [SerializeField] private float shootingAccuracy;
 
     [SerializeField] private Transform shootingPosition;
     [SerializeField] private ParticleSystem bloodSplatterFX;
 
-    [Header("Haptic Vest Events")]
-    [SerializeField] private UnityEvent hapticEvent1;
+    [Header("Haptic Vest Events")] [SerializeField]
+    private UnityEvent hapticEvent1;
+
     [SerializeField] private UnityEvent hapticEvent2;
 
-    [Header("Scene Transition")]
-    [SerializeField] private string nextSceneName; // Nombre de la siguiente escena
-    
+    [Header("Scene Transition")] [SerializeField]
+    private string nextSceneName; // Nombre de la siguiente escena
+
     private int remainingEnemies;
     private bool isShooting;
     private int currentShotsTaken;
@@ -48,47 +50,39 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
     private Transform occupiedCoverSpot;
     private Animator animator;
     [SerializeField] private AudioClip[] audios;
-    private AudioSource controlAudio;
- //   private Renderer enemyRenderer; // Renderer del modelo del enemigo
-    private bool isDestroyed = false; // Flag para verificar si el enemigo ha sido destruido
-    
-    // Contadores
-    public static int EnemywoundedCount = 0;
-    public static int EnemydeadCount = 0;
 
-    bool flag=false;
-    private float _health;
+    private AudioSource controlAudio;
+
+    //   private Renderer enemyRenderer; // Renderer del modelo del enemigo
+    private bool isDestroyed; // Flag para verificar si el enemigo ha sido destruido
+
+    // Contadores
+
+    private float health;
     private Evaluator evaluator;
 
-    public float health
+    private float Health
     {
-        get
-        {
-            return _health;
-        }
-        set
-        {
-            _health = Mathf.Clamp(value, 0, startingHealth);
-        }
+        get => health;
+        set => health = Mathf.Clamp(value, 0, startingHealth);
     }
 
     private void Awake()
     {
-
         enemyRenderers = new List<Renderer>(GetComponentsInChildren<Renderer>());
-        
+
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        animator.SetTrigger(RUN_TRIGGER);
-        _health = startingHealth;
+        animator.SetTrigger(Run);
+        health = startingHealth;
         controlAudio = GetComponent<AudioSource>();
-         evaluator = FindObjectOfType<Evaluator>(); // Get the Evaluator instance
+        evaluator = FindObjectOfType<Evaluator>(); // Get the Evaluator instance
     }
 
-    public void Init(Player player, Transform coverSpot)
+    public void Init(Player parameterPlayer, Transform coverSpot)
     {
         occupiedCoverSpot = coverSpot;
-        this.player = player;
+        this.player = parameterPlayer;
         GetToCover();
     }
 
@@ -106,33 +100,33 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
             agent.isStopped = true;
             //detenemos el la reproduccion de sonido por unica vez
             controlAudio.Stop();
-            StartCoroutine(InitializeShootingCO());
-           
+            StartCoroutine(InitializeShootingCo());
         }
+
         if (isShooting)
         {
             RotateTowardsPlayer();
         }
     }
 
-    private IEnumerator InitializeShootingCO()
+    private IEnumerator InitializeShootingCo()
     {
         HideBehindCover();
-        yield return new WaitForSeconds(UnityEngine.Random.Range(minTimeUnderCover, maxTimeUnderCover));
+        yield return new WaitForSeconds(Random.Range(minTimeUnderCover, maxTimeUnderCover));
         StartShooting();
     }
 
     private void HideBehindCover()
     {
-        animator.SetTrigger(CROUCH_TRIGGER);
+        animator.SetTrigger(Crouch);
     }
 
     private void StartShooting()
     {
         isShooting = true;
-        currentMaxShotsToTake = UnityEngine.Random.Range(minShotsToTake, maxShotsToTake);
+        currentMaxShotsToTake = Random.Range(minShotsToTake, maxShotsToTake);
         currentShotsTaken = 0;
-        animator.SetTrigger(SHOOT_TRIGGER);
+        animator.SetTrigger(Shoot1);
         //SeleccionAudio(0, 0.5f);
     }
 
@@ -141,52 +135,46 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
         controlAudio.PlayOneShot(audios[indice], volumen);
     }
 
-    public void Shoot()
+    // ReSharper disable once UnusedMember.Global
+    public void Shoot() //wtf? como que unused? rider?
     {
+        var direction = player.GetHeadPosition() - shootingPosition.position;
+        if (Physics.Raycast(shootingPosition.position, direction, out var hit))
+        {
+            enemyAudioScript.PlayShootSound();
 
-       
-            
-            RaycastHit hit;
-            Vector3 direction = player.GetHeadPosition() - shootingPosition.position;
-            if (Physics.Raycast(shootingPosition.position, direction, out hit))
+            Debug.DrawRay(shootingPosition.position, direction, Color.green, 2.0f);
+            //tomamos el componente Player del objeto que colisiono con el rayo, pero en su padre Complete XR
+            Player componentInParent = hit.collider.GetComponentInParent<Player>();
+            //Player player = hit.collider.GetComponentInParent<Player>();
+
+
+            if (componentInParent)
             {
-                enemyAudioScript.PlayShootSound();
+                SeleccionAudio(0, 0.5f);
 
-                Debug.DrawRay(shootingPosition.position, direction, Color.green, 2.0f);
-                //tomamos el componente Player del objeto que colisiono con el rayo, pero en su padre Complete XR
-                Player player = hit.collider.GetComponentInParent<Player>();
-                //Player player = hit.collider.GetComponentInParent<Player>();
-
-
-                if (player)
+                //probabilidad del 50% de que el enemigo acierte
+                if (Random.Range(0, 100) < shootingAccuracy)
                 {
-                    SeleccionAudio(0, 0.5f);
-
-                    //probabilidad del 50% de que el enemigo acierte
-                    if(UnityEngine.Random.Range(0, 100) < shootingAccuracy)
-                    {
-                        player.TakeDamage(damage);
-                    }
-                 
-                   
-                    
-                }
-                else
-                {
-                    Debug.LogWarning("Ray hit something, but it's not the player.");
+                    componentInParent.TakeDamage(damage);
                 }
             }
             else
             {
-                Debug.DrawRay(shootingPosition.position, direction, Color.red, 2.0f);
-                Debug.LogWarning("Ray did not hit anything.");
+                Debug.LogWarning("Ray hit something, but it's not the player.");
             }
-        
-        
+        }
+        else
+        {
+            Debug.DrawRay(shootingPosition.position, direction, Color.red, 2.0f);
+            Debug.LogWarning("Ray did not hit anything.");
+        }
+
+
         currentShotsTaken++;
         if (currentShotsTaken >= currentMaxShotsToTake)
         {
-            StartCoroutine(InitializeShootingCO());
+            StartCoroutine(InitializeShootingCo());
         }
     }
 
@@ -200,29 +188,30 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
     }
 
     public void TakeDamage(Weapon weapon, Projectile projectile, Vector3 contactPoint)
-    {   
-        ParticleSystem effect = Instantiate(bloodSplatterFX, contactPoint, Quaternion.LookRotation(weapon.transform.position - contactPoint));
+    {
+        ParticleSystem effect = Instantiate(bloodSplatterFX, contactPoint,
+            Quaternion.LookRotation(weapon.transform.position - contactPoint));
         effect.Play();
-        health -= weapon.GetDamage();
-        if (health <= 0 && !isDestroyed)
+        Health -= weapon.GetDamage();
+        if (Health <= 0 && !isDestroyed)
         {
-           if (deadMaterial != null && enemyRenderers != null)
+            if (deadMaterial != null && enemyRenderers != null)
             {
-                foreach (Renderer renderer in enemyRenderers)
+                foreach (Renderer renderer1 in enemyRenderers)
                 {
-                    renderer.material = deadMaterial;
+                    renderer1.material = deadMaterial;
                 }
             }
 
             // Desactivar todos los colliders del enemigo
-            foreach (Collider collider in enemyColliders)
+            foreach (Collider collider1 in enemyColliders)
             {
-                if (collider != null)
+                if (collider1 != null)
                 {
-                    collider.enabled = false;
+                    collider1.enabled = false;
                 }
             }
-            
+
             if (projectile != null)
             {
                 Destroy(projectile.gameObject);
@@ -234,106 +223,13 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
             // Detener el comportamiento del enemigo (pausarlo)
             agent.isStopped = true;
             animator.enabled = false;
-            
-         //   NotifyEnemyDestroyed();
-            EnemydeadCount++;
+
+            //   NotifyEnemyDestroyed();
             evaluator.EnemyNeutralized();
         }
         else
-        { //agregar 1 flag con un if aca para que solo se active 1 vez si se desea implementarlo
-            EnemywoundedCount++;
-        }
-           
-
-    }
-/*
-private void OnDestroy()
-    {
-        // Almacenar el número de enemigos eliminados al momento del Game Over o Victoria
-        PlayerPrefs.SetInt("EnemydeadCount", EnemydeadCount);
-        PlayerPrefs.Save();
-    }*/
-/*
-private void NotifyEnemyDestroyed()
-{
-    // Restar al contador de enemigos spawneados cuando un enemigo sea destruido
-    EnemySpawner.totalEnemiesSpawned--;
-
-    // Verificar si se han eliminado todos los enemigos
-    if (EnemySpawner.totalEnemiesSpawned <= 0)
-    {
-       // PlayerPrefs.SetInt("EnemydeadCount", EnemydeadCount);
-       // PlayerPrefs.Save();
-        Player player = FindObjectOfType<Player>();
-       if (player != null)
         {
-            player.StopTimer();
+            //agregar 1 flag con un if aca para que solo se active 1 vez si se desea implementarlo
         }
-        flag=true;
-        PlayerPrefs.SetFloat("Elapsed_Time", Player.elapsedTime);
-        PlayerPrefs.SetInt("Shots_Fired_Pistol", Pistol.shotsFiredPistol);
-        PlayerPrefs.SetInt("Shots_Fired_Tester", StaticShooter.shotsFiredProbe);
-        PlayerPrefs.SetInt("Enemy_Dead_Count", EnemydeadCount);
-        PlayerPrefs.SetInt("Enemy_Wounded_Count", EnemywoundedCount);
-        PlayerPrefs.SetInt("Civil_Dead_Count", CivilAI.CivildeadCount);
-        PlayerPrefs.SetInt("Civil_Wounded_Count", CivilAI.CivilwoundedCount);
-
-        // Llamar a la función de victoria
-        
-        
-        //esperamos 5 segundos antes de cambiar de escena con el SceneManager sin usar invoke
-        StartCoroutine(WaitAndLoadScene(5f));
-
-    
-
-
-        //SceneManager.LoadScene(nextSceneName); // Aquí asumiendo que GameManager es un singleton que maneja la lógica del juego
-    }
-    
-}
-*/
-/*
-private IEnumerator WaitAndLoadScene(float seconds)
-{
-    yield return new WaitForSeconds(seconds);
-    SceneManager.LoadScene(nextSceneName);
-}
-*/
-    
-    /* private void LoadNextScene()
-     {
-         // Verificar si el nombre de la siguiente escena está configurado
-         if (!string.IsNullOrEmpty(nextSceneName))
-         {
-             // Cargar la siguiente escena
-             SceneManager.LoadScene(nextSceneName);
-         }
-         else
-         {
-             Debug.LogWarning("El nombre de la siguiente escena no está configurado en el inspector.");
-         }
-     } */
-
-    /*
-     private void PlayEnemyShootSound()
-     {
-         audioManager.Play("EnemyShootSound");
-     }
-      */
-
-
-      private void OnGUI()
-    {
-      //  GUI.Label(new Rect(30, 50, 100, 20), "Wounded: " + EnemywoundedCount);
-        //GUI.Label(new Rect(40, 50, 200, 20), "Amenazas abatidas: " + EnemydeadCount);
-       // if(flag==true){
-            //texto ubicado en el medio de la pantalla, de gran tamaño
-            //GUI.Label(new Rect(Screen.width/2-100, Screen.height/2-50, 200, 100), "Misión cumplida");
-        
-
-        
-
-       // }
     }
 }
-

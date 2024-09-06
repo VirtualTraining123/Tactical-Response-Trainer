@@ -2,16 +2,9 @@ using UnityEngine;
 
 public class EnemyFootsteps : MonoBehaviour
 {
-    private AudioManager audioManager;
-
-    private void Start()
+    public void PlayFootstepSound() //lo borramos? xd
     {
-        // Obtén la instancia del AudioManager
-        audioManager = AudioManager.instance;
-    }
-    public void PlayFootstepSound()
-    {
-        AudioManager.instance.Play("EnemyFootstepSound");
+        AudioManager.Instance.Play("EnemyFootstepSound");
     }
 }
 

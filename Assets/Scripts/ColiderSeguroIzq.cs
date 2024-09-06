@@ -1,15 +1,15 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ColiderSeguroIzq : MonoBehaviour
 {
      
-  [SerializeField] private SafetyColor SafetyColor;
-  [SerializeField] private Pistol Pistol;
+  [FormerlySerializedAs("SafetyColor")] [SerializeField] private SafetyColor safetyColor;
+  [FormerlySerializedAs("Pistol")] [SerializeField] private Pistol pistol;
     
-    private bool isSafetyCooldown = false; // Nueva variable para el enfriamiento del seguro
-    private float safetyCooldownDuration = 0.5f; // Duración del enfriamiento del seguro 
+    private bool isSafetyCooldown; // Nueva variable para el enfriamiento del seguro
+    private readonly float safetyCooldownDuration = 0.5f; // Duración del enfriamiento del seguro 
  private void OnTriggerEnter(Collider collision)
     {
         // Verificar si el objeto que colisiona es una bala o tiene una etiqueta específica
@@ -18,8 +18,8 @@ public class ColiderSeguroIzq : MonoBehaviour
             Debug.LogAssertion("Colision con la mano derecha");
             if (!isSafetyCooldown)
             {
-                Pistol.callToggleSafety();
-                SafetyColor.ToggleMaterial();
+                pistol.CallToggleSafety();
+                safetyColor.ToggleMaterial();
                 StartCoroutine(SafetyCooldown());
             }
         }

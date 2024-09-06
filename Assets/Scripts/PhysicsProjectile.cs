@@ -1,34 +1,32 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PhysicsProjectile : Projectile
 {
     [SerializeField] private float lifeTime;
     [SerializeField] private float gravity = 9.81f; // Gravedad aplicada a la bala
-    private float currentGravity = 0f;
+    private float currentGravity;
     private Rigidbody rigidBody;
     public GameObject bulletHolePrefab;
     public GameObject bulletTrailPrefab;  // Prefab del rastro de bala
     private GameObject bulletTrail;       // Instancia del rastro de bala
-    private bool destroying = false;      // Indica si la bala se está destruyendo
+    private bool destroying;      // Indica si la bala se está destruyendo
 
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
     }
 
-    public override void Init(Weapon weapon)
+    public override void Init(Weapon pWeapon)
     {
-        base.Init(weapon);
+        base.Init(pWeapon);
         Destroy(gameObject, lifeTime);
     }
 
     public override void Launch()
     {
         base.Launch();
-        rigidBody.AddRelativeForce(Vector3.forward * weapon.GetShootingForce(), ForceMode.Impulse);
+        rigidBody.AddRelativeForce(Vector3.forward * Weapon.GetShootingForce(), ForceMode.Impulse);
 
         // Instanciar el rastro de bala
         if (bulletTrailPrefab != null)
@@ -45,11 +43,10 @@ public class PhysicsProjectile : Projectile
             return;
         }
         currentGravity -= gravity * Time.deltaTime;
-        Vector3 moveVector = transform.forward * weapon.GetShootingForce() * Time.deltaTime;
+        Vector3 moveVector = transform.forward * (Weapon.GetShootingForce() * Time.deltaTime);
         moveVector += Vector3.up * currentGravity;
 
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, moveVector, out hit, moveVector.magnitude))
+        if (Physics.Raycast(transform.position, moveVector, out var hit, moveVector.magnitude))
         {
             destroying = true;
             if (bulletHolePrefab != null)
@@ -72,15 +69,10 @@ public class PhysicsProjectile : Projectile
         ITakeDamage[] damageTakers = hit.collider.GetComponentsInParent<ITakeDamage>();
         foreach (var taker in damageTakers)
         {
-            taker.TakeDamage(weapon, this, contactPoint);
+            taker.TakeDamage(Weapon, this, contactPoint);
         }
 
         // Destruir la bala
         Destroy(gameObject);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        // Esta función se mantiene para compatibilidad, pero ahora está integrada en FixedUpdate
     }
 }

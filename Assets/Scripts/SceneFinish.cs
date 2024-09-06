@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class SceneFinish : MonoBehaviour
 {
     private Evaluator evaluator;
-    private bool isSimulationEnding = false; // Flag para verificar si la finalización de la simulación ya ha sido iniciada
+    private bool isSimulationEnding; // Flag para verificar si la finalización de la simulación ya ha sido iniciada
 
     protected void Start()
     {

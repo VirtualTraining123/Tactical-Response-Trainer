@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -27,10 +25,10 @@ public class Rifle : Weapon
     protected override void StartShooting(XRBaseInteractor interactor)
     {
         base.StartShooting(interactor);
-        StartCoroutine(ShootingCO());
+        StartCoroutine(ShootingCo());
     }
 
-    private IEnumerator ShootingCO()
+    private IEnumerator ShootingCo()
     {
         while (true)
         {

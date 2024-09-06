@@ -6,8 +6,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private List<EnemySpawner> enemySpawners;
     [SerializeField] private List<CivilSpawner> civilSpawners;
 
-    private int totalEnemies= 0;
-    private int totalCivilians= 0;
+    private int totalEnemies;
+    private int totalCivilians;
 
     private void Start()
     {

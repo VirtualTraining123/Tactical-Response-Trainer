@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem;
+﻿using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class Pistol1 : Weapon
@@ -10,21 +7,20 @@ public class Pistol1 : Weapon
     [SerializeField] private float debugRayDuration = 2f;
     public GameObject bulletHolePrefab;
 
-    public static int shotsFiredPistol = 0;
+    private static int shotsFiredPistol;
 
     private Evaluator evaluator;
-    private int maxBullets = 12;
+    private readonly int maxBullets = 12;
     private int currentBullets;
-    public bool isSafetyOn = false;
+    public bool isSafetyOn;
     private XRBaseInteractor currentInteractor;
-   // public bool isMagazineLoaded = false;
+    // public bool isMagazineLoaded = false;
 
     //public InputActionProperty aButtonAction;
     //public InputActionProperty bButtonAction;
 
     protected void Start()
     {
-        
         currentBullets = 12;
         //evaluator = FindObjectOfType<Evaluator>();
 
@@ -38,63 +34,65 @@ public class Pistol1 : Weapon
         bButtonAction.action.Enable();
     }
 
-    
+
     protected override void StartShooting(XRBaseInteractor interactor)
     {
-        if (isSafetyOn || currentBullets <= 0){
+        if (isSafetyOn || currentBullets <= 0)
+        {
             SeleccionAudio(4, 1f);
-            return;
-        }else {
-        base.StartShooting(interactor);
-        currentInteractor = interactor;
-        DrawDebugRaycast();
-        Shoot();
+        }
+        else
+        {
+            base.StartShooting(interactor);
+            currentInteractor = interactor;
+            DrawDebugRaycast();
+            Shoot();
         }
     }
 
     protected override void Shoot()
     {
-        
-        if (isSafetyOn || currentBullets <= 0){
+        if (isSafetyOn || currentBullets <= 0)
+        {
             SeleccionAudio(4, 1f);
-            
-        }else{
-           
-        base.Shoot();
-        shotsFiredPistol++;
-        currentBullets--;
-        
+        }
+        else
+        {
+            base.Shoot();
+            shotsFiredPistol++;
+            currentBullets--;
 
-        Projectile projectileInstance = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
-        projectileInstance.Init(this);
-        projectileInstance.Launch();
 
-        if (currentInteractor != null)
+            Projectile projectileInstance = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
+            projectileInstance.Init(this);
+            projectileInstance.Launch();
+
+            if (currentInteractor != null)
             {
                 SendHapticImpulse(currentInteractor);
             }
 
-        RaycastHit hit;
-        if (Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out hit))
-        {
-            if (hit.collider.CompareTag("Enemy") || hit.collider.CompareTag("Civil") || hit.collider.CompareTag("Bullet"))
+            if (Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out var hit))
             {
-                return;
+                if (hit.collider.CompareTag("Enemy") || hit.collider.CompareTag("Civil") ||
+                    hit.collider.CompareTag("Bullet"))
+                {
+                    return;
+                }
+
+                InstantiateBulletHole(hit.point, hit.normal, hit.collider.transform);
             }
-            InstantiateBulletHole(hit.point, hit.normal, hit.collider.transform);
+            // evaluator.BulletUsed();
         }
-       // evaluator.BulletUsed();
-    }
     }
 
     private void InstantiateBulletHole(Vector3 position, Vector3 normal, Transform parent)
     {
         Quaternion rotation = Quaternion.FromToRotation(Vector3.up, normal);
-        
+
         GameObject bulletHoleInstance = Instantiate(bulletHolePrefab, position, rotation);
         bulletHoleInstance.transform.localScale = new Vector3(0.2f, 0.005f, 0.2f);
         bulletHoleInstance.transform.SetParent(parent, true);
-        
     }
 
     private void DrawDebugRaycast()
@@ -102,26 +100,14 @@ public class Pistol1 : Weapon
         Debug.DrawRay(bulletSpawn.position, bulletSpawn.forward * 100f, Color.yellow, debugRayDuration);
     }
 
-    private void OnSelectAction()
-    {
-        ToggleSafety();
-    }
-
-    private void OnActivateAction()
-    {
-        Reload();
-    }
     protected override void Reload()
     {
         base.Reload();
-        
+
         currentBullets = maxBullets;
-       
-            
-       
     }
 
-    public void callReload()
+    public void CallReload()
     {
         Reload();
     }
@@ -133,15 +119,16 @@ public class Pistol1 : Weapon
 
     protected override void ToggleSafety()
     {
-      base.ToggleSafety();
+        base.ToggleSafety();
 
         isSafetyOn = !isSafetyOn;
     }
 
-    public void callToggleSafety()
+    public void CallToggleSafety()
     {
         ToggleSafety();
     }
+
     private void SendHapticImpulse(XRBaseInteractor interactor)
     {
         XRBaseControllerInteractor controllerInteractor = interactor as XRBaseControllerInteractor;

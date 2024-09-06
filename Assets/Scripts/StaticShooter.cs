@@ -1,17 +1,17 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
+/// <summary>
+/// codigo para testear balas sin casco, eliminar para versiones finales
+/// </summary>
 
-
-public class StaticShooter : Weapon
+public sealed class StaticShooter : Weapon
 {
     [SerializeField] private Projectile bulletPrefab;
     [SerializeField] private float shootingInterval = 3f; // Intervalo de tiempo entre disparos en segundos
     [SerializeField] private float debugRayDuration = 2f; // Duración del rayo de debug en segundos
     public GameObject bulletHolePrefab;
 
-    public static int shotsFiredProbe = 0;
+    private static int shotsFiredProbe;
     private void Update()
     {
         // Dibujar el rayo de debug en cada frame
@@ -24,17 +24,16 @@ public class StaticShooter : Weapon
         Debug.DrawRay(bulletSpawn.position, bulletSpawn.forward * 100f, Color.yellow, debugRayDuration);
     }
 
-    protected virtual void Start()
+    private void Start()
     {
         StartCoroutine(ShootRoutine()); // Comienza la rutina de disparo
     }
 
-    protected IEnumerator ShootRoutine()
+    private IEnumerator ShootRoutine()
     {
         while (true)
         {
             // Draw debug raycast from bullet spawn point
-           
             yield return new WaitForSeconds(shootingInterval); // Espera el intervalo de tiempo antes del próximo disparo
             Shoot(); // Realiza un disparo
         }
@@ -51,17 +50,16 @@ public class StaticShooter : Weapon
         Projectile projectileInstance = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
         projectileInstance.Init(this);
         projectileInstance.Launch();
-        
-         RaycastHit hit;
-        if (Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out hit))
+
+        if (Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out var hit))
         {
              if (hit.collider.CompareTag("Enemy") || hit.collider.CompareTag("Civil")|| hit.collider.CompareTag("Bullet"))
-            {
-            // No hacer nada si el objeto impactado es un enemigo o un civil
-            return; 
-            }
-            // Instanciar el objeto bullet hole en el punto de impacto// Instanciar el objeto bullet hole en el punto de impacto
-            InstantiateBulletHole(hit.point, hit.normal, hit.collider.transform);
+             {
+                 // No hacer nada si el objeto impactado es un enemigo o un civil
+                 return; 
+             }
+             // Instanciar el objeto bullet hole en el punto de impacto// Instanciar el objeto bullet hole en el punto de impacto
+             InstantiateBulletHole(hit.point, hit.normal, hit.collider.transform);
             
         }
 

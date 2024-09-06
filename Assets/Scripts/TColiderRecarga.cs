@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
+// ReSharper disable once InconsistentNaming
 public class TColiderRecarga : MonoBehaviour
 {
    
-      [SerializeField] private Pistol1 Pistol1;
+      [FormerlySerializedAs("Pistol1")] [SerializeField] private Pistol1 pistol1;
     
  private void OnTriggerEnter(Collider collision)
     {
@@ -13,7 +13,7 @@ public class TColiderRecarga : MonoBehaviour
         if (collision.gameObject.CompareTag("Magazine"))
         {
             Debug.Log("Colision con la mano izquierda");
-            Pistol1.callReload();
+            pistol1.CallReload();
             //destruimos el objeto Magazine
             Destroy(collision.gameObject);
 

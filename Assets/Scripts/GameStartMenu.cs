@@ -73,13 +73,13 @@ public class GameStartMenu : MonoBehaviour
     {
         HideAll();
         ClearPlayerPrefsData();
-        SceneTransitionManager.singleton.GoToSceneAsync(2);
+        SceneTransitionManager.Singleton.GoToSceneAsync(2);
     }
 
     public void StartTutorial()
     {
         HideAll();
-        SceneTransitionManager.singleton.GoToSceneAsync(1);
+        SceneTransitionManager.Singleton.GoToSceneAsync(1);
     }
 
 
