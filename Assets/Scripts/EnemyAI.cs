@@ -13,7 +13,6 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
     private static readonly int Shoot1 = Animator.StringToHash(SHOOT_TRIGGER);
 
     // ReSharper disable once Unity.IncorrectMonoBehaviourInstantiation, genera un error de sintaxis la solucion sugerida
-    readonly EnemyAudioScript enemyAudioScript = new EnemyAudioScript();
     const string RUN_TRIGGER = "Run";
     const string CROUCH_TRIGGER = "Crouch";
     const string SHOOT_TRIGGER = "Shoot";
@@ -141,8 +140,6 @@ public class EnemyAI : MonoBehaviour, ITakeDamage
         var direction = player.GetHeadPosition() - shootingPosition.position;
         if (Physics.Raycast(shootingPosition.position, direction, out var hit))
         {
-            enemyAudioScript.PlayShootSound();
-
             Debug.DrawRay(shootingPosition.position, direction, Color.green, 2.0f);
             //tomamos el componente Player del objeto que colisiono con el rayo, pero en su padre Complete XR
             Player componentInParent = hit.collider.GetComponentInParent<Player>();

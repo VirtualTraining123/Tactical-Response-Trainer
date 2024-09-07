@@ -5253,6 +5253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anchorPoint: {fileID: 1411625174789580783}
   moveSpeed: 1
+  grabSmoothTime: 0.2
 --- !u!4 &4501388554617868406 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3457396811997450558, guid: 1cff7be5c6fc32d43b597c4d35cf590d, type: 3}
@@ -6080,6 +6081,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anchorPoint: {fileID: 7164164011744490992}
   moveSpeed: 1
+  grabSmoothTime: 0.2
 --- !u!1001 &7789152887060775556
 PrefabInstance:
   m_ObjectHideFlags: 0

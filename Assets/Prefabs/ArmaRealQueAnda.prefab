@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6624f68090f9dfe42b3a8f89d4c83b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Pistol: {fileID: 531383358652848800}
+  pistol: {fileID: 531383358652848800}
 --- !u!1 &3629924245981088715
 GameObject:
   m_ObjectHideFlags: 0
@@ -82,8 +82,8 @@ GameObject:
   - component: {fileID: 3590340194884987640}
   - component: {fileID: 4017368667619452159}
   - component: {fileID: 531383358652848800}
-  - component: {fileID: 6845898089704298761}
   - component: {fileID: 7254478669470386246}
+  - component: {fileID: 4895518294353671111}
   m_Layer: 0
   m_Name: ArmaRealQueAnda
   m_TagString: Untagged
@@ -377,12 +377,7 @@ MonoBehaviour:
   bulletSpawn: {fileID: 3166538116959224135}
   recoilForce: 2
   damage: 100
-  audios:
-  - {fileID: 8300000, guid: c00a1ac1041960044a962c0e1672717f, type: 3}
-  - {fileID: 8300000, guid: 06df58efa12d0b04a8e5bb2fc2dd7ace, type: 3}
-  - {fileID: 8300000, guid: 2d9136badad7044448f53c4e83642545, type: 3}
-  - {fileID: 8300000, guid: 52c5b95bdd05b06448a80c9a0e7d45ca, type: 3}
-  - {fileID: 8300000, guid: a0414f0d1f293ae4ab5efa01eb5c2c0a, type: 3}
+  audioManager: {fileID: 4895518294353671111}
   aButtonAction:
     m_UseReference: 1
     m_Action:
@@ -411,102 +406,6 @@ MonoBehaviour:
   debugRayDuration: 2
   bulletHolePrefab: {fileID: 179232, guid: b2ac1383a96f94a50b7ed458be173bbd, type: 3}
   isSafetyOn: 1
---- !u!82 &6845898089704298761
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3629924245981088715}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 0.669
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &7254478669470386246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -741,6 +640,54 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 0}
   m_ButtonPressPoint: 0.5
+--- !u!114 &4895518294353671111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3629924245981088715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dc44c5eb69748a45b697397b0740ef1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: shot
+    clip: {fileID: 8300000, guid: c00a1ac1041960044a962c0e1672717f, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: shells
+    clip: {fileID: 8300000, guid: 06df58efa12d0b04a8e5bb2fc2dd7ace, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: reload
+    clip: {fileID: 8300000, guid: d85099fefd84d429788e09001413207b, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: safety
+    clip: {fileID: 8300000, guid: 52c5b95bdd05b06448a80c9a0e7d45ca, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: dry_shot
+    clip: {fileID: 8300000, guid: a0414f0d1f293ae4ab5efa01eb5c2c0a, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
 --- !u!1 &5442422671774460932
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,8 +754,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7be1a9daff31d345a1be3905ad15749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SafetyColor: {fileID: 7957177496246470696}
-  Pistol: {fileID: 531383358652848800}
+  safetyColor: {fileID: 7957177496246470696}
+  pistol: {fileID: 531383358652848800}
 --- !u!1 &8152784787976776719
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,110 +3,75 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
-
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(XRGrabInteractable))]
-public class Weapon : MonoBehaviour
-{
-    [SerializeField] protected float shootingForce=50;
-    [SerializeField] protected Transform bulletSpawn;
-    [SerializeField] private float recoilForce;
-    [SerializeField] private float damage;
+public class Weapon : MonoBehaviour {
+  [SerializeField] protected float shootingForce = 50;
+  [SerializeField] protected Transform bulletSpawn;
+  [SerializeField] private float recoilForce;
+  [SerializeField] private float damage;
+  [SerializeField] protected AudioManager audioManager;
 
-    [SerializeField] private AudioClip[] audios;
-    private AudioSource controlAudio;
+  private Rigidbody rigidBody;
+  private XRGrabInteractable interactableWeapon;
+  public InputActionProperty aButtonAction;
+  public InputActionProperty bButtonAction;
 
-    private Rigidbody rigidBody;
-    private XRGrabInteractable interactableWeapon;
-    private AudioManagerEasy audioManagerEasy;
-      public InputActionProperty aButtonAction;
-    public InputActionProperty bButtonAction;
+  protected virtual void Awake() {
+    interactableWeapon = GetComponent<XRGrabInteractable>();
+    rigidBody = GetComponent<Rigidbody>();
+    SetupInteractableWeaponEvents();
 
-    protected virtual void Awake()
-    {
-        interactableWeapon = GetComponent<XRGrabInteractable>();
-        rigidBody = GetComponent<Rigidbody>();
-        SetupInteractableWeaponEvents();
-        controlAudio = GetComponent<AudioSource>();
+    aButtonAction.action.performed += _ => Reload();
+    bButtonAction.action.performed += _ => ToggleSafety();
+  }
 
-        // Configurar las acciones de los botones A y B
-        aButtonAction.action.performed += _ => Reload();
-        bButtonAction.action.performed += _ => ToggleSafety();
+  private void SetupInteractableWeaponEvents() {
+    interactableWeapon.onSelectEntered.AddListener(PickUpWeapon);
+    interactableWeapon.onSelectExited.AddListener(DropWeapon);
+    interactableWeapon.onActivate.AddListener(StartShooting);
+    interactableWeapon.onDeactivate.AddListener(StopShooting);
+  }
 
-    }
+  private void PickUpWeapon(XRBaseInteractor interactor) {
+    interactor.GetComponent<MeshHider>().Hide();
+  }
 
-    [Obsolete("Obsolete")]
-    private void SetupInteractableWeaponEvents()
-    {
-        interactableWeapon.onSelectEntered.AddListener(PickUpWeapon);
-        interactableWeapon.onSelectExited.AddListener(DropWeapon);
-        interactableWeapon.onActivate.AddListener(StartShooting);
-        interactableWeapon.onDeactivate.AddListener(StopShooting);
-        //a continuacion se asocia el boton A del controlador con el metodo Reload
-        
-    }
+  private void DropWeapon(XRBaseInteractor interactor) {
+    interactor.GetComponent<MeshHider>().Show();
+  }
 
-    protected void SeleccionAudio(int indice, float volumen)
-    {
-        controlAudio.PlayOneShot(audios[indice], volumen);
-    }
+  protected virtual void StartShooting(XRBaseInteractor interactor)
+  {
+  }
 
-  
-    private void PickUpWeapon(XRBaseInteractor interactor)
-    {
-        
-        interactor.GetComponent<MeshHidder>().Hide();
-        
-    }
- 
-    private void DropWeapon(XRBaseInteractor interactor)
-    {
-        interactor.GetComponent<MeshHidder>().Show();
+  protected virtual void StopShooting(XRBaseInteractor interactor)
+  {
+  }
 
-    }
+  protected virtual void Shoot() {
+    ApplyRecoil();
+    audioManager.Play("shot");
+    audioManager.Play("shells");
+  }
 
-    protected virtual void StartShooting(XRBaseInteractor interactor)
-    {
+  private void ApplyRecoil() {
+    rigidBody.AddRelativeForce(Vector3.back * recoilForce, ForceMode.Impulse);
+  }
 
-    }
+  public float GetShootingForce() {
+    return shootingForce;
+  }
 
-    protected virtual void StopShooting(XRBaseInteractor interactor)
-    {
+  public float GetDamage() {
+    return damage;
+  }
 
-    }
+  protected virtual void Reload() {
+    audioManager.Play("reload");
+  }
 
-    protected virtual void Shoot()
-    {
-        ApplyRecoil();
-        SeleccionAudio(0, 0.2f);
-        Invoke("SeleccionAudio(1, 0.2f)", 0.5f); // que usar para reemplazar el invoque pero poder usar el Seleccion audio?
-        //Player.SendBTMessage("F");
-
-    }
-
-    private void ApplyRecoil()
-    {
-        rigidBody.AddRelativeForce(Vector3.back * recoilForce, ForceMode.Impulse);
-    }
-
-    public float GetShootingForce()
-    {
-        return shootingForce;
-    }
-
-    public float GetDamage()
-    {
-        return damage;
-    }
-
-
-    protected virtual void Reload() { 
-        SeleccionAudio(2, 0.2f);
-    }
-
-    protected virtual void ToggleSafety() { 
-        SeleccionAudio(3, 0.2f);
-    }
-
+  protected virtual void ToggleSafety() {
+    audioManager.Play("dry_shot");
+  }
 }
-

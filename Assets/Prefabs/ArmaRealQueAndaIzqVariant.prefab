@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 531383358652848800, guid: 83db2e007efb3de44802e0313439e95c, type: 3}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 531383358652848800, guid: 83db2e007efb3de44802e0313439e95c, type: 3}
       propertyPath: audios.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: 3441778f5650a314ba6981e08704b0e1, type: 3}
@@ -62,6 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7094578096968664557, guid: 83db2e007efb3de44802e0313439e95c, type: 3}
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -108,5 +113,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2549e632a2ee9a444a6706a3e26c082d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SafetyColor: {fileID: 6226421089619143292}
-  Pistol: {fileID: 4565234274335308020}
+  safetyColor: {fileID: 6226421089619143292}
+  pistol: {fileID: 4565234274335308020}
