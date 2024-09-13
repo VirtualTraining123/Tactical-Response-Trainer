@@ -17,15 +17,14 @@ public class AudioManager : MonoBehaviour {
 
   public Sound[] sounds;
 
-  public void Awake() {
-    if (Instance == null) {
+  public void Awake() { //aca estaba lo que detonaba pistol?
+    if (Instance == null || Instance == this) {
       Instance = this;
     } else {
-      Destroy(gameObject);
-      return;
+      Destroy(this);
     }
 
-    DontDestroyOnLoad(gameObject);
+
 
     foreach (var s in sounds) {
       s.source = gameObject.AddComponent<AudioSource>();
