@@ -4,8 +4,8 @@ using UnityEngine.Serialization;
 
 public class ColiderSeguro : MonoBehaviour
 {
-    [FormerlySerializedAs("SafetyColor")] [SerializeField] private SafetyColor safetyColor;
-    [FormerlySerializedAs("Pistol")] [SerializeField] private Pistol pistol;
+    [SerializeField] private SafetyColor safetyColor;
+    [SerializeField] private Pistol pistol;
 
     private bool isSafetyCooldown; // Nueva variable para el enfriamiento del seguro
     private readonly float safetyCooldownDuration = 0.5f; // Duración del enfriamiento del seguro
