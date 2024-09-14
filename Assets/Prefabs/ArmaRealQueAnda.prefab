@@ -361,6 +361,7 @@ MonoBehaviour:
     m_Reference: {fileID: -8463144124054689998, guid: 7943e966b5d175e4d80320bb83685c28, type: 3}
   bulletPrefab: {fileID: -3281485610557029835, guid: 28b50149f29a723429270c4ae38ebbae, type: 3}
   debugRayDuration: 2
+  isEvaluated: 1
   bulletHolePrefab: {fileID: 179232, guid: b2ac1383a96f94a50b7ed458be173bbd, type: 3}
   isSafetyOn: 1
 --- !u!114 &7254478669470386246
@@ -655,7 +656,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7846816576752138520}
   - component: {fileID: 7408424748277975196}
-  - component: {fileID: 7094578096968664557}
+  - component: {fileID: 4515431647303226261}
   m_Layer: 0
   m_Name: ColiderSeguro
   m_TagString: Untagged
@@ -699,7 +700,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.03, y: 0.03, z: 0.03}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7094578096968664557
+--- !u!114 &4515431647303226261
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -708,11 +709,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5442422671774460932}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7be1a9daff31d345a1be3905ad15749, type: 3}
+  m_Script: {fileID: 11500000, guid: 2549e632a2ee9a444a6706a3e26c082d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   safetyColor: {fileID: 7957177496246470696}
   pistol: {fileID: 531383358652848800}
+  safetyCooldownDuration: 0.5
+  triggerTag: 1
 --- !u!1 &8152784787976776719
 GameObject:
   m_ObjectHideFlags: 0

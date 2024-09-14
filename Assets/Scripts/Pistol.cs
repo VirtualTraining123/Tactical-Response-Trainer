@@ -4,9 +4,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class Pistol : Weapon {
   [SerializeField] private Projectile bulletPrefab;
   [SerializeField] private float debugRayDuration = 2f;
+  [SerializeField] private bool isEvaluated = true;
   public GameObject bulletHolePrefab;
-
-  private static int shotsFiredPistol;
 
   private Evaluator evaluator;
   private readonly int maxBullets = 12;
@@ -16,7 +15,10 @@ public class Pistol : Weapon {
 
   protected void Start() {
     currentBullets = 12;
-    evaluator = FindObjectOfType<Evaluator>();
+    if (isEvaluated) {
+      evaluator = FindObjectOfType<Evaluator>();
+    }
+
     aButtonAction.action.Enable();
     bButtonAction.action.Enable();
   }
@@ -47,7 +49,6 @@ public class Pistol : Weapon {
     }
 
     base.Shoot();
-    shotsFiredPistol++;
     currentBullets--;
 
 
@@ -68,7 +69,7 @@ public class Pistol : Weapon {
       InstantiateBulletHole(hit.point, hit.normal, hit.collider.transform);
     }
 
-    evaluator.OnBulletUsed();
+    evaluator?.OnBulletUsed();
   }
 
   private void InstantiateBulletHole(Vector3 position, Vector3 normal, Transform parent) {
@@ -126,10 +127,5 @@ public class Pistol : Weapon {
         controller.SendHapticImpulse(1f, 0.3f); // Ajusta la intensidad y la duración según sea necesario
       }
     }
-  }
-
-
-  private void OnGUI() {
-    GUI.Label(new Rect(40, 90, 200, 20), "Disparos realizados: " + shotsFiredPistol);
   }
 }

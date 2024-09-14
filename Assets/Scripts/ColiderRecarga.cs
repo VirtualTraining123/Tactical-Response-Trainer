@@ -1,6 +1,5 @@
 using DefaultNamespace;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class ColiderRecarga : MonoBehaviour {
   [SerializeField] private Pistol pistol;
