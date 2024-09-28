@@ -97,7 +97,7 @@ public class Player : MonoBehaviour //Asociado a XR Origin
   }
 
   private void GameOver() {
-    evaluator.ReceiveShot();
+    evaluator.OnReceiveShot();
   }
 
   public Vector3 GetHeadPosition() {

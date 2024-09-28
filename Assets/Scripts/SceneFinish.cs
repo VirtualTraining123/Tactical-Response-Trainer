@@ -17,7 +17,7 @@ public class SceneFinish : MonoBehaviour
         {
             Debug.Log("Botón pulsado");
             isSimulationEnding = true; // Marcar que la finalización de la simulación ha sido iniciada
-            evaluator.EarlyEndSimulation();
+            evaluator.EndSimulation();
         }
     }
 }

@@ -494,7 +494,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &8603271965354008792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,9 +524,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a58edebb965a7941a348f6ef99f0c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemyremaining: {fileID: 26347655786521797}
-  CiviliansInjured: {fileID: 4884097077084243342}
-  Safetylock: {fileID: 8874811095787231614}
+  enemyRemaining: {fileID: 0}
+  civiliansInjured: {fileID: 0}
+  safetyLock: {fileID: 0}
   bullets: {fileID: 7923220967979860724}
   timeText: {fileID: 7084685076270046939}
 --- !u!114 &2316870645308022575

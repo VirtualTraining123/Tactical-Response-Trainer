@@ -15,10 +15,10 @@ public class HUDController : MonoBehaviour {
 
   void Update() {
     // Actualiza el texto con los valores actuales del evaluador
-    enemyRemaining.text = "Enemigos Eliminados: " + evaluator.GetEnemiesEliminated();
-    civiliansInjured.text = "Civiles Heridos: " + evaluator.GetCiviliansInjured();
+    enemyRemaining.text = "Enemigos Eliminados: " + evaluator.GetEnemiesKilled();
+    civiliansInjured.text = "Civiles Heridos: " + evaluator.GetCiviliansKilled();
     timeText.text = "Tiempo: " + evaluator.GetElapsedTime().ToString("F2");
-    safetyLock.text = "Seguro: " + evaluator.GetSafetyLock();
-    bullets.text = "Balas en cargador: " + evaluator.GetBullets();
+    safetyLock.text = "Seguro: " + "bla";
+    bullets.text = "Balas en cargador: " + "TODO"; // TODO: FIXME
   }
 }
