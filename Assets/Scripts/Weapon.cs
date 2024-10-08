@@ -51,7 +51,7 @@ public class Weapon : MonoBehaviour {
   protected virtual void Shoot() {
     ApplyRecoil();
     audioManager.Play("shot");
-    audioManager.Play("shells");
+    //audioManager.Play("shells");
   }
 
   private void ApplyRecoil() {
