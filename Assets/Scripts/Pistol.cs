@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Projectiles;
+using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class Pistol : Weapon {

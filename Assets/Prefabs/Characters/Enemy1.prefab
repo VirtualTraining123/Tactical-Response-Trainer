@@ -1809,7 +1809,7 @@ Animator:
   m_GameObject: {fileID: 8636926368577821441}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: aeb7e7c69ab9d534b91074a858c245be, type: 3}
-  m_Controller: {fileID: 9100000, guid: 731ab93f18c9e484b9e9f9e18db77616, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5c55f2ac64d0ead4aa676083346fafda, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1829,11 +1829,11 @@ NavMeshAgent:
   m_GameObject: {fileID: 8636926368577821441}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.6
   m_Speed: 5.5
   m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
+  avoidancePriority: 40
+  m_AngularSpeed: 270
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -1855,38 +1855,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deadMaterial: {fileID: 2100000, guid: 6c9c3473cfb12054f967af57849357b9, type: 2}
-  enemyColliders:
-  - {fileID: 2839359204647574015}
-  - {fileID: 1722339023913810905}
-  - {fileID: 7589230994776911756}
-  - {fileID: 5771015684925827041}
-  enemyRenderers:
-  - {fileID: 8636926368583096199}
-  - {fileID: 8636926368583096209}
-  - {fileID: 8636926368583096211}
-  - {fileID: 8636926368583096219}
-  - {fileID: 8636926368583096221}
-  - {fileID: 8636926368583096293}
-  startingHealth: 100
-  minTimeUnderCover: 1
-  maxTimeUnderCover: 1
+  bloodSplatterFX: {fileID: 19886758, guid: 8c27aeead6d968e4ba986702d6b84335, type: 3}
+  animator: {fileID: 0}
+  health: 0
+  rotationSpeed: 250
+  targetSpot: {fileID: 0}
   minShotsToTake: 4
   maxShotsToTake: 8
-  rotationSpeed: 250
+  minTimeUnderCover: 1
+  maxTimeUnderCover: 1
   damage: 110
   shootingAccuracy: 7.6
   shootingPosition: {fileID: 3058126443458833854}
-  bloodSplatterFX: {fileID: 19886758, guid: 8c27aeead6d968e4ba986702d6b84335, type: 3}
-  hapticEvent1:
-    m_PersistentCalls:
-      m_Calls: []
-  hapticEvent2:
-    m_PersistentCalls:
-      m_Calls: []
-  nextSceneName: 4 Victory
-  audios:
-  - {fileID: 8300000, guid: 58719cb2ed96a124d8341895d25aa1d0, type: 3}
-  - {fileID: 8300000, guid: bc12328c075384948813a4a72507205f, type: 3}
 --- !u!64 &2839359204647574015
 MeshCollider:
   m_ObjectHideFlags: 0

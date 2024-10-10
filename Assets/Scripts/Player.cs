@@ -1,99 +1,64 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using UnityEngine.Android;
 
 public class Player : MonoBehaviour //Asociado a XR Origin
 {
-  [SerializeField] float health;
-  [SerializeField] Transform head;
+  [SerializeField] private float health;
+  [SerializeField] private Transform head;
   [SerializeField] private BloodEffectPlane bloodEffectPlane;
+  [SerializeField] private Collider bodyCollider;
   public CameraShake cameraShake;
 
+  private const string MOTOR1 = "F";
+  private const string MOTOR2 = "B";
   private bool isConnected;
-  public string deviceName = "ESP32_BT";
-  public string motor1 = "F";
-  public string motor2 = "B";
-
-
-  bool flag;
-
+  private bool isShowingBloodEffect;
   private Evaluator evaluator;
 
   private void Start() {
-#if UNITY_2020_2_OR_NEWER
-#if UNITY_ANDROID
-    if (!Permission.HasUserAuthorizedPermission(Permission.CoarseLocation)
-        || !Permission.HasUserAuthorizedPermission(Permission.FineLocation)
-        || !Permission.HasUserAuthorizedPermission("android.permission.BLUETOOTH_SCAN")
-        || !Permission.HasUserAuthorizedPermission("android.permission.BLUETOOTH_ADVERTISE")
-        || !Permission.HasUserAuthorizedPermission("android.permission.BLUETOOTH_CONNECT"))
-      Permission.RequestUserPermissions(
-        new[] {
-          Permission.CoarseLocation,
-          Permission.FineLocation,
-          "android.permission.BLUETOOTH_SCAN",
-          "android.permission.BLUETOOTH_ADVERTISE",
-          "android.permission.BLUETOOTH_CONNECT"
-        }
-      );
-#endif
-#endif
-
+    RequestBluetoothPermission();
     isConnected = false;
-
     BluetoothService.CreateBluetoothObject();
-
-    if (!isConnected) {
-      isConnected = BluetoothService.StartBluetoothConnection(deviceName);
-    }
-
-    if (!isConnected) {
-      isConnected = BluetoothService.StartBluetoothConnection("ESP32_BT");
-    }
-
-    BluetoothService.WritetoBluetooth(motor1);
-    BluetoothService.WritetoBluetooth("F");
-
-
-    // Iniciar el temporizador cuando comience la escena
-
+    AssertConnected();
+    BluetoothService.WritetoBluetooth(MOTOR1);
     evaluator = FindObjectOfType<Evaluator>();
   }
 
-  public void TakeDamage(float damage) {
-    StartCoroutine(cameraShake.Shake()); //en complete XR Origin
-
-
-    health -= damage;
-    // TODO: Add player take damage 
-
-
-    Debug.LogWarning($"Player health: {health}");
-    //probabilidad 50% de activar 1 motor o el otro
-    if (Random.Range(0, 100) < 50) {
-      BluetoothService.WritetoBluetooth(motor1);
-      BluetoothService.WritetoBluetooth("F");
-    } else {
-      BluetoothService.WritetoBluetooth(motor2);
-      BluetoothService.WritetoBluetooth("B");
-    }
-
-
-    // Verificar si la salud llega a cero o menos
-    if (health <= 0) {
-      // Detener el temporizador
-      // StopTimer();
-      if (flag == false) {
-        bloodEffectPlane.ShowBloodEffect(); //En XR Origin
-        flag = true;
-      }
-
-      // ir a la escena de Game Over pero a los 5 segundos
-      Invoke(nameof(GameOver), 3f);
-    }
+  private static void RequestBluetoothPermission() {
+#if (UNITY_ANDROID && UNITY_2020_2_OR_NEWER)
+    var permissions = new[] {
+      Permission.CoarseLocation,
+      Permission.FineLocation,
+      "android.permission.BLUETOOTH_SCAN",
+      "android.permission.BLUETOOTH_ADVERTISE",
+      "android.permission.BLUETOOTH_CONNECT"
+    };
+    if (permissions.Any(permission => !Permission.HasUserAuthorizedPermission(permission)))
+      Permission.RequestUserPermissions(permissions);
+#endif
   }
 
-  public void SendBtMessage(string message) {
-    BluetoothService.WritetoBluetooth(message);
+  private void AssertConnected() {
+    for (var i = 0; i < 10 && !isConnected; i++)
+      isConnected = BluetoothService.StartBluetoothConnection("ESP32_BT");
+  }
+
+  public void TakeDamage(float damage) {
+    StartCoroutine(cameraShake.Shake());
+    health -= damage;
+    // TODO: Add player take damage 
+    Debug.LogWarning($"Player health: {health}");
+    ActivateRandomMotor();
+    if (health > 0) return;
+    if (isShowingBloodEffect) return;
+    bloodEffectPlane.ShowBloodEffect();
+    isShowingBloodEffect = true;
+    Invoke(nameof(GameOver), 3f);
+  }
+
+  private void ActivateRandomMotor() {
+    BluetoothService.WritetoBluetooth(Random.Range(0, 100) < 50 ? MOTOR1 : MOTOR2);
   }
 
   private void GameOver() {
@@ -102,5 +67,9 @@ public class Player : MonoBehaviour //Asociado a XR Origin
 
   public Vector3 GetHeadPosition() {
     return head.position;
+  }
+
+  public bool IsVisibleFrom(Vector3 transformPosition) {
+    return Physics.Linecast(transformPosition, GetHeadPosition(), out var hit) && hit.transform.CompareTag("Player");
   }
 }
