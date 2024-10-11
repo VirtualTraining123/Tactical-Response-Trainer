@@ -9,8 +9,6 @@ namespace AI {
   public class EnemyAI : RunToTargetAI {
     [SerializeField] private int minShotsToTake;
     [SerializeField] private int maxShotsToTake;
-    [SerializeField] protected float minTimeUnderCover;
-    [SerializeField] protected float maxTimeUnderCover;
 
     /// <summary>
     /// The damage the enemy deals to the player on each shot.

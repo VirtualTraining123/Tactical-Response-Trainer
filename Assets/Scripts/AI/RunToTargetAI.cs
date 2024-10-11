@@ -35,19 +35,19 @@ namespace AI {
       state = newState;
       switch (state) {
         case State.Running:
-          animator.SetTrigger(Run);
-          animator.ResetTrigger(Crouch);
-          animator.ResetTrigger(Shoot1);
+          Animator.SetTrigger(Run);
+          Animator.ResetTrigger(Crouch);
+          Animator.ResetTrigger(Shoot1);
           break;
         case State.Crouching:
-          animator.ResetTrigger(Run);
-          animator.SetTrigger(Crouch);
-          animator.ResetTrigger(Shoot1);
+          Animator.ResetTrigger(Run);
+          Animator.SetTrigger(Crouch);
+          Animator.ResetTrigger(Shoot1);
           break;
         case State.Shooting:
-          animator.ResetTrigger(Run);
-          animator.ResetTrigger(Crouch);
-          animator.SetTrigger(Shoot1);
+          Animator.ResetTrigger(Run);
+          Animator.ResetTrigger(Crouch);
+          Animator.SetTrigger(Shoot1);
           break;
         case State.Dead:
           enabled = false;
@@ -79,14 +79,14 @@ namespace AI {
       if (HaveMadeItToTargetSpot()) {
         targetSpot = null;
         ToState(State.Crouching);
-        navigationMesh.isStopped = true;
+        NavigationMesh.isStopped = true;
         return;
       }
 
-      navigationMesh.isStopped = false;
-      animator.enabled = true;
+      NavigationMesh.isStopped = false;
+      Animator.enabled = true;
       ToState(State.Running);
-      navigationMesh.SetDestination(targetSpot.position);
+      NavigationMesh.SetDestination(targetSpot.position);
       // TODO: Play audio ???
     }
 

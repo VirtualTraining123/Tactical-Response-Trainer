@@ -7,8 +7,8 @@ namespace AI {
   public abstract class AI : MonoBehaviour, ITakeDamage {
     [SerializeField] public Material deadMaterial;
     [SerializeField] public ParticleSystem bloodSplatterFX;
-    [SerializeField] protected Animator animator;
-    protected NavMeshAgent navigationMesh;
+    protected Animator Animator;
+    protected NavMeshAgent NavigationMesh;
     [SerializeField] private float health;
     private Renderer[] renderers;
     private Collider[] colliders;
@@ -29,8 +29,8 @@ namespace AI {
     protected virtual void Awake() {
       renderers = GetComponentsInChildren<Renderer>();
       colliders = GetComponentsInChildren<Collider>();
-      animator = GetComponent<Animator>();
-      navigationMesh = FindObjectOfType<NavMeshAgent>();
+      Animator = GetComponent<Animator>();
+      NavigationMesh = FindObjectOfType<NavMeshAgent>();
       Evaluator = FindObjectOfType<Evaluator>();
     }
 
@@ -54,8 +54,8 @@ namespace AI {
     protected abstract void onDie();
 
     private void StopAnimations() {
-      navigationMesh.isStopped = true;
-      animator.enabled = false;
+      NavigationMesh.isStopped = true;
+      Animator.enabled = false;
     }
 
     private bool ShouldDie() {
