@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 namespace AI {
   [RequireComponent(typeof(NavMeshAgent))]
   public class EnemyAI : RunToTargetAI {
+    [SerializeField] public long minCrouchTimeMS = 5000;
     [SerializeField] private int minShotsToTake;
     [SerializeField] private int maxShotsToTake;
 
@@ -29,29 +30,24 @@ namespace AI {
 
     private int currentShotsTaken;
     private int currentMaxShotsToTake;
-    protected override void onDie() => Evaluator.OnEnemyKilled();
+    protected override void OnDie() => Evaluator.OnEnemyKilled();
 
     protected override void UpdateCrouching() {
       if (Player.IsVisibleFrom(transform.position)) {
         OnStartShooting();
         return;
       }
+
       var nowMs = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
       var deltaMs = nowMs - timerMs;
-      if (timerMs == 0) {
+      if (deltaMs <= 0) {
         timerMs = nowMs;
         return;
       }
 
-      switch (deltaMs) {
-        case <= 0:
-          timerMs = nowMs;
-          break;
-        case > 5000:
-          ToState(State.Running);
-          timerMs = 0;
-          break;
-      }
+      if (deltaMs <= minCrouchTimeMS) return;
+      ToState(State.Running);
+      timerMs = 0;
     }
 
     private void OnStartShooting() {
@@ -65,6 +61,7 @@ namespace AI {
         OnStartShooting();
         return;
       }
+
       base.UpdateRunning();
     }
 
@@ -74,25 +71,39 @@ namespace AI {
         return;
       }
 
+      // Look at the player
+      RotateTowardsPlayer();
+
       if (currentShotsTaken < currentMaxShotsToTake) return;
       ToState(State.Running);
     }
-    
+
 
     // ReSharper disable once UnusedMember.Global This is called from the animation event.
     public void Shoot() {
-      var direction = Player.GetHeadPosition() - shootingPosition.position;
-      RaycastShot(direction);
+      RaycastShot(Player);
       currentShotsTaken++;
     }
 
-    private void RaycastShot(Vector3 direction) {
-      if (!Physics.Raycast(shootingPosition.position, direction, out var hit)) return;
-      Debug.DrawRay(shootingPosition.position, direction, Color.green, 2.0f);
-      var maybePlayer = hit.collider.GetComponentInParent<Player>();
-      if (!maybePlayer) return;
+    private void RaycastShot(Player player) {
+      if (!Physics.Linecast(shootingPosition.position, player.GetBodyCenterPosition(), out var hit)) return;
+      Debug.DrawLine(shootingPosition.position, player.GetBodyCenterPosition(), Color.red, 1f);
+      // Get the object that was hit
+
+      var hitObject = hit.collider.gameObject;
+
+      if (!hit.collider.CompareTag("Player")) {
+        Debug.Log("Ray Hit something that is not the player, It hit: " + hitObject.name);
+        return;
+      }
+
       // TODO: Play audio?
-      if (Random.Range(0, 100) < shootingAccuracy) maybePlayer.TakeDamage(damage);
+      if (Random.Range(0, 100) < shootingAccuracy) {
+        Debug.Log("Shot the player!!!");
+        player.TakeDamage(damage);
+      } else {
+        Debug.Log("But it missed :c");
+      }
     }
   }
 }

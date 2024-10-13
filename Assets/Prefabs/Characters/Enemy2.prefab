@@ -3186,16 +3186,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deadMaterial: {fileID: 2100000, guid: 6c9c3473cfb12054f967af57849357b9, type: 2}
   bloodSplatterFX: {fileID: 19886758, guid: 8c27aeead6d968e4ba986702d6b84335, type: 3}
-  animator: {fileID: 0}
-  health: 0
+  health: 100
   rotationSpeed: 250
   targetSpot: {fileID: 0}
   minShotsToTake: 4
   maxShotsToTake: 8
-  minTimeUnderCover: 1
-  maxTimeUnderCover: 1
   damage: 110
-  shootingAccuracy: 8
+  shootingAccuracy: 5
   shootingPosition: {fileID: 5759414061254485349}
 --- !u!64 &2839359204647574015
 MeshCollider:

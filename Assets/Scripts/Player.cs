@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Android;
 
-public class Player : MonoBehaviour //Asociado a XR Origin
+public class Player : MonoBehaviour
 {
   [SerializeField] private float health;
   [SerializeField] private Transform head;
@@ -57,7 +57,7 @@ public class Player : MonoBehaviour //Asociado a XR Origin
     Invoke(nameof(GameOver), 3f);
   }
 
-  private void ActivateRandomMotor() {
+  private static void ActivateRandomMotor() {
     BluetoothService.WritetoBluetooth(Random.Range(0, 100) < 50 ? MOTOR1 : MOTOR2);
   }
 
@@ -68,8 +68,13 @@ public class Player : MonoBehaviour //Asociado a XR Origin
   public Vector3 GetHeadPosition() {
     return head.position;
   }
+  
+  public Vector3 GetBodyCenterPosition() {
+    return bodyCollider.bounds.center;
+  }
 
   public bool IsVisibleFrom(Vector3 transformPosition) {
-    return Physics.Linecast(transformPosition, GetHeadPosition(), out var hit) && hit.transform.CompareTag("Player");
+    return Physics.Linecast(transformPosition, GetBodyCenterPosition(), out var hit) &&
+           hit.collider == bodyCollider;
   }
 }

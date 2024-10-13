@@ -3073,8 +3073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deadMaterial: {fileID: 2100000, guid: 20bd5875b57c32241a0de542e2be91fe, type: 2}
   bloodSplatterFX: {fileID: 19886758, guid: 8c27aeead6d968e4ba986702d6b84335, type: 3}
-  animator: {fileID: 0}
-  health: 0
+  health: 100
   rotationSpeed: 250
   targetSpot: {fileID: 0}
 --- !u!64 &348931194963788005

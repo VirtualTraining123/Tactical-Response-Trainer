@@ -14,7 +14,7 @@ public class Evaluator : MonoBehaviour {
   [SerializeField] public Pistol[] pistols;
   [SerializeField] public ResultSaver.ResultSaver resultSaver;
 
-  private float elapsedTime;
+  private long simulationStartTime;
   private bool hasSimulationEnded;
   private bool isPlayerDead;
   private bool hasSafetyBeenLeftOn;
@@ -30,21 +30,24 @@ public class Evaluator : MonoBehaviour {
   private const int FAILED_SCENE = 3;
 
 
-  private void Start() {
+  private void Awake() {
     spawnManager = FindObjectOfType<SpawnManager>();
     parBulletCount = spawnManager.GetTotalEnemies();
-    elapsedTime = 0f;
+    simulationStartTime = GetTime();
     totalEnemyCount = 0;
     enemiesKilled = 0;
     usedBulletCount = 0;
     civiliansKilled = 0;
   }
 
-  private void Update() {
+  private static long GetTime() {
+    return System.DateTimeOffset.Now.ToUnixTimeMilliseconds();
+  }
+
+  private void FixedUpdate() {
     if (hasSimulationEnded) return;
 
-    elapsedTime += Time.deltaTime;
-    if (elapsedTime >= maxSimulationTime) return;
+    if (GetTime() < simulationStartTime + maxSimulationTime * 1000) return;
     EndSimulation();
   }
 
@@ -61,7 +64,7 @@ public class Evaluator : MonoBehaviour {
 
   private bool HasPassed(float score) => score < minPassingScore && !isPlayerDead;
 
-  public float GetElapsedTime() => elapsedTime;
+  public float GetElapsedTime() => (GetTime() - simulationStartTime) / 1000f;
 
   public int GetCiviliansKilled() => civiliansKilled;
 
@@ -78,6 +81,7 @@ public class Evaluator : MonoBehaviour {
   }
 
   public void EndSimulation() {
+    hasSimulationEnded = true;
     totalEnemyCount = spawnManager.GetTotalEnemies();
     var score = maxScore;
     score -= ConsiderKilledCivilians();
@@ -85,9 +89,8 @@ public class Evaluator : MonoBehaviour {
     score -= CheckSafetyPenalty();
     score -= ConsiderUsedBullets();
 
-    hasSimulationEnded = true;
     var evaluationResult = new EvaluationResult(
-      elapsedTime,
+      GetElapsedTime(),
       civiliansKilled,
       totalEnemyCount - enemiesKilled,
       usedBulletCount - parBulletCount,

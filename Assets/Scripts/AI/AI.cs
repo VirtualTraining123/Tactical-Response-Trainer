@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Projectiles;
 using UnityEngine;
 using UnityEngine.AI;
@@ -25,6 +26,7 @@ namespace AI {
     protected static readonly int Crouch = Animator.StringToHash(CROUCH_TRIGGER);
     protected static readonly int Shoot1 = Animator.StringToHash(SHOOT_TRIGGER);
     protected Evaluator Evaluator;
+    private State state = State.Running;
 
     protected virtual void Awake() {
       renderers = GetComponentsInChildren<Renderer>();
@@ -44,14 +46,15 @@ namespace AI {
       health -= weapon.GetDamage();
 
       if (!ShouldDie()) return;
-      onDie();
-      Die();
+      ConvertToDeadMaterial();
       DisableAllColliders();
       isDestroyed = true;
       StopAnimations();
+      OnDie();
+      ToState(State.Dead);
     }
 
-    protected abstract void onDie();
+    protected abstract void OnDie();
 
     private void StopAnimations() {
       NavigationMesh.isStopped = true;
@@ -62,7 +65,7 @@ namespace AI {
       return deadMaterial && health <= 0 && !isDestroyed;
     }
 
-    private void Die() {
+    private void ConvertToDeadMaterial() {
       foreach (var renderer1 in renderers) {
         renderer1.material = deadMaterial;
       }
@@ -73,5 +76,56 @@ namespace AI {
         collider1.enabled = false;
       }
     }
+
+    protected void ToState(State newState) {
+      state = newState;
+      NavigationMesh.isStopped = state != State.Running;
+      switch (state) {
+        case State.Running:
+          Animator.SetTrigger(Run);
+          Animator.ResetTrigger(Crouch);
+          Animator.ResetTrigger(Shoot1);
+          break;
+        case State.Crouching:
+          Animator.ResetTrigger(Run);
+          Animator.SetTrigger(Crouch);
+          Animator.ResetTrigger(Shoot1);
+          break;
+        case State.Shooting:
+          Animator.ResetTrigger(Run);
+          Animator.ResetTrigger(Crouch);
+          Animator.SetTrigger(Shoot1);
+          break;
+        case State.Dead:
+          enabled = false;
+          break;
+        default:
+          throw new ArgumentOutOfRangeException();
+      }
+    }
+
+    private void Update() {
+      switch (state) {
+        case State.Running:
+          UpdateRunning();
+          break;
+        case State.Crouching:
+          UpdateCrouching();
+          break;
+        case State.Shooting:
+          UpdateShooting();
+          break;
+        case State.Dead:
+          UpdateDead();
+          break;
+        default:
+          throw new ArgumentOutOfRangeException();
+      }
+    }
+
+    protected abstract void UpdateRunning();
+    protected abstract void UpdateDead();
+    protected abstract void UpdateCrouching();
+    protected abstract void UpdateShooting();
   }
 }
