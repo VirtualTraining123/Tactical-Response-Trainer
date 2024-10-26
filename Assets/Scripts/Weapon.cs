@@ -24,6 +24,13 @@ public class Weapon : MonoBehaviour {
 
     aButtonAction.action.performed += _ => ReloadSound();
     bButtonAction.action.performed += _ => ToggleSafetySound();
+    
+    audioManager.Request("shot", gameObject);
+    audioManager.Request("shells", gameObject);
+    audioManager.Request("reload", gameObject);
+    audioManager.Request("toggle_safety", gameObject);
+    audioManager.Request("safety", gameObject);
+    audioManager.Request("dry_shot", gameObject);
   }
 
   private void SetupInteractableWeaponEvents() {
@@ -47,8 +54,8 @@ public class Weapon : MonoBehaviour {
 
   protected virtual void Shoot() {
     ApplyRecoil();
-    audioManager.Play("shot");
-    audioManager.Play("shells");
+    audioManager.Play("shot", gameObject);
+    audioManager.Play("shells", gameObject);
   }
 
   private void ApplyRecoil() {
@@ -73,19 +80,19 @@ public class Weapon : MonoBehaviour {
   }
 
   protected void ReloadSound() {
-    audioManager.Play("reload");
+    audioManager.Play("reload", gameObject);
   }
 
   protected void ToggleSafetySound() {
-    audioManager.Play("toggle_safety");
+    audioManager.Play("toggle_safety", gameObject);
   }
 
   protected void SafetyStillActiveSound() {
-    audioManager.Play("safety");
+    audioManager.Play("safety", gameObject);
   }
 
 
   protected void ShotNoBulletsSound() {
-    audioManager.Play("dry_shot");
+    audioManager.Play("dry_shot", gameObject);
   }
 }

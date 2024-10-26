@@ -21,6 +21,11 @@ namespace AI {
     /// </summary>
     [Range(0, 100)] [SerializeField] private float shootingAccuracy;
 
+    protected override void Awake() {
+      base.Awake();
+      audioManager.Request("shot", gameObject);
+    }
+
     /// <summary>
     /// The offset from the enemy's position to the position where the bullets are shot from.
     /// </summary>
@@ -90,7 +95,7 @@ namespace AI {
       Debug.DrawLine(shootingPosition.position, player.GetBodyCenterPosition(), Color.red, 1f);
       // Get the object that was hit
 
-      audioManager.Play("shot");
+      audioManager.Play("shot", gameObject);
       var hitObject = hit.collider.gameObject;
 
       if (!hit.collider.CompareTag("Player")) {

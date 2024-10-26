@@ -9,20 +9,23 @@ public class UIAudio : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 
   private void Awake() {
     audioManager = FindObjectOfType<AudioManager>();
+    audioManager.Request(clickAudioName, gameObject);
+    audioManager.Request(hoverEnterAudioName, gameObject);
+    audioManager.Request(hoverExitAudioName, gameObject);
   }
 
   public void OnPointerClick(PointerEventData eventData) {
     if (clickAudioName == "") return;
-    audioManager.Play(clickAudioName);
+    audioManager.Play(clickAudioName, gameObject);
   }
 
   public void OnPointerEnter(PointerEventData eventData) {
     if (hoverEnterAudioName == "") return;
-    audioManager.Play(hoverEnterAudioName);
+    audioManager.Play(hoverEnterAudioName, gameObject);
   }
 
   public void OnPointerExit(PointerEventData eventData) {
     if (hoverExitAudioName == "") return;
-    audioManager.Play(hoverExitAudioName);
+    audioManager.Play(hoverExitAudioName, gameObject);
   }
 }
