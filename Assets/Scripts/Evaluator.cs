@@ -1,10 +1,10 @@
 using System.Linq;
-using ResultSaver;
+using Results;
 using Spawner;
 using UnityEngine;
 
 public class Evaluator : MonoBehaviour {
-  [Header("Settings")] public float maxSimulationTime = 90f;
+  [Header("Settings")] public long maxSimulationTime = 3;
   [SerializeField] public float maxScore = 10f;
   [SerializeField] public float minPassingScore = 6f;
   [SerializeField] public float scorePenaltyForEnemy = 1f;
@@ -12,7 +12,6 @@ public class Evaluator : MonoBehaviour {
   [SerializeField] public float scorePenaltyForExtraBullet = 0.25f;
   [SerializeField] public float scorePenaltyForLeavingSafetyOff = 1f;
   [SerializeField] public Pistol[] pistols;
-  [SerializeField] public ResultSaver.ResultSaver resultSaver;
 
   private long simulationStartTime;
   private bool hasSimulationEnded;
@@ -38,6 +37,7 @@ public class Evaluator : MonoBehaviour {
     enemiesKilled = 0;
     usedBulletCount = 0;
     civiliansKilled = 0;
+    ResultManagerFactory.Create().Clear();
   }
 
   private static long GetTime() {
@@ -46,7 +46,10 @@ public class Evaluator : MonoBehaviour {
 
   private void FixedUpdate() {
     if (hasSimulationEnded) return;
-
+    Debug.Log($"Start: {simulationStartTime}");
+    Debug.Log($"Now: {GetTime()}");
+    Debug.Log($"Delta: {(simulationStartTime + maxSimulationTime * 1000) - GetTime()}");
+    
     if (GetTime() < simulationStartTime + maxSimulationTime * 1000) return;
     EndSimulation();
   }
@@ -98,7 +101,7 @@ public class Evaluator : MonoBehaviour {
       isPlayerDead,
       pistols.Count(pistol => pistol.isSafetyOn)
     );
-    resultSaver.SaveResult(evaluationResult);
+    ResultManagerFactory.Create().SaveResult(evaluationResult);
     SceneTransitionManager.Singleton.GoToSceneAsync(HasPassed(score) ? FAILED_SCENE : PASSED_SCENE);
   }
 }

@@ -1,4 +1,4 @@
-﻿namespace ResultSaver {
+﻿namespace Results {
   public class EvaluationResult {
     public EvaluationResult(float time,
       int injuredCivilians,
@@ -42,5 +42,10 @@
       agentDeath = AgentDeath;
       safetyOff = SafetyOff;
     }
+
+    public override string ToString() {
+      return $"Time: {Time}, Injured Civilians: {InjuredCivilians}, Missing Enemies: {MissingEnemies}, Extra Bullets Used: {ExtraBulletsUsed}, Final Score: {FinalScore}, Agent Death: {AgentDeath}, Safety Off: {SafetyOff}";
+    }
   }
+  
 }

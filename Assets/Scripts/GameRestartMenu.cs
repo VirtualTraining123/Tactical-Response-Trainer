@@ -1,130 +1,76 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System;
-using UnityEngine.Serialization;
+using System.Globalization;
+using Results;
+using Scenes;
 
-public class GameRestartMenu : MonoBehaviour
-{
-    [Header("UI Pages")] public GameObject gameOverMenu;
 
-    [Header("GameOver Menu Buttons")] public Button restartButton;
-    public Button quitButton;
+public class GameRestartMenu : MonoBehaviour {
+  [Header("UI Pages")] public GameObject gameOverMenu;
 
-    public List<Button> returnButtons;
+  [Header("GameOver Menu Buttons")] public Button restartButton;
+  public Button quitButton;
 
-    [FormerlySerializedAs("Enemigos_Faltantes")] [Header("Data Display")]
-    public TMP_Text enemigosFaltantes;
+  [Header("Data Display")] public TMP_Text remainingEnemies;
 
-    [FormerlySerializedAs("Civiles_Heridos")]
-    public TMP_Text civilesHeridos;
+  public TMP_Text injuredCivilians;
 
-    [FormerlySerializedAs("Cartuchos_extra_gastados")]
-    public TMP_Text cartuchosExtraGastados;
+  public TMP_Text extraBulletsUsed;
 
-    [FormerlySerializedAs("Tiempo")] public TMP_Text tiempo;
+  public TMP_Text timeOnScene;
 
-    [FormerlySerializedAs("Muerte_de_agente")]
-    public TMP_Text muerteDeAgente;
+  public TMP_Text agentDeath;
 
-    [FormerlySerializedAs("Puntaje_Final")]
-    public TMP_Text puntajeFinal;
+  public TMP_Text safetyActive;
 
-    [FormerlySerializedAs("Seguro_Colocado")]
-    public TMP_Text seguroColocado;
+  public TMP_Text finalScore;
 
-    [Header("Player Camera")] public Transform playerCamera; // Assign the player's camera in the inspector
+  [Header("Player Camera")] public Transform playerCamera;
 
-    public float distanceFromPlayer = 2f; // Distance from the player to display the menu
+  void Awake() {
+    EnableGameOverMenu();
 
-    void Start()
-    {
-        EnableGameOverMenu();
+    // Hook events
+    restartButton.onClick.AddListener(RestartGame);
+    quitButton.onClick.AddListener(QuitGame);
 
-        // Hook events
-        restartButton.onClick.AddListener(RestartGame);
-        quitButton.onClick.AddListener(QuitGame);
+    DisplayCollectedData();
+  }
 
-        DisplayCollectedData();
-    }
+  void Update() {
+    if (!playerCamera) return;
+    gameOverMenu.transform.LookAt(playerCamera);
+    gameOverMenu.transform.Rotate(0f, 180f, 0f);
+  }
 
-    void Update()
-    {
-        // Position the menu in front of the player
-        if (playerCamera != null)
-        {
-            // Position the menu
-            //gameOverMenu.transform.position = menuPosition;
+  private static void QuitGame() {
+    PlayerPrefs.DeleteAll();
+    Application.Quit();
+  }
 
-            // Rotate the menu to face the player
-            gameOverMenu.transform.LookAt(playerCamera);
-            gameOverMenu.transform.Rotate(0f, 180f, 0f); // Adjust the rotation to face the player correctly
-        }
-    }
+  private void RestartGame() {
+    HideAll();
+    SceneTransitionManager.Singleton.GoToSceneAsync((int) Scene.Evaluation);
+  }
 
-    private void QuitGame()
-    {
-        PlayerPrefs.DeleteAll();
-        Application.Quit();
-    }
+  private void HideAll() {
+    gameOverMenu.SetActive(false);
+  }
 
-    private void RestartGame()
-    {
-        PlayerPrefs.DeleteAll();
+  private void EnableGameOverMenu() {
+    gameOverMenu.SetActive(true);
+  }
 
-        HideAll();
-
-        // ClearPlayerPrefsData(); // Limpia los datos almacenados en PlayerPrefs
-        //espera 2 segundos antes de reiniciar el juego
-
-        StartCoroutine(RestartGameRoutine());
-    }
-
-    IEnumerator RestartGameRoutine()
-    {
-        yield return new WaitForSeconds(5f);
-        SceneTransitionManager.Singleton.GoToScene(2);
-    }
-
-    private void HideAll()
-    {
-        gameOverMenu.SetActive(false);
-    }
-
-    private void EnableGameOverMenu()
-    {
-        gameOverMenu.SetActive(true);
-    }
-
-    private void DisplayCollectedData()
-    {
-        // Retrieve collected data from PlayerPrefs or wherever it's stored
-        float time = PlayerPrefs.GetFloat("Tiempo", 0f);
-        int enemiesNotEliminated = PlayerPrefs.GetInt("Enemigos_Faltantes", 0);
-        int civiliansEliminated = PlayerPrefs.GetInt("Civiles_Heridos", 0);
-        int extraShotsFired = PlayerPrefs.GetInt("Cartuchos_extra_gastados", 0);
-        String agente = PlayerPrefs.GetString("Muerte_de_agente", "No");
-        float finalScore = PlayerPrefs.GetFloat("Puntaje_Final", 0f);
-        String seguro = PlayerPrefs.GetString("Seguro", "No");
-
-        // Update UI elements with collected data
-        enemigosFaltantes.text = "Enemigos Faltanes: " + enemiesNotEliminated;
-        civilesHeridos.text = "Civiles Heridos: " + civiliansEliminated;
-        tiempo.text = "Tiempo en escena: " + time + "s";
-        cartuchosExtraGastados.text = "Cartuchos extra gastados: " + extraShotsFired;
-        muerteDeAgente.text = "Muerte de agente: " + agente;
-        seguroColocado.text = "Seguro Colocado: " + seguro;
-        puntajeFinal.text = "Puntaje Final: " + finalScore;
-    }
-
-    public void ClearPlayerPrefsData()
-    {
-        PlayerPrefs.DeleteKey("Enemy_Dead_Count");
-        PlayerPrefs.DeleteKey("Civil_Dead_Count");
-        PlayerPrefs.DeleteKey("Shots_Fired_Pistol");
-        PlayerPrefs.DeleteKey("Elapsed_Time");
-        PlayerPrefs.Save(); // Ensure changes are saved immediately
-    }
+  private async void DisplayCollectedData() {
+    var result = await ResultManagerFactory.Create().LoadResult();
+    Debug.Log(result.ToString());
+    remainingEnemies.text = $"Enemigos faltantes: {result.MissingEnemies}";
+    injuredCivilians.text = $"Civiles heridos: {result.InjuredCivilians}";
+    extraBulletsUsed.text = $"Balas extra usadas: {result.ExtraBulletsUsed}";
+    timeOnScene.text = $"Tiempo en escena: {result.Time.ToString(CultureInfo.InvariantCulture)}s";
+    agentDeath.text = $"Muerte del agente: {result.AgentDeath}";
+    safetyActive.text = $"Seguridad activada: {result.SafetyOff}";
+    finalScore.text = $"Puntaje final: {result.FinalScore}";
+  }
 }

@@ -14,6 +14,6 @@ public class WeaponSafetyCollider : MonoBehaviour {
     if (Time.time - lastCooldownTime < safetyCooldownDuration) return;
     lastCooldownTime = Time.time;
     pistol.OnToggleSafety();
-    safetyColor.ToggleMaterial();
+    safetyColor.UpdateMaterial();
   }
 }

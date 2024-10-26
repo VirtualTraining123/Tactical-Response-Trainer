@@ -30,6 +30,7 @@ public class AudioManager : MonoBehaviour {
       return;
     }
     var audioSource = obj.AddComponent<AudioSource>();
+    // TODO: Try to remove these lines and check if the audio still plays
     audioSource.clip = s.clip;
     audioSource.bypassEffects = true;
     audioSource.bypassListenerEffects = true;

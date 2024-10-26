@@ -333,7 +333,6 @@ MonoBehaviour:
   bulletSpawn: {fileID: 3166538116959224135}
   recoilForce: 2
   damage: 100
-  audioManager: {fileID: 0}
   aButtonAction:
     m_UseReference: 1
     m_Action:
@@ -798,9 +797,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetRenderer: {fileID: 8791863180272376111}
-  defaultMaterial: {fileID: 2100000, guid: 708185bac4d535c428cb349d9c9d9ae2, type: 2}
+  safetyOffMaterial: {fileID: 2100000, guid: 708185bac4d535c428cb349d9c9d9ae2, type: 2}
   safetyOnMaterial: {fileID: 2100000, guid: 0d83ef4feabed4b48a4bb7584b3cae2d, type: 2}
-  isSafetyOn: 1
+  pistol: {fileID: 531383358652848800}
 --- !u!4 &8815937355710062547 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4361290258541780, guid: 39c63f1dfaaaa274a95704e94959a7df, type: 3}
