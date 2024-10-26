@@ -90,6 +90,7 @@ namespace AI {
       Debug.DrawLine(shootingPosition.position, player.GetBodyCenterPosition(), Color.red, 1f);
       // Get the object that was hit
 
+      audioManager.Play("shot");
       var hitObject = hit.collider.gameObject;
 
       if (!hit.collider.CompareTag("Player")) {
@@ -97,7 +98,6 @@ namespace AI {
         return;
       }
 
-      // TODO: Play audio?
       if (Random.Range(0, 100) < shootingAccuracy) {
         Debug.Log("Shot the player!!!");
         player.TakeDamage(damage);

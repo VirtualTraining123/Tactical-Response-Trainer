@@ -1,35 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UIAudio : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
-{
-    public string clickAudioName;
-    public string hoverEnterAudioName;
-    public string hoverExitAudioName;
+public class UIAudio : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
+  public string clickAudioName;
+  public string hoverEnterAudioName;
+  public string hoverExitAudioName;
+  private AudioManager audioManager;
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if(clickAudioName != "")
-        {
-            AudioManager.Instance.Play(clickAudioName);
-        }
-    }
+  private void Awake() {
+    audioManager = FindObjectOfType<AudioManager>();
+  }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (hoverEnterAudioName != "")
-        {
-            AudioManager.Instance.Play(hoverEnterAudioName);
-        }
-    }
+  public void OnPointerClick(PointerEventData eventData) {
+    if (clickAudioName == "") return;
+    audioManager.Play(clickAudioName);
+  }
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (hoverExitAudioName != "")
-        {
-            AudioManager.Instance.Play(hoverExitAudioName);
-        }
-    }
+  public void OnPointerEnter(PointerEventData eventData) {
+    if (hoverEnterAudioName == "") return;
+    audioManager.Play(hoverEnterAudioName);
+  }
+
+  public void OnPointerExit(PointerEventData eventData) {
+    if (hoverExitAudioName == "") return;
+    audioManager.Play(hoverExitAudioName);
+  }
 }

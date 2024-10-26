@@ -9,7 +9,7 @@ public class Weapon : MonoBehaviour {
   [SerializeField] protected Transform bulletSpawn;
   [SerializeField] private float recoilForce;
   [SerializeField] private float damage;
-  [SerializeField] protected AudioManager audioManager;
+  private AudioManager audioManager;
 
   private Rigidbody rigidBody;
   private XRGrabInteractable interactableWeapon;
@@ -20,9 +20,10 @@ public class Weapon : MonoBehaviour {
     interactableWeapon = GetComponent<XRGrabInteractable>();
     rigidBody = GetComponent<Rigidbody>();
     SetupInteractableWeaponEvents();
+    audioManager = FindObjectOfType<AudioManager>();
 
-    aButtonAction.action.performed += _ => Reload();
-    bButtonAction.action.performed += _ => ToggleSafety();
+    aButtonAction.action.performed += _ => ReloadSound();
+    bButtonAction.action.performed += _ => ToggleSafetySound();
   }
 
   private void SetupInteractableWeaponEvents() {
@@ -40,18 +41,14 @@ public class Weapon : MonoBehaviour {
     interactor.GetComponent<MeshHider>().Show();
   }
 
-  protected virtual void StartShooting(XRBaseInteractor interactor)
-  {
-  }
+  protected virtual void StartShooting(XRBaseInteractor interactor) { }
 
-  protected virtual void StopShooting(XRBaseInteractor interactor)
-  {
-  }
+  protected virtual void StopShooting(XRBaseInteractor interactor) { }
 
   protected virtual void Shoot() {
     ApplyRecoil();
     audioManager.Play("shot");
-    //audioManager.Play("shells");
+    audioManager.Play("shells");
   }
 
   private void ApplyRecoil() {
@@ -66,11 +63,29 @@ public class Weapon : MonoBehaviour {
     return damage;
   }
 
-  protected virtual void Reload() {
+  public virtual void OnToggleSafety() {
+    ToggleSafetySound();
+  }
+
+
+  public virtual void OnReload() {
+    ReloadSound();
+  }
+
+  protected void ReloadSound() {
     audioManager.Play("reload");
   }
 
-  protected virtual void ToggleSafety() {
+  protected void ToggleSafetySound() {
+    audioManager.Play("toggle_safety");
+  }
+
+  protected void SafetyStillActiveSound() {
+    audioManager.Play("safety");
+  }
+
+
+  protected void ShotNoBulletsSound() {
     audioManager.Play("dry_shot");
   }
 }

@@ -13,7 +13,7 @@ public class WeaponSafetyCollider : MonoBehaviour {
     if (!collision.gameObject.CompareTag(triggerTag.ToString())) return;
     if (Time.time - lastCooldownTime < safetyCooldownDuration) return;
     lastCooldownTime = Time.time;
-    pistol.CallToggleSafety();
+    pistol.OnToggleSafety();
     safetyColor.ToggleMaterial();
   }
 }

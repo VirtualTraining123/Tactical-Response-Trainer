@@ -10,6 +10,7 @@ namespace AI {
     [SerializeField] public ParticleSystem bloodSplatterFX;
     protected Animator Animator;
     protected NavMeshAgent NavigationMesh;
+    protected AudioManager audioManager;
     [SerializeField] private float health;
     private Renderer[] renderers;
     private Collider[] colliders;
@@ -34,6 +35,7 @@ namespace AI {
       Animator = GetComponent<Animator>();
       NavigationMesh = FindObjectOfType<NavMeshAgent>();
       Evaluator = FindObjectOfType<Evaluator>();
+      audioManager = FindObjectOfType<AudioManager>();
     }
 
     public void TakeDamage(Weapon weapon, Projectile projectile, Vector3 contactPoint) {

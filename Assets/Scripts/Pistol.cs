@@ -6,71 +6,54 @@ public class Pistol : Weapon {
   [SerializeField] private Projectile bulletPrefab;
   [SerializeField] private float debugRayDuration = 2f;
   [SerializeField] private bool isEvaluated = true;
+  [SerializeField] private int maxBullets = 12;
   public GameObject bulletHolePrefab;
 
   private Evaluator evaluator;
-  private readonly int maxBullets = 12;
   private int currentBullets;
   public bool isSafetyOn;
   private XRBaseInteractor currentInteractor;
 
   protected void Start() {
-    currentBullets = 12;
-    if (isEvaluated) {
-      evaluator = FindObjectOfType<Evaluator>();
-    }
-
+    currentBullets = maxBullets;
+    if (isEvaluated)  evaluator = FindObjectOfType<Evaluator>();
     aButtonAction.action.Enable();
     bButtonAction.action.Enable();
   }
 
-
   protected override void StartShooting(XRBaseInteractor interactor) {
-    if (currentBullets <= 0) {
-      audioManager.Play("dry_shot");
-    } else if (isSafetyOn) {
-      audioManager.Play("safety");
-    } else {
-      base.StartShooting(interactor);
-      currentInteractor = interactor;
-      DrawDebugRaycast();
-      Shoot();
-    }
+    currentInteractor = interactor;
+    Shoot();
   }
 
   protected override void Shoot() {
-    if (!isSafetyOn) {
-      if (currentBullets <= 0) {
-        audioManager.Play("dry_shot");
-        return;
-      }
-    } else {
-      audioManager.Play("safety");
+    if (isSafetyOn) {
+      SafetyStillActiveSound();
       return;
     }
 
-    base.Shoot();
-    currentBullets--;
+    if (currentBullets <= 0) {
+      ShotNoBulletsSound();
+      return;
+    }
 
+    DrawDebugRaycast();
+    base.Shoot();
+    evaluator?.OnBulletUsed();
+    currentBullets--;
 
     var projectileInstance = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
     projectileInstance.Init(this);
     projectileInstance.Launch();
 
-    if (currentInteractor != null) {
-      SendHapticImpulse(currentInteractor);
-    }
+    if (currentInteractor != null) SendHapticImpulse(currentInteractor);
+    if (!Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out var hit)) return;
+    if (!ShouldMakeBulletHole(hit)) return;
+    InstantiateBulletHole(hit.point, hit.normal, hit.collider.transform);
+  }
 
-    if (Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out var hit)) {
-      if (hit.collider.CompareTag("Enemy") || hit.collider.CompareTag("Civil") ||
-          hit.collider.CompareTag("Bullet")) {
-        return;
-      }
-
-      InstantiateBulletHole(hit.point, hit.normal, hit.collider.transform);
-    }
-
-    evaluator?.OnBulletUsed();
+  private static bool ShouldMakeBulletHole(RaycastHit hit) {
+    return !hit.collider.CompareTag("Enemy") && !hit.collider.CompareTag("Civil") && !hit.collider.CompareTag("Bullet");
   }
 
   private void InstantiateBulletHole(Vector3 position, Vector3 normal, Transform parent) {
@@ -86,47 +69,31 @@ public class Pistol : Weapon {
   }
 
   // ReSharper disable once UnusedMember.Local
-  private void OnSelectAction() //no se elimina porque funciona con los botones del mando y podria servir, quizas?
-  {
-    ToggleSafety();
+  private void OnSelectAction() {
+    // no se elimina porque funciona con los botones del mando y podria servir, quizas?
+    OnToggleSafety();
   }
 
   // ReSharper disable once UnusedMember.Local
   private void OnActivateAction() {
-    Reload();
+    OnReload();
   }
 
-  protected override void Reload() {
-    base.Reload();
-
+  public override void OnReload() {
+    base.OnReload();
     currentBullets = maxBullets;
   }
 
-  public void CallReload() {
-    Reload();
-  }
-
-  public int GetBullets() {
-    return currentBullets;
-  }
-
-  protected override void ToggleSafety() {
-    base.ToggleSafety();
-
+  public override void OnToggleSafety() {
+    base.OnToggleSafety();
     isSafetyOn = !isSafetyOn;
   }
 
-  public void CallToggleSafety() {
-    ToggleSafety();
-  }
-
-  private void SendHapticImpulse(XRBaseInteractor interactor) {
+  private static void SendHapticImpulse(XRBaseInteractor interactor) {
     var controllerInteractor = interactor as XRBaseControllerInteractor;
-    if (controllerInteractor != null) {
-      var controller = controllerInteractor.xrController;
-      if (controller != null) {
-        controller.SendHapticImpulse(1f, 0.3f); // Ajusta la intensidad y la duración según sea necesario
-      }
-    }
+    if (controllerInteractor == null) return;
+    var controller = controllerInteractor.xrController;
+    if (controller == null) return;
+    controller.SendHapticImpulse(1f, 0.3f);
   }
 }
