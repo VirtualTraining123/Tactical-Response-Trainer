@@ -1,6 +1,6 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Scene = Scenes.Scene;
 
 public class SceneTransitionManager : MonoBehaviour {
   public FadeScreen fadeScreen;
@@ -13,9 +13,9 @@ public class SceneTransitionManager : MonoBehaviour {
     Singleton = this;
   }
 
-  public void GoToSceneAsync(int sceneIndex) {
+  public void GoToSceneAsync(Scene sceneIndex) {
     fadeScreen.FadeOut();
-    var operation = SceneManager.LoadSceneAsync(sceneIndex);
+    var operation = SceneManager.LoadSceneAsync((int) sceneIndex);
     if (operation == null) return;
     operation.allowSceneActivation = true;
   }

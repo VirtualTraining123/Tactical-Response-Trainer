@@ -8,6 +8,9 @@ using Scenes;
 
 public class GameRestartMenu : MonoBehaviour {
   public ResultManagerType resultManagerType;
+  [Header("Skybox")]
+  public Material skyboxWin;
+  public Material skyboxLose;
   [Header("UI Pages")] public GameObject gameOverMenu;
   [Header("GameOver Menu Buttons")] public Button restartButton;
   public Button quitButton;
@@ -18,6 +21,7 @@ public class GameRestartMenu : MonoBehaviour {
   public TMP_Text agentDeath;
   public TMP_Text safetyActive;
   public TMP_Text finalScore;
+  public TMP_Text title;
   
   private IResultManager resultManager;
 
@@ -45,7 +49,7 @@ public class GameRestartMenu : MonoBehaviour {
 
   private void RestartGame() {
     HideAll();
-    SceneTransitionManager.Singleton.GoToSceneAsync((int)Scene.Evaluation);
+    SceneTransitionManager.Singleton.GoToSceneAsync(Scene.Evaluation);
   }
 
   private void HideAll() {
@@ -65,5 +69,7 @@ public class GameRestartMenu : MonoBehaviour {
     agentDeath.text = $"Muerte del agente: {I18N.I18N.Get(result.AgentDeath)}";
     safetyActive.text = $"Seguridad activada: {result.SafetyOff}";
     finalScore.text = $"Puntaje final: {result.FinalScore}";
+    title.text = result.Passed ? I18N.I18N.GetPassedText() : I18N.I18N.GetFailedText();
+    RenderSettings.skybox = result.Passed ? skyboxWin : skyboxLose;
   }
 }

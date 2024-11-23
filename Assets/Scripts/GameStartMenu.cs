@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Scenes;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,7 +36,6 @@ public class GameStartMenu : MonoBehaviour {
     nextButtons[0].onClick.AddListener(EnableIntroductionMenu2);
     nextButtons[1].onClick.AddListener(EnableIntroductionMenu3);
     nextButtons[2].onClick.AddListener(StartGame);
-    nextButtons[3].onClick.AddListener(StartTutorial);
 
     foreach (var item in returnButtons) {
       item.onClick.AddListener(EnableMainMenu);
@@ -60,14 +60,8 @@ public class GameStartMenu : MonoBehaviour {
 
   public void StartGame() {
     HideAll();
-    SceneTransitionManager.Singleton.GoToSceneAsync(2);
+    SceneTransitionManager.Singleton.GoToSceneAsync(Scene.Evaluation);
   }
-
-  public void StartTutorial() {
-    HideAll();
-    SceneTransitionManager.Singleton.GoToSceneAsync(1);
-  }
-
 
   public void EnableIntroductionMenu1() {
     mainMenu.SetActive(false);

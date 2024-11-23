@@ -24,6 +24,7 @@
     public float FinalScore { get; }
     public bool AgentDeath { get; }
     public int SafetyOff { get; }
+    public bool Passed => FinalScore > 6;
 
     public void Deconstruct(
       out float time,

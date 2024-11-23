@@ -2,6 +2,8 @@ using System.Linq;
 using Results;
 using Spawner;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Scene = Scenes.Scene;
 
 public class Evaluator : MonoBehaviour {
   [Header("Settings")] public long maxSimulationTime = 3;
@@ -13,6 +15,7 @@ public class Evaluator : MonoBehaviour {
   [SerializeField] public float scorePenaltyForLeavingSafetyOff = 1f;
   [SerializeField] public Pistol[] pistols;
   [SerializeField] public ResultManagerType resultManagerType;
+  [SerializeField] public Scene targetScene;
 
   private IResultManager resultManager;
   private long simulationStartTime;
@@ -27,8 +30,6 @@ public class Evaluator : MonoBehaviour {
   private int usedBulletCount;
   private SpawnManager spawnManager;
 
-  private const int PASSED_SCENE = 4;
-  private const int FAILED_SCENE = 3;
 
 
   private void Awake() {
@@ -54,7 +55,8 @@ public class Evaluator : MonoBehaviour {
   public void OnEnemyKilled() => enemiesKilled++;
   public void OnCivilianKilled() => civiliansKilled++;
   public void OnBulletUsed() => usedBulletCount++;
-  private float CheckSafetyPenalty() => pistols.Count(pistol => pistol.isSafetyOn) * scorePenaltyForLeavingSafetyOff;
+  private int GetSafetyOffCount() => pistols.Count(pistol => !pistol.isSafetyOn);
+  private float CheckSafetyPenalty() => GetSafetyOffCount() * scorePenaltyForLeavingSafetyOff;
   private int GetRemainingEnemies() => Mathf.Max(totalEnemyCount - enemiesKilled, 0);
   private float ConsiderMissedEnemies() => scorePenaltyForEnemy * GetRemainingEnemies();
   private float ConsiderKilledCivilians() => scorePenaltyForCivilian * civiliansKilled;
@@ -84,9 +86,9 @@ public class Evaluator : MonoBehaviour {
       GetExtraBulletsUsed(),
       score,
       isPlayerDead,
-      pistols.Count(pistol => pistol.isSafetyOn)
+      GetSafetyOffCount()
     );
     resultManager.SaveResult(evaluationResult);
-    SceneTransitionManager.Singleton.GoToSceneAsync(HasPassed(score) ? FAILED_SCENE : PASSED_SCENE);
+    SceneTransitionManager.Singleton.GoToSceneAsync(targetScene);
   }
 }
