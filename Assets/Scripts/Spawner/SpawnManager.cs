@@ -13,8 +13,8 @@ namespace Spawner {
     private readonly List<MarkedLocation> civilianLocations = new();
     private readonly List<MarkedLocation> coverLocations = new();
 
-    private void Awake() {
-      Debug.Log("Awake " + spawnPoints.transform.childCount);
+    private void Start() {
+      Debug.Log("Start " + spawnPoints.transform.childCount);
       for (var i = 0; i < spawnPoints.transform.childCount; i++) {
         var child = spawnPoints.transform.GetChild(i);
         var markedLocation = child.GetComponent<MarkedLocation>();

@@ -46,9 +46,9 @@ public class Evaluator : MonoBehaviour {
 
   private void FixedUpdate() {
     if (hasSimulationEnded) return;
-    Debug.Log($"Start: {simulationStartTime}");
-    Debug.Log($"Now: {GetTime()}");
-    Debug.Log($"Delta: {(simulationStartTime + maxSimulationTime * 1000) - GetTime()}");
+    // Debug.Log($"Start: {simulationStartTime}");
+    // Debug.Log($"Now: {GetTime()}");
+    // Debug.Log($"Delta: {(simulationStartTime + maxSimulationTime * 1000) - GetTime()}");
     
     if (GetTime() < simulationStartTime + maxSimulationTime * 1000) return;
     EndSimulation();

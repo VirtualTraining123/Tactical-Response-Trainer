@@ -31,7 +31,7 @@ namespace AI {
     /// </summary>
     [SerializeField] private Transform shootingPosition;
 
-    private long timerMs;
+    private long timerMs = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
 
     private int currentShotsTaken;
     private int currentMaxShotsToTake;
@@ -39,6 +39,7 @@ namespace AI {
 
     protected override void UpdateCrouching() {
       if (Player.IsVisibleFrom(transform.position)) {
+        Debug.Log("Player was visible, abort crouch");
         OnStartShooting();
         return;
       }
@@ -51,8 +52,8 @@ namespace AI {
       }
 
       if (deltaMs <= minCrouchTimeMS) return;
+      timerMs = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
       ToState(State.Running);
-      timerMs = 0;
     }
 
     private void OnStartShooting() {
