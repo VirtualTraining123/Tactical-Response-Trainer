@@ -623,7 +623,7 @@ GameObject:
   - component: {fileID: 416534403}
   - component: {fileID: 416534402}
   m_Layer: 5
-  m_Name: Text (TMP) (3)
+  m_Name: line 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1100,7 +1100,7 @@ GameObject:
   - component: {fileID: 760133163}
   - component: {fileID: 760133162}
   m_Layer: 5
-  m_Name: Text (TMP) (5)
+  m_Name: line 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1412,25 +1412,10 @@ MonoBehaviour:
   sounds:
   - name: uiclick
     clip: {fileID: 8300000, guid: 4885bb3bfe406a44ab63462c4440da59, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    playOnAwake: 0
-    source: {fileID: 0}
   - name: uihoverenter
     clip: {fileID: 8300000, guid: c6dd68b4c268b8b48bb866311bf7ede6, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    playOnAwake: 0
-    source: {fileID: 0}
   - name: uihoverexit
     clip: {fileID: 8300000, guid: c00193f69f150124cbf3f5671b986b63, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    playOnAwake: 0
-    source: {fileID: 0}
 --- !u!1 &846327981
 GameObject:
   m_ObjectHideFlags: 0
@@ -1577,7 +1562,7 @@ GameObject:
   - component: {fileID: 967137536}
   - component: {fileID: 967137535}
   m_Layer: 5
-  m_Name: Text (TMP) (6)
+  m_Name: line 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2036,19 +2021,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15aec1189908a034992f7cf50683e866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resultManagerType: 0
   gameOverMenu: {fileID: 1163744328}
   restartButton: {fileID: 448256129}
   quitButton: {fileID: 1101969936}
-  returnButtons: []
-  Enemigos_Faltantes: {fileID: 1975389194}
-  Civiles_Heridos: {fileID: 1783402157}
-  Cartuchos_extra_gastados: {fileID: 416534402}
-  Tiempo: {fileID: 1613682050}
-  Muerte_de_agente: {fileID: 2077431702}
-  Puntaje_Final: {fileID: 760133162}
-  Seguro_Colocado: {fileID: 967137535}
+  remainingEnemies: {fileID: 1975389194}
+  injuredCivilians: {fileID: 1783402157}
+  extraBulletsUsed: {fileID: 416534402}
+  timeOnScene: {fileID: 1613682050}
+  agentDeath: {fileID: 2077431702}
+  safetyActive: {fileID: 760133162}
+  finalScore: {fileID: 967137535}
   playerCamera: {fileID: 9014170783998532103}
-  distanceFromPlayer: 2
 --- !u!1 &1273556205
 GameObject:
   m_ObjectHideFlags: 0
@@ -2144,7 +2128,7 @@ GameObject:
   - component: {fileID: 1613682051}
   - component: {fileID: 1613682050}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: line 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2381,7 +2365,7 @@ GameObject:
   - component: {fileID: 1783402158}
   - component: {fileID: 1783402157}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: line 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2720,7 +2704,7 @@ GameObject:
   - component: {fileID: 1975389195}
   - component: {fileID: 1975389194}
   m_Layer: 5
-  m_Name: Text (TMP) (2)
+  m_Name: line 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2891,7 +2875,7 @@ GameObject:
   - component: {fileID: 2077431703}
   - component: {fileID: 2077431702}
   m_Layer: 5
-  m_Name: Text (TMP) (4)
+  m_Name: line 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

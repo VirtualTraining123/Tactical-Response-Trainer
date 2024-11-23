@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace Results {
-  public class ResultManager : IResultManager {
+  public class PlayerPrefsResultManager : IResultManager {
     public void SaveResult(EvaluationResult result) {
       PlayerPrefs.SetFloat(nameof(result.Time), result.Time);
       PlayerPrefs.SetInt(nameof(result.InjuredCivilians), result.InjuredCivilians);
@@ -28,6 +28,7 @@ namespace Results {
     }
 
     public void Clear() {
+      // FIXME: Delete only the keys that are used to store the result
       PlayerPrefs.DeleteAll();
     }
   }

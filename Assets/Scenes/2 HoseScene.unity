@@ -324,7 +324,6 @@ GameObject:
   m_Component:
   - component: {fileID: 224154818}
   - component: {fileID: 224154817}
-  - component: {fileID: 224154819}
   m_Layer: 0
   m_Name: Evaluator
   m_TagString: Untagged
@@ -344,7 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06b01b59ff070e442b8963c486d71005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSimulationTime: 900
+  maxSimulationTime: 5
   maxScore: 10
   minPassingScore: 6
   scorePenaltyForEnemy: 1
@@ -354,6 +353,7 @@ MonoBehaviour:
   pistols:
   - {fileID: 125427996}
   - {fileID: 320920441}
+  resultManagerType: 0
 --- !u!4 &224154818
 Transform:
   m_ObjectHideFlags: 0
@@ -369,18 +369,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &224154819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 224154816}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73a5982046db4d87914f023aaccf176d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &232920982 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 808951037834563751, guid: 49f576a03ece56a4e9c640ed081f6a68, type: 3}

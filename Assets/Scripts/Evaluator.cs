@@ -12,7 +12,9 @@ public class Evaluator : MonoBehaviour {
   [SerializeField] public float scorePenaltyForExtraBullet = 0.25f;
   [SerializeField] public float scorePenaltyForLeavingSafetyOff = 1f;
   [SerializeField] public Pistol[] pistols;
+  [SerializeField] public ResultManagerType resultManagerType;
 
+  private IResultManager resultManager;
   private long simulationStartTime;
   private bool hasSimulationEnded;
   private bool isPlayerDead;
@@ -37,46 +39,31 @@ public class Evaluator : MonoBehaviour {
     enemiesKilled = 0;
     usedBulletCount = 0;
     civiliansKilled = 0;
-    ResultManagerFactory.Create().Clear();
+    resultManager = ResultManagerFactory.Create(resultManagerType);
+    resultManager.Clear();
   }
 
-  private static long GetTime() {
-    return System.DateTimeOffset.Now.ToUnixTimeMilliseconds();
-  }
 
   private void FixedUpdate() {
     if (hasSimulationEnded) return;
-    // Debug.Log($"Start: {simulationStartTime}");
-    // Debug.Log($"Now: {GetTime()}");
-    // Debug.Log($"Delta: {(simulationStartTime + maxSimulationTime * 1000) - GetTime()}");
-    
     if (GetTime() < simulationStartTime + maxSimulationTime * 1000) return;
     EndSimulation();
   }
 
+  private static long GetTime() => System.DateTimeOffset.Now.ToUnixTimeMilliseconds();
   public void OnEnemyKilled() => enemiesKilled++;
-
   public void OnCivilianKilled() => civiliansKilled++;
-
   public void OnBulletUsed() => usedBulletCount++;
-
   private float CheckSafetyPenalty() => pistols.Count(pistol => pistol.isSafetyOn) * scorePenaltyForLeavingSafetyOff;
-
-  private float ConsiderMissedEnemies() => scorePenaltyForEnemy * (totalEnemyCount - enemiesKilled);
+  private int GetRemainingEnemies() => Mathf.Max(totalEnemyCount - enemiesKilled, 0);
+  private float ConsiderMissedEnemies() => scorePenaltyForEnemy * GetRemainingEnemies();
   private float ConsiderKilledCivilians() => scorePenaltyForCivilian * civiliansKilled;
-
   private bool HasPassed(float score) => score < minPassingScore && !isPlayerDead;
-
   public float GetElapsedTime() => (GetTime() - simulationStartTime) / 1000f;
-
   public int GetCiviliansKilled() => civiliansKilled;
-
   public int GetEnemiesKilled() => enemiesKilled;
-
-  private float ConsiderUsedBullets() {
-    var total = usedBulletCount - parBulletCount;
-    return total > 0 ? scorePenaltyForExtraBullet * total : 0f;
-  }
+  public int GetExtraBulletsUsed() => Mathf.Max(usedBulletCount - parBulletCount, 0);
+  private float ConsiderUsedBullets() => GetExtraBulletsUsed() * scorePenaltyForExtraBullet;
 
   public void OnReceiveShot() {
     isPlayerDead = true;
@@ -96,12 +83,13 @@ public class Evaluator : MonoBehaviour {
       GetElapsedTime(),
       civiliansKilled,
       totalEnemyCount - enemiesKilled,
-      usedBulletCount - parBulletCount,
+      GetExtraBulletsUsed(),
       score,
       isPlayerDead,
       pistols.Count(pistol => pistol.isSafetyOn)
     );
-    ResultManagerFactory.Create().SaveResult(evaluationResult);
+    Debug.Log(evaluationResult.ToString());
+    resultManager.SaveResult(evaluationResult);
     SceneTransitionManager.Singleton.GoToSceneAsync(HasPassed(score) ? FAILED_SCENE : PASSED_SCENE);
   }
 }

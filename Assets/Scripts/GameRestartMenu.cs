@@ -7,38 +7,32 @@ using Scenes;
 
 
 public class GameRestartMenu : MonoBehaviour {
+  public ResultManagerType resultManagerType;
   [Header("UI Pages")] public GameObject gameOverMenu;
-
   [Header("GameOver Menu Buttons")] public Button restartButton;
   public Button quitButton;
-
   [Header("Data Display")] public TMP_Text remainingEnemies;
-
   public TMP_Text injuredCivilians;
-
   public TMP_Text extraBulletsUsed;
-
   public TMP_Text timeOnScene;
-
   public TMP_Text agentDeath;
-
   public TMP_Text safetyActive;
-
   public TMP_Text finalScore;
+  
+  private IResultManager resultManager;
 
   [Header("Player Camera")] public Transform playerCamera;
 
-  void Awake() {
+  private void Awake() {
+    resultManager = ResultManagerFactory.Create(resultManagerType);
     EnableGameOverMenu();
-
     // Hook events
     restartButton.onClick.AddListener(RestartGame);
     quitButton.onClick.AddListener(QuitGame);
-
     DisplayCollectedData();
   }
 
-  void Update() {
+  private void Update() {
     if (!playerCamera) return;
     gameOverMenu.transform.LookAt(playerCamera);
     gameOverMenu.transform.Rotate(0f, 180f, 0f);
@@ -51,7 +45,7 @@ public class GameRestartMenu : MonoBehaviour {
 
   private void RestartGame() {
     HideAll();
-    SceneTransitionManager.Singleton.GoToSceneAsync((int) Scene.Evaluation);
+    SceneTransitionManager.Singleton.GoToSceneAsync((int)Scene.Evaluation);
   }
 
   private void HideAll() {
@@ -63,7 +57,7 @@ public class GameRestartMenu : MonoBehaviour {
   }
 
   private async void DisplayCollectedData() {
-    var result = await ResultManagerFactory.Create().LoadResult();
+    var result = await resultManager.LoadResult();
     Debug.Log(result.ToString());
     remainingEnemies.text = $"Enemigos faltantes: {result.MissingEnemies}";
     injuredCivilians.text = $"Civiles heridos: {result.InjuredCivilians}";
