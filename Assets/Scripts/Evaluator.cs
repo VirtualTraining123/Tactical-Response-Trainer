@@ -60,8 +60,6 @@ public class Evaluator : MonoBehaviour {
   private float ConsiderKilledCivilians() => scorePenaltyForCivilian * civiliansKilled;
   private bool HasPassed(float score) => score < minPassingScore && !isPlayerDead;
   public float GetElapsedTime() => (GetTime() - simulationStartTime) / 1000f;
-  public int GetCiviliansKilled() => civiliansKilled;
-  public int GetEnemiesKilled() => enemiesKilled;
   public int GetExtraBulletsUsed() => Mathf.Max(usedBulletCount - parBulletCount, 0);
   private float ConsiderUsedBullets() => GetExtraBulletsUsed() * scorePenaltyForExtraBullet;
 
@@ -82,13 +80,12 @@ public class Evaluator : MonoBehaviour {
     var evaluationResult = new EvaluationResult(
       GetElapsedTime(),
       civiliansKilled,
-      totalEnemyCount - enemiesKilled,
+      GetRemainingEnemies(),
       GetExtraBulletsUsed(),
       score,
       isPlayerDead,
       pistols.Count(pistol => pistol.isSafetyOn)
     );
-    Debug.Log(evaluationResult.ToString());
     resultManager.SaveResult(evaluationResult);
     SceneTransitionManager.Singleton.GoToSceneAsync(HasPassed(score) ? FAILED_SCENE : PASSED_SCENE);
   }

@@ -58,12 +58,11 @@ public class GameRestartMenu : MonoBehaviour {
 
   private async void DisplayCollectedData() {
     var result = await resultManager.LoadResult();
-    Debug.Log(result.ToString());
     remainingEnemies.text = $"Enemigos faltantes: {result.MissingEnemies}";
     injuredCivilians.text = $"Civiles heridos: {result.InjuredCivilians}";
     extraBulletsUsed.text = $"Balas extra usadas: {result.ExtraBulletsUsed}";
     timeOnScene.text = $"Tiempo en escena: {result.Time.ToString(CultureInfo.InvariantCulture)}s";
-    agentDeath.text = $"Muerte del agente: {result.AgentDeath}";
+    agentDeath.text = $"Muerte del agente: {I18N.I18N.Get(result.AgentDeath)}";
     safetyActive.text = $"Seguridad activada: {result.SafetyOff}";
     finalScore.text = $"Puntaje final: {result.FinalScore}";
   }
