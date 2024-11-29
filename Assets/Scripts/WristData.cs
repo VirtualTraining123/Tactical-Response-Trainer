@@ -9,8 +9,7 @@ public class WristData : MonoBehaviour {
   private void Update() {
     var text = "";
     text += "Tiempo: " + evaluator.GetElapsedTime().ToString("F2") + "\n";
-    text += "Tiempo2: " + Evaluator.GetTime().ToString("F2") + "\n";
-    text += "EE: " + (evaluator.isActiveAndEnabled ? "s" : "n") + "\n";
+    text += "Evaluando? " + (evaluator.isActiveAndEnabled ? "Sí" : "No") + "\n";
     if (timeText) timeText.text = text;
   }
 }
