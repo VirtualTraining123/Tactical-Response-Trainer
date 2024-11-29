@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Results;
 using Spawner;
@@ -31,7 +32,6 @@ public class Evaluator : MonoBehaviour {
   private SpawnManager spawnManager;
 
 
-
   private void Awake() {
     spawnManager = FindObjectOfType<SpawnManager>();
     parBulletCount = spawnManager.GetTotalEnemies();
@@ -44,6 +44,10 @@ public class Evaluator : MonoBehaviour {
     resultManager.Clear();
   }
 
+  private void OnEnable() {
+    simulationStartTime = GetTime();
+  }
+
 
   private void FixedUpdate() {
     if (hasSimulationEnded) return;
@@ -51,16 +55,28 @@ public class Evaluator : MonoBehaviour {
     EndSimulation();
   }
 
-  private static long GetTime() => System.DateTimeOffset.Now.ToUnixTimeMilliseconds();
-  public void OnEnemyKilled() => enemiesKilled++;
-  public void OnCivilianKilled() => civiliansKilled++;
-  public void OnBulletUsed() => usedBulletCount++;
+  public static long GetTime() => DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
+  public void OnEnemyKilled() {
+    if (!isActiveAndEnabled) return;
+    enemiesKilled++;
+  }
+
+  public void OnCivilianKilled() {
+    if (!isActiveAndEnabled) return;
+    civiliansKilled++;
+  }
+
+  public void OnBulletUsed() {
+    if (!isActiveAndEnabled) return;
+    usedBulletCount++;
+  }
+
   private int GetSafetyOffCount() => pistols.Count(pistol => !pistol.isSafetyOn);
   private float CheckSafetyPenalty() => GetSafetyOffCount() * scorePenaltyForLeavingSafetyOff;
   private int GetRemainingEnemies() => Mathf.Max(totalEnemyCount - enemiesKilled, 0);
   private float ConsiderMissedEnemies() => scorePenaltyForEnemy * GetRemainingEnemies();
   private float ConsiderKilledCivilians() => scorePenaltyForCivilian * civiliansKilled;
-  private bool HasPassed(float score) => score < minPassingScore && !isPlayerDead;
   public float GetElapsedTime() => (GetTime() - simulationStartTime) / 1000f;
   public int GetExtraBulletsUsed() => Mathf.Max(usedBulletCount - parBulletCount, 0);
   private float ConsiderUsedBullets() => GetExtraBulletsUsed() * scorePenaltyForExtraBullet;

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Zinnia.Extension;
 
 namespace Projectiles {
   [RequireComponent(typeof(Rigidbody))]
@@ -37,24 +38,26 @@ namespace Projectiles {
       currentGravity -= gravity * Time.deltaTime;
       var moveVector = transform.forward * (Weapon.GetShootingForce() * Time.deltaTime) + Vector3.up * currentGravity;
 
-      if (!Physics.Raycast(transform.position, moveVector, out var hit, moveVector.magnitude)) {
+      if (!Physics.Raycast(transform.position, moveVector, out var hit, 2 * moveVector.magnitude) ||
+          hit.collider.CompareTag("PlayerDetector")) {
         transform.position += moveVector;
         return;
       }
+
       destroying = true;
       MakeBulletHole(hit, moveVector);
       OnBulletHit(hit);
     }
 
     private void MakeBulletHole(RaycastHit hit, Vector3 moveVector) {
-      if (bulletHolePrefab) {
-        var exp = Instantiate(
-          bulletHolePrefab,
-          hit.point - moveVector.normalized * .01f,
-          Quaternion.LookRotation(hit.normal)
-        );
-        exp.transform.SetParent(hit.transform);
-      }
+      if (!bulletHolePrefab) return;
+      var exp = Instantiate(
+        bulletHolePrefab,
+        hit.point - moveVector.normalized * .01f,
+        Quaternion.LookRotation(hit.normal)
+      );
+      exp.transform.SetParent(hit.transform);
+      exp.transform.SetGlobalScale(new Vector3(0.05f, 0.005f, 0.05f));
     }
 
     private void OnBulletHit(RaycastHit hit) {
@@ -64,6 +67,7 @@ namespace Projectiles {
       foreach (var taker in damageTakers) {
         taker.TakeDamage(Weapon, this, contactPoint);
       }
+
       // Destruir la bala
       Destroy(gameObject);
     }
