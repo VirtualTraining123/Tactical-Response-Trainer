@@ -53,7 +53,7 @@ public class SpawnSpotCreator : MonoBehaviour
         return spot;
     }
 
-    private void OnDrawGizmos() {
+    private void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(SpawnAreaCenter, SpawnAreaSize);
     }
