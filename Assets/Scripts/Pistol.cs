@@ -1,163 +1,99 @@
-﻿using UnityEngine;
+﻿using Projectiles;
+using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class Pistol : Weapon
-{
-    [SerializeField] private Projectile bulletPrefab;
-    [SerializeField] private float debugRayDuration = 2f;
-    public GameObject bulletHolePrefab;
+public class Pistol : Weapon {
+  [SerializeField] private Projectile bulletPrefab;
+  [SerializeField] private float debugRayDuration = 2f;
+  [SerializeField] private bool isEvaluated = true;
+  [SerializeField] private int maxBullets = 12;
+  public GameObject bulletHolePrefab;
 
-    private static int shotsFiredPistol;
+  private Evaluator evaluator;
+  private int currentBullets;
+  public bool isSafetyOn;
+  private XRBaseInteractor currentInteractor;
 
-    private Evaluator evaluator;
-    private readonly int maxBullets = 12;
-    private int currentBullets;
-    public bool isSafetyOn;
-    private XRBaseInteractor currentInteractor;
-    // public bool isMagazineLoaded = false;
+  protected void Start() {
+    currentBullets = maxBullets;
+    if (isEvaluated)  evaluator = FindObjectOfType<Evaluator>();
+    aButtonAction.action.Enable();
+    bButtonAction.action.Enable();
+  }
 
-    //public InputActionProperty aButtonAction;
-    //public InputActionProperty bButtonAction;
+  protected override void StartShooting(XRBaseInteractor interactor) {
+    currentInteractor = interactor;
+    Shoot();
+  }
 
-    protected void Start()
-    {
-        currentBullets = 12;
-        evaluator = FindObjectOfType<Evaluator>();
-
-
-        // Registrar callbacks
-        //aButtonAction.action.performed += context => OnSelectAction();
-        //bButtonAction.action.performed += context => OnActivateAction();
-
-        // Activar las acciones
-        aButtonAction.action.Enable();
-        bButtonAction.action.Enable();
+  protected override void Shoot() {
+    if (isSafetyOn) {
+      SafetyStillActiveSound();
+      return;
     }
 
-
-    protected override void StartShooting(XRBaseInteractor interactor)
-    {
-        if (isSafetyOn || currentBullets <= 0)
-        {
-            SeleccionAudio(4, 1f);
-        }
-        else
-        {
-            base.StartShooting(interactor);
-            currentInteractor = interactor;
-            DrawDebugRaycast();
-            Shoot();
-        }
+    if (currentBullets <= 0) {
+      ShotNoBulletsSound();
+      return;
     }
 
-    protected override void Shoot()
-    {
-        if (isSafetyOn || currentBullets <= 0)
-        {
-            SeleccionAudio(4, 1f);
-        }
-        else
-        {
-            base.Shoot();
-            shotsFiredPistol++;
-            currentBullets--;
+    DrawDebugRaycast();
+    base.Shoot();
+    evaluator?.OnBulletUsed();
+    currentBullets--;
 
+    var projectileInstance = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
+    projectileInstance.Init(this);
+    projectileInstance.Launch();
 
-            Projectile projectileInstance = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
-            projectileInstance.Init(this);
-            projectileInstance.Launch();
+    if (currentInteractor != null) SendHapticImpulse(currentInteractor);
+    if (!Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out var hit)) return;
+    if (!ShouldMakeBulletHole(hit)) return;
+    InstantiateBulletHole(hit.point, hit.normal, hit.collider.transform);
+  }
 
-            if (currentInteractor != null)
-            {
-                SendHapticImpulse(currentInteractor);
-            }
+  private static bool ShouldMakeBulletHole(RaycastHit hit) {
+    return !hit.collider.CompareTag("Enemy") && !hit.collider.CompareTag("Civil") && !hit.collider.CompareTag("Bullet");
+  }
 
-            if (Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out var hit))
-            {
-                if (hit.collider.CompareTag("Enemy") || hit.collider.CompareTag("Civil") ||
-                    hit.collider.CompareTag("Bullet"))
-                {
-                    return;
-                }
+  private void InstantiateBulletHole(Vector3 position, Vector3 normal, Transform parent) {
+    var rotation = Quaternion.FromToRotation(Vector3.up, normal);
 
-                InstantiateBulletHole(hit.point, hit.normal, hit.collider.transform);
-            }
+    var bulletHoleInstance = Instantiate(bulletHolePrefab, position, rotation);
+    bulletHoleInstance.transform.localScale = new Vector3(0.2f, 0.005f, 0.2f);
+    bulletHoleInstance.transform.SetParent(parent, true);
+  }
 
-            evaluator.OnBulletUsed();
-        }
-    }
+  private void DrawDebugRaycast() {
+    Debug.DrawRay(bulletSpawn.position, bulletSpawn.forward * 100f, Color.yellow, debugRayDuration);
+  }
 
-    private void InstantiateBulletHole(Vector3 position, Vector3 normal, Transform parent)
-    {
-        Quaternion rotation = Quaternion.FromToRotation(Vector3.up, normal);
+  // ReSharper disable once UnusedMember.Local
+  private void OnSelectAction() {
+    // no se elimina porque funciona con los botones del mando y podria servir, quizas?
+    OnToggleSafety();
+  }
 
-        GameObject bulletHoleInstance = Instantiate(bulletHolePrefab, position, rotation);
-        bulletHoleInstance.transform.localScale = new Vector3(0.2f, 0.005f, 0.2f);
-        bulletHoleInstance.transform.SetParent(parent, true);
-    }
+  // ReSharper disable once UnusedMember.Local
+  private void OnActivateAction() {
+    OnReload();
+  }
 
-    private void DrawDebugRaycast()
-    {
-        Debug.DrawRay(bulletSpawn.position, bulletSpawn.forward * 100f, Color.yellow, debugRayDuration);
-    }
+  public override void OnReload() {
+    base.OnReload();
+    currentBullets = maxBullets;
+  }
 
-    // ReSharper disable once UnusedMember.Local
-    private void OnSelectAction() //no se elimina porque funciona con los botones del mando y podria servir, quizas?
-    {
-        ToggleSafety();
-    }
+  public override void OnToggleSafety() {
+    base.OnToggleSafety();
+    isSafetyOn = !isSafetyOn;
+  }
 
-    // ReSharper disable once UnusedMember.Local
-    private void OnActivateAction()
-    {
-        Reload();
-    }
-
-    protected override void Reload()
-    {
-        base.Reload();
-
-        currentBullets = maxBullets;
-    }
-
-    public void CallReload()
-    {
-        Reload();
-    }
-
-    public int GetBullets()
-    {
-        return currentBullets;
-    }
-
-    protected override void ToggleSafety()
-    {
-        base.ToggleSafety();
-
-        isSafetyOn = !isSafetyOn;
-    }
-
-    public void CallToggleSafety()
-    {
-        ToggleSafety();
-    }
-
-    private void SendHapticImpulse(XRBaseInteractor interactor)
-    {
-        XRBaseControllerInteractor controllerInteractor = interactor as XRBaseControllerInteractor;
-        if (controllerInteractor != null)
-        {
-            XRBaseController controller = controllerInteractor.xrController;
-            if (controller != null)
-            {
-                controller.SendHapticImpulse(1f, 0.3f); // Ajusta la intensidad y la duración según sea necesario
-            }
-        }
-    }
-
-
-    private void OnGUI()
-    {
-        GUI.Label(new Rect(40, 90, 200, 20), "Disparos realizados: " + shotsFiredPistol);
-    }
+  private static void SendHapticImpulse(XRBaseInteractor interactor) {
+    var controllerInteractor = interactor as XRBaseControllerInteractor;
+    if (controllerInteractor == null) return;
+    var controller = controllerInteractor.xrController;
+    if (controller == null) return;
+    controller.SendHapticImpulse(1f, 0.3f);
+  }
 }

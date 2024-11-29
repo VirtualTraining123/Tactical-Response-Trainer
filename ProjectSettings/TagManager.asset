@@ -16,14 +16,15 @@ TagManager:
   - Magazine
   - ColiderRecarga
   - RightHand
+  - PlayerDetector
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - RenderButNoNav
   - Water
   - UI
-  - 
+  - PlayerDetector
   - 
   - 
   - 

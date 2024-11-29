@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1252298690412306968}
   m_Layer: 0
-  m_Name: Point (2)
+  m_Name: Target Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,38 +25,7 @@ Transform:
   m_GameObject: {fileID: 5537810870866102843}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 0, z: -1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1835574743226239110}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7092865505452226219
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3425031863662367529}
-  m_Layer: 0
-  m_Name: Point (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3425031863662367529
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7092865505452226219}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -88,11 +57,10 @@ Transform:
   m_GameObject: {fileID: 9039354818175742212}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16, y: 0.4527176, z: 6}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3425031863662367529}
   - {fileID: 1252298690412306968}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -108,10 +76,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfea865133da17541a0d665414c4e449, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoints:
-  - {fileID: 3425031863662367529}
+  moveToPoints:
   - {fileID: 1252298690412306968}
-  enemyPrefab: {fileID: 4838861107090824663, guid: def9c18377c32b045b2ece005dca1c98, type: 3}
-  spawnInterval: 30
-  maxEnemiesNumber: 2
-  player: {fileID: 0}
+  prefabsToSpawn:
+  - {fileID: -2752317366216638602, guid: 336b3cbbc7dcdd446a9ae8943195c5a0, type: 3}
+  - {fileID: 2961221509696159621, guid: 3876f097c54a8e243b1c5c3f810e6095, type: 3}
+  - {fileID: 3107189105915220659, guid: 42883687972f58749809e51cfa1bb9c5, type: 3}
+  - {fileID: 7909795517911516308, guid: 3451ecfc6eec33547a9c47819ee2bd13, type: 3}
+  - {fileID: -961348836192844161, guid: 817b5ffe45533cf4189cfbafa368e6a5, type: 3}
+  spawnIntervalSeconds: 5
+  maxInstanceCount: 1

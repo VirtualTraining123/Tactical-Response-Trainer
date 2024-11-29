@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CanvasFollower : MonoBehaviour
 {
-    public Transform player; // Asigna el transform del jugador en el inspector
+    public Transform player;
     public Vector3 offset; // Usa este offset para ajustar la posición del canvas relativo al jugador
     private Vector3 initialPosition;
 
