@@ -143,17 +143,6 @@ MonoBehaviour:
   poseTransitionDuration: 0.2
   rightHandPose: {fileID: 2045018579}
   leftHandPose: {fileID: 0}
---- !u!114 &98322284 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4895518294353671111, guid: 83db2e007efb3de44802e0313439e95c, type: 3}
-  m_PrefabInstance: {fileID: 2123342112}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 98322282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dc44c5eb69748a45b697397b0740ef1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &194398174 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3629924245981088715, guid: 83db2e007efb3de44802e0313439e95c, type: 3}
@@ -4922,39 +4911,14 @@ MonoBehaviour:
   sounds:
   - name: shot
     clip: {fileID: 8300000, guid: c00a1ac1041960044a962c0e1672717f, type: 3}
-    volume: 1
-    pitch: 0
-    loop: 0
-    playOnAwake: 0
-    source: {fileID: 0}
   - name: shells
     clip: {fileID: 8300000, guid: 06df58efa12d0b04a8e5bb2fc2dd7ace, type: 3}
-    volume: 1
-    pitch: 0
-    loop: 0
-    playOnAwake: 0
-    source: {fileID: 0}
   - name: reload
     clip: {fileID: 8300000, guid: d85099fefd84d429788e09001413207b, type: 3}
-    volume: 1
-    pitch: 0
-    loop: 0
-    playOnAwake: 0
-    source: {fileID: 0}
   - name: safety
     clip: {fileID: 8300000, guid: 52c5b95bdd05b06448a80c9a0e7d45ca, type: 3}
-    volume: 1
-    pitch: 0
-    loop: 0
-    playOnAwake: 0
-    source: {fileID: 0}
   - name: dry_shot
     clip: {fileID: 8300000, guid: a0414f0d1f293ae4ab5efa01eb5c2c0a, type: 3}
-    volume: 1
-    pitch: 0
-    loop: 0
-    playOnAwake: 0
-    source: {fileID: 0}
 --- !u!114 &1912651265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4971,7 +4935,6 @@ MonoBehaviour:
   bulletSpawn: {fileID: 1705110014}
   recoilForce: 2
   damage: 100
-  audioManager: {fileID: 98322284}
   aButtonAction:
     m_UseReference: 1
     m_Action:
@@ -4999,6 +4962,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: -3281485610557029835, guid: 28b50149f29a723429270c4ae38ebbae, type: 3}
   debugRayDuration: 2
   isEvaluated: 1
+  maxBullets: 12
   bulletHolePrefab: {fileID: 179232, guid: b2ac1383a96f94a50b7ed458be173bbd, type: 3}
   isSafetyOn: 1
 --- !u!114 &1912651266
@@ -5892,7 +5856,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

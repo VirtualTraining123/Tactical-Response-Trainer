@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 531383358652848800}
   - component: {fileID: 7254478669470386246}
   m_Layer: 0
-  m_Name: ArmaRealQueAnda
+  m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
