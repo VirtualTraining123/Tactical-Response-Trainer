@@ -191,6 +191,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Magazine (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 5575783327293811223, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1679,6 +1683,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Magazine
       objectReference: {fileID: 0}
+    - target: {fileID: 5575783327293811223, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2925,6 +2933,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Magazine (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 5575783327293811223, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3030,6 +3042,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Magazine (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 5575783327293811223, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3109,7 +3125,9 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7858583907290631411, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
+    - {fileID: 5168977512479304591, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
@@ -3249,6 +3267,10 @@ PrefabInstance:
     - target: {fileID: 3700844865131783255, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
       propertyPath: m_Name
       value: Magazine (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5575783327293811223, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3737,6 +3759,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Magazine (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 5575783327293811223, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3896,6 +3922,10 @@ PrefabInstance:
     - target: {fileID: 3700844865131783255, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
       propertyPath: m_Name
       value: Magazine (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5575783327293811223, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4550,6 +4580,10 @@ PrefabInstance:
     - target: {fileID: 3700844865131783255, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
       propertyPath: m_Name
       value: Magazine (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5575783327293811223, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5959,6 +5993,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Magazine (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5575783327293811223, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6311,6 +6349,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Magazine (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 5575783327293811223, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6416,6 +6458,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Magazine (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 5575783327293811223, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6493,6 +6539,10 @@ PrefabInstance:
     - target: {fileID: 3700844865131783255, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
       propertyPath: m_Name
       value: Magazine (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5575783327293811223, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6599,6 +6649,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Magazine (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 5575783327293811223, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6676,6 +6730,10 @@ PrefabInstance:
     - target: {fileID: 3700844865131783255, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
       propertyPath: m_Name
       value: Magazine (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5575783327293811223, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7051,6 +7109,10 @@ PrefabInstance:
     - target: {fileID: 3700844865131783255, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
       propertyPath: m_Name
       value: Magazine (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5575783327293811223, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11674,6 +11736,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Magazine (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5575783327293811223, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13093,7 +13159,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7858583907290631411, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
+    - {fileID: 5168977512479304591, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
