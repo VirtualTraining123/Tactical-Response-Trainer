@@ -8,7 +8,7 @@ public class AnimateHandController : MonoBehaviour
 {
     public InputActionReference gripInputActionReference;
     public InputActionReference triggerInputActionReference;
-    //pasamos por referencia el animator
+
     private Animator _handAnimator;
     private float _gripValue;
     private float _triggerValue;
