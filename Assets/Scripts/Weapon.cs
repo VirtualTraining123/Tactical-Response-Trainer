@@ -45,7 +45,12 @@ public class Weapon : MonoBehaviour {
   }
 
   private void DropWeapon(XRBaseInteractor interactor) {
-    interactor.GetComponent<MeshHider>().Show();
+    MeshHider meshHider = interactor.GetComponent<MeshHider>();
+    if (meshHider != null) {
+        meshHider.Show();
+    } else {
+        Debug.LogWarning("MeshHider component missing on interactor.");
+    }
   }
 
   protected virtual void StartShooting(XRBaseInteractor interactor) { }

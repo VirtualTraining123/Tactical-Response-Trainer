@@ -3072,6 +3072,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Left
       objectReference: {fileID: 0}
+    - target: {fileID: 2534856946539297901, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5883617178230436550, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
       propertyPath: m_text
       value: Arma para zurdos
@@ -13114,6 +13118,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Right
       objectReference: {fileID: 0}
+    - target: {fileID: 2751465317177029055, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868515968739819037, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
+      propertyPath: m_AddDefaultGrabTransformers
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585223627265556763, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5883617178230436550, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
       propertyPath: m_text
       value: Arma para diestros
@@ -13156,6 +13172,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6219188468754650490, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539986295856890740, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7573068742749037372, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
