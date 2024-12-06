@@ -11,6 +11,8 @@ public class GameStartMenu : MonoBehaviour {
   public GameObject Introductionpage1;
   public GameObject Introductionpage2;
   public GameObject Introductionpage3;
+  public GameObject Introductionpage4;
+
 
   [Header("Main Menu Buttons")] public Button startButton;
   public Button optionButton;
@@ -36,6 +38,7 @@ public class GameStartMenu : MonoBehaviour {
     nextButtons[0].onClick.AddListener(EnableIntroductionMenu2);
     nextButtons[1].onClick.AddListener(EnableIntroductionMenu3);
     nextButtons[2].onClick.AddListener(StartGame);
+    nextButtons[3].onClick.AddListener(StartGame);
 
     foreach (var item in returnButtons) {
       item.onClick.AddListener(EnableMainMenu);
@@ -70,6 +73,7 @@ public class GameStartMenu : MonoBehaviour {
     Introductionpage1.SetActive(true);
     Introductionpage2.SetActive(false);
     Introductionpage3.SetActive(false);
+    Introductionpage4.SetActive(false);
   }
 
   public void EnableIntroductionMenu2() {
@@ -79,6 +83,7 @@ public class GameStartMenu : MonoBehaviour {
     Introductionpage1.SetActive(false);
     Introductionpage2.SetActive(true);
     Introductionpage3.SetActive(false);
+    Introductionpage4.SetActive(false);
   }
 
   public void EnableIntroductionMenu3() {
@@ -88,7 +93,18 @@ public class GameStartMenu : MonoBehaviour {
     Introductionpage1.SetActive(false);
     Introductionpage2.SetActive(false);
     Introductionpage3.SetActive(true);
+    Introductionpage4.SetActive(false);
   }
+  
+  public void EnableIntroductionMenu3() {
+      mainMenu.SetActive(false);
+      options.SetActive(false);
+      about.SetActive(false);
+      Introductionpage1.SetActive(false);
+      Introductionpage2.SetActive(false);
+      Introductionpage3.SetActive(false);
+      Introductionpage4.SetActive(true);
+    }
 
   public void HideAll() {
     mainMenu.SetActive(false);
@@ -97,6 +113,7 @@ public class GameStartMenu : MonoBehaviour {
     Introductionpage1.SetActive(false);
     Introductionpage2.SetActive(false);
     Introductionpage3.SetActive(false);
+    Introductionpage4.SetActive(false);
   }
 
   public void EnableMainMenu() {
@@ -106,6 +123,7 @@ public class GameStartMenu : MonoBehaviour {
     Introductionpage1.SetActive(false);
     Introductionpage2.SetActive(false);
     Introductionpage3.SetActive(false);
+    Introductionpage4.SetActive(false);
   }
 
   public void EnableOption() {
