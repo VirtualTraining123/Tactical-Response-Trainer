@@ -27,7 +27,7 @@ public class Weapon : MonoBehaviour {
 
     aButtonAction.action.performed += _ => ReloadSound();
     bButtonAction.action.performed += _ => ToggleSafetySound();
-    
+
     audioManager.Request("shot", gameObject);
     audioManager.Request("shells", gameObject);
     audioManager.Request("reload", gameObject);
@@ -43,20 +43,21 @@ public class Weapon : MonoBehaviour {
     interactableWeapon.deactivated.AddListener(StopShooting);
   }
 
-  [Obsolete("Obsolete")]
-  private void PickUpWeapon(SelectEnterEventArgs interactor) {
-    // GetComponent<MeshHider>().Hide();
-    // get gameobject from interactor.interactorObject.
-    MeshHider meshHider = interactor.interactor.GetComponent<MeshHider>();
+  private static void PickUpWeapon(SelectEnterEventArgs interactor) {
+    var meshHider = interactor.interactorObject.transform.GetComponent<MeshHider>();
+    if (meshHider != null) {
+      meshHider.Hide();
+    } else {
+      Debug.LogWarning("MeshHider component missing on interactor.");
+    }
   }
 
-  [Obsolete("Obsolete")]
-  private void DropWeapon(SelectExitEventArgs interactor) {
-    MeshHider meshHider = interactor.interactor.GetComponent<MeshHider>();
+  private static void DropWeapon(SelectExitEventArgs interactor) {
+    var meshHider = interactor.interactorObject.transform.GetComponent<MeshHider>();
     if (meshHider != null) {
-        meshHider.Show();
+      meshHider.Show();
     } else {
-        Debug.LogWarning("MeshHider component missing on interactor.");
+      Debug.LogWarning("MeshHider component missing on interactor.");
     }
   }
 
