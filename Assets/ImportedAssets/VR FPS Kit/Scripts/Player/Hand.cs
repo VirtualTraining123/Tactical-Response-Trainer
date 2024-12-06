@@ -237,7 +237,7 @@ public class Hand : MonoBehaviour
         {
             held.transform.SetParent(null);
             held.GetComponent<Rigidbody>().isKinematic = false;
-            held.GetComponent<Rigidbody>().velocity = frameVelocity/Time.deltaTime;
+            held.GetComponent<Rigidbody>().linearVelocity = frameVelocity/Time.deltaTime;
             //Try holstering starting with the closest holster and going outwards
             Holster[] holsters = GameObject.FindObjectsOfType<Holster>();
             List<HolstersByDistance> holstersByDistances = new List<HolstersByDistance>();

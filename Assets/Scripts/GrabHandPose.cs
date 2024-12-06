@@ -21,7 +21,7 @@ public class GrabHandPose : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        XRGrabInteractable grabInteractable = GetComponent<XRGrabInteractable>();
+        UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grabInteractable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
         
         grabInteractable.selectEntered.AddListener(SetupPose);
         grabInteractable.selectExited.AddListener(UnSetPose);
@@ -33,7 +33,7 @@ public class GrabHandPose : MonoBehaviour
   
     public void SetupPose(BaseInteractionEventArgs arg)
     {
-        if (arg.interactorObject is XRDirectInteractor || arg.interactorObject is XRRayInteractor)
+        if (arg.interactorObject is UnityEngine.XR.Interaction.Toolkit.Interactors.XRDirectInteractor || arg.interactorObject is UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor)
         {
             HandData handData = arg.interactorObject.transform.GetComponentInChildren<HandData>();
             handData.animator.enabled = false;
@@ -55,7 +55,7 @@ public class GrabHandPose : MonoBehaviour
 
     public void UnSetPose(BaseInteractionEventArgs arg)
     {
-        if (arg.interactorObject is XRDirectInteractor || arg.interactorObject is XRRayInteractor)
+        if (arg.interactorObject is UnityEngine.XR.Interaction.Toolkit.Interactors.XRDirectInteractor || arg.interactorObject is UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor)
         {
             HandData handData = arg.interactorObject.transform.GetComponentInChildren<HandData>();
             handData.animator.enabled = true;
