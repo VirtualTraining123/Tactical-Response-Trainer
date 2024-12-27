@@ -128,12 +128,12 @@ namespace HandPose {
       }
     }
 #if UNITY_EDITOR
-    [MenuItem(("Tools, Mirror Selected Right Grab Pose"))]
-    public static void MirrorRightPose() {
-      Debug.Log("MirrorRightPose");
-      var handPose = Selection.activeGameObject.GetComponent<GrabHandPose>();
-      MirrorPose(handPose.leftHandPose, handPose.rightHandPose);
-    }
+    // [MenuItem(("Tools, Mirror Selected Right Grab Pose"))]
+    // public static void MirrorRightPose() {
+    //   Debug.Log("MirrorRightPose");
+    //   var handPose = Selection.activeGameObject.GetComponent<GrabHandPose>();
+    //   MirrorPose(handPose.leftHandPose, handPose.rightHandPose);
+    // }
 
 #endif
 
