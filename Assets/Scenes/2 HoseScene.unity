@@ -945,6 +945,7 @@ GameObject:
   - component: {fileID: 198499886}
   - component: {fileID: 198499885}
   - component: {fileID: 198499884}
+  - component: {fileID: 198499887}
   m_Layer: 0
   m_Name: Right Controller
   m_TagString: Untagged
@@ -965,6 +966,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 441817087}
   - {fileID: 454449748}
   m_Father: {fileID: 452463680}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -986,12 +988,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 452463684}
   - {fileID: 0}
-  m_StartingInteractionOverridesMap:
-  - groupMember: {fileID: 0}
-    overrideGroupMembers:
-    - {fileID: 452463684}
-  - groupMember: {fileID: 0}
-    overrideGroupMembers: []
+  m_StartingInteractionOverridesMap: []
 --- !u!114 &198499885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1258,6 +1255,54 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &198499887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198499882}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e4e595e9d8c3e409ce0b29a315f206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handAnimator: {fileID: 2808724967610814851}
+  gripAction:
+    m_Name: Grip
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 102c97d6-867c-4b2e-b48d-5cfa9be24f1a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: c16aaac3-c7db-4131-8cd7-b559984d2477
+      m_Path: <XRController>{RightHand}/grip
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Grip
+      m_Flags: 0
+    m_Flags: 0
+  triggerAction:
+    m_Name: Trigger
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: c170c611-8e2b-47c4-b1b2-0a64e8c63a03
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 20b3eba5-e194-4ce8-9043-bfbb93df473b
+      m_Path: <XRController>{RightHand}/trigger
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Trigger
+      m_Flags: 0
+    m_Flags: 0
+  nHand: 
 --- !u!1 &210001957 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 808951037584652587, guid: 49f576a03ece56a4e9c640ed081f6a68, type: 3}
@@ -1496,10 +1541,7 @@ PrefabInstance:
       objectReference: {fileID: 4300000, guid: d0c255d07fd68f14b94e55d388e7e6bb, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 3240524871626806228, guid: 534053b397750e74588f25f926e8da72, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 441817087}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 534053b397750e74588f25f926e8da72, type: 3}
 --- !u!4 &234681102 stripped
@@ -2297,12 +2339,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 441817086}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0.000000014909611, z: -0, w: 0.70710677}
-  m_LocalPosition: {x: 0.09011338, y: 0.15994328, z: 0.23000014}
+  m_LocalRotation: {x: 0.50028366, y: -0.4997163, z: -0.49971622, w: 0.50028354}
+  m_LocalPosition: {x: 0.015, y: -0.036, z: -0.074}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 234681102}
+  m_Father: {fileID: 198499883}
   m_LocalEulerAnglesHint: {x: 90, y: -90, z: -90}
 --- !u!1001 &446872749
 PrefabInstance:
@@ -2415,6 +2457,7 @@ Transform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2808724967610814855}
   - {fileID: 1107799010}
   - {fileID: 1873935079}
   - {fileID: 1280490834}
@@ -2571,7 +2614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2429146838225186546, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_StartingInteractionOverridesMap.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2429146838225186546, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_StartingInteractionOverridesMap.Array.data[1].groupMember
@@ -2807,7 +2850,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8074195219289459696, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_StartingInteractionOverridesMap.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8074195219289459696, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_StartingInteractionOverridesMap.Array.data[1].groupMember
@@ -3510,6 +3553,7 @@ GameObject:
   - component: {fileID: 452463684}
   - component: {fileID: 454449749}
   - component: {fileID: 454449747}
+  - component: {fileID: 454449750}
   m_Layer: 0
   m_Name: Direct Interactor
   m_TagString: Untagged
@@ -3577,6 +3621,54 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &454449750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454449746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e4e595e9d8c3e409ce0b29a315f206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handAnimator: {fileID: 2808724967610814851}
+  gripAction:
+    m_Name: Grip
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 102c97d6-867c-4b2e-b48d-5cfa9be24f1a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: c16aaac3-c7db-4131-8cd7-b559984d2477
+      m_Path: <XRController>{RightHand}/grip
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Grip
+      m_Flags: 0
+    m_Flags: 0
+  triggerAction:
+    m_Name: Trigger
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: c170c611-8e2b-47c4-b1b2-0a64e8c63a03
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 20b3eba5-e194-4ce8-9043-bfbb93df473b
+      m_Path: <XRController>{RightHand}/trigger
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Trigger
+      m_Flags: 0
+    m_Flags: 0
+  nHand: Right
 --- !u!1 &468290227
 GameObject:
   m_ObjectHideFlags: 0
@@ -4284,6 +4376,10 @@ PrefabInstance:
     - target: {fileID: 5883617178230436550, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
       propertyPath: m_text
       value: Arma para zurdos
+      objectReference: {fileID: 0}
+    - target: {fileID: 5883617178230436550, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 6219188468754650490, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8565,10 +8661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 7072478885644867327, guid: a543ce027c5ec3a4788c4f633673c3de, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1717369175}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a543ce027c5ec3a4788c4f633673c3de, type: 3}
 --- !u!4 &1613823453 stripped
@@ -8888,6 +8981,7 @@ GameObject:
   - component: {fileID: 1664957127}
   - component: {fileID: 1664957126}
   - component: {fileID: 1664957125}
+  - component: {fileID: 1664957128}
   m_Layer: 0
   m_Name: Left Controller
   m_TagString: LeftHand
@@ -8908,6 +9002,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1717369175}
   - {fileID: 1491728100}
   m_Father: {fileID: 452463680}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8929,14 +9024,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 331643180}
   - {fileID: 0}
-  m_StartingInteractionOverridesMap:
-  - groupMember: {fileID: 0}
-    overrideGroupMembers:
-    - {fileID: 331643180}
-  - groupMember: {fileID: 0}
-    overrideGroupMembers:
-    - {fileID: 0}
-    - {fileID: 331643180}
+  m_StartingInteractionOverridesMap: []
 --- !u!114 &1664957126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9203,6 +9291,54 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1664957128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664957123}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e4e595e9d8c3e409ce0b29a315f206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handAnimator: {fileID: 2808724967610814851}
+  gripAction:
+    m_Name: Grip
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 0c9cdabe-6483-4c7c-bd7e-a360b3b99c48
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: dc11afa7-a94a-4605-b5a6-41cd92f85422
+      m_Path: <XRController>{LeftHand}/grip
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Grip
+      m_Flags: 0
+    m_Flags: 0
+  triggerAction:
+    m_Name: Trigger
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: e1f53b44-0552-48c5-9960-478a60a21bf5
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 62fc9f81-5256-4cdc-af22-f1d705d0867c
+      m_Path: <XRController>{LeftHand}/trigger
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Trigger
+      m_Flags: 0
+    m_Flags: 0
+  nHand: 
 --- !u!4 &1668196202 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3240524871626806264, guid: 534053b397750e74588f25f926e8da72, type: 3}
@@ -9535,12 +9671,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1717369174}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.70710677, y: 0, z: 0, w: 0.70710677}
-  m_LocalPosition: {x: 0, y: 0, z: -0.05}
+  m_LocalRotation: {x: 0.54539967, y: 0.5453999, z: 0.45004344, w: 0.45004347}
+  m_LocalPosition: {x: -0.043, y: -0.033, z: -0.076}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1613823453}
+  m_Father: {fileID: 1664957124}
   m_LocalEulerAnglesHint: {x: 90, y: 90, z: 90}
 --- !u!1 &1720006450
 GameObject:
@@ -16093,6 +16229,7 @@ GameObject:
   - component: {fileID: 1491728100}
   - component: {fileID: 331643180}
   - component: {fileID: 2063655347}
+  - component: {fileID: 2063655348}
   m_Layer: 0
   m_Name: Direct Interactor
   m_TagString: Untagged
@@ -16121,6 +16258,54 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2063655348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2063655346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e4e595e9d8c3e409ce0b29a315f206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handAnimator: {fileID: 2808724967610814851}
+  gripAction:
+    m_Name: Grip
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 0c9cdabe-6483-4c7c-bd7e-a360b3b99c48
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: dc11afa7-a94a-4605-b5a6-41cd92f85422
+      m_Path: <XRController>{LeftHand}/grip
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Grip
+      m_Flags: 0
+    m_Flags: 0
+  triggerAction:
+    m_Name: Trigger
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: e1f53b44-0552-48c5-9960-478a60a21bf5
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 62fc9f81-5256-4cdc-af22-f1d705d0867c
+      m_Path: <XRController>{LeftHand}/trigger
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Trigger
+      m_Flags: 0
+    m_Flags: 0
+  nHand: Left
 --- !u!4 &2066499348 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3240524871626806210, guid: 534053b397750e74588f25f926e8da72, type: 3}
@@ -16212,6 +16397,10 @@ PrefabInstance:
     - target: {fileID: 5883617178230436550, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
       propertyPath: m_text
       value: Arma para diestros
+      objectReference: {fileID: 0}
+    - target: {fileID: 5883617178230436550, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 6219188468754650490, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16501,7 +16690,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1017555389}
+    m_TransformParent: {fileID: 446896721}
     m_Modifications:
     - target: {fileID: 1509156498999029594, guid: d9100cd9f575e6e4b919c1d5e167a415, type: 3}
       propertyPath: m_Name
@@ -16525,15 +16714,15 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 1618128879b33f6498cb96f2d237f943, type: 2}
     - target: {fileID: 8900343497467657010, guid: d9100cd9f575e6e4b919c1d5e167a415, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.006501913
+      value: 3.459502
       objectReference: {fileID: 0}
     - target: {fileID: 8900343497467657010, guid: d9100cd9f575e6e4b919c1d5e167a415, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.443
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8900343497467657010, guid: d9100cd9f575e6e4b919c1d5e167a415, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.020297289
+      value: 1.7397027
       objectReference: {fileID: 0}
     - target: {fileID: 8900343497467657010, guid: d9100cd9f575e6e4b919c1d5e167a415, type: 3}
       propertyPath: m_LocalRotation.w
@@ -16586,6 +16775,16 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5544307408936450962}
   m_SourcePrefab: {fileID: 100100000, guid: d9100cd9f575e6e4b919c1d5e167a415, type: 3}
+--- !u!95 &2808724967610814851 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6423098391141989493, guid: d9100cd9f575e6e4b919c1d5e167a415, type: 3}
+  m_PrefabInstance: {fileID: 2808724967610814850}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2808724967610814855 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8900343497467657010, guid: d9100cd9f575e6e4b919c1d5e167a415, type: 3}
+  m_PrefabInstance: {fileID: 2808724967610814850}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2966697326455488096 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7016374935230295129, guid: d9100cd9f575e6e4b919c1d5e167a415, type: 3}
