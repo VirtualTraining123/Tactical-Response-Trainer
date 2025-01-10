@@ -1,6 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(XRGrabInteractable))]
@@ -24,7 +27,7 @@ public class Weapon : MonoBehaviour {
 
     aButtonAction.action.performed += _ => ReloadSound();
     bButtonAction.action.performed += _ => ToggleSafetySound();
-    
+
     audioManager.Request("shot", gameObject);
     audioManager.Request("shells", gameObject);
     audioManager.Request("reload", gameObject);
@@ -34,23 +37,33 @@ public class Weapon : MonoBehaviour {
   }
 
   private void SetupInteractableWeaponEvents() {
-    interactableWeapon.onSelectEntered.AddListener(PickUpWeapon);
-    interactableWeapon.onSelectExited.AddListener(DropWeapon);
-    interactableWeapon.onActivate.AddListener(StartShooting);
-    interactableWeapon.onDeactivate.AddListener(StopShooting);
+    interactableWeapon.selectEntered.AddListener(PickUpWeapon);
+    interactableWeapon.selectExited.AddListener(DropWeapon);
+    interactableWeapon.activated.AddListener(StartShooting);
+    interactableWeapon.deactivated.AddListener(StopShooting);
   }
 
-  private void PickUpWeapon(XRBaseInteractor interactor) {
-    interactor.GetComponent<MeshHider>().Hide();
+  private static void PickUpWeapon(SelectEnterEventArgs interactor) {
+    var meshHider = interactor.interactorObject.transform.GetComponent<MeshHider>();
+    if (meshHider != null) {
+      meshHider.Hide();
+    } else {
+      Debug.LogWarning("MeshHider component missing on interactor.");
+    }
   }
 
-  private void DropWeapon(XRBaseInteractor interactor) {
-    interactor.GetComponent<MeshHider>().Show();
+  private static void DropWeapon(SelectExitEventArgs interactor) {
+    var meshHider = interactor.interactorObject.transform.GetComponent<MeshHider>();
+    if (meshHider != null) {
+      meshHider.Show();
+    } else {
+      Debug.LogWarning("MeshHider component missing on interactor.");
+    }
   }
 
-  protected virtual void StartShooting(XRBaseInteractor interactor) { }
+  protected virtual void StartShooting(ActivateEventArgs interactor) { }
 
-  protected virtual void StopShooting(XRBaseInteractor interactor) { }
+  protected virtual void StopShooting(DeactivateEventArgs interactor) { }
 
   protected virtual void Shoot() {
     ApplyRecoil();

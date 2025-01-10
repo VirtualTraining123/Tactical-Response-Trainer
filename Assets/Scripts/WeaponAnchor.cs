@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
+
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(XRGrabInteractable))]
+[RequireComponent(typeof(UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable))]
 public class WeaponAnchor : MonoBehaviour
 {
     public Transform anchorPoint; // Punto de anclaje en el chaleco
@@ -12,7 +12,7 @@ public class WeaponAnchor : MonoBehaviour
     public float grabSmoothTime = 0.2f; // Tiempo de suavizado al agarrar
 
     private Rigidbody rb;
-    private XRGrabInteractable grabInteractable;
+    private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grabInteractable;
     private bool isHeld;
     private Vector3 initialScale;
 
@@ -22,7 +22,7 @@ public class WeaponAnchor : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        grabInteractable = GetComponent<XRGrabInteractable>();
+        grabInteractable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
 
         // Suscribirse a los eventos de XRGrabInteractable
         grabInteractable.onSelectEntered.AddListener(OnGrab);
@@ -59,7 +59,7 @@ public class WeaponAnchor : MonoBehaviour
         }
     }
 
-    private void OnGrab(XRBaseInteractor interactor)
+    private void OnGrab(UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor)
     {
         if (smoothGrabCoroutine != null)
         {
@@ -69,7 +69,7 @@ public class WeaponAnchor : MonoBehaviour
         smoothGrabCoroutine = StartCoroutine(SmoothGrab(interactor));
     }
 
-    private void OnRelease(XRBaseInteractor interactor)
+    private void OnRelease(UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor)
     {
         isHeld = false;
         rb.isKinematic = true; // Desactivar la física mientras está anclado
@@ -83,7 +83,7 @@ public class WeaponAnchor : MonoBehaviour
       //  transform.localScale = initialScale; // Restablecer la escala original
     }
 
-    private IEnumerator SmoothGrab(XRBaseInteractor interactor)
+    private IEnumerator SmoothGrab(UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor)
     {
         isHeld = true;
         rb.isKinematic = false;

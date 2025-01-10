@@ -90,9 +90,9 @@ namespace Pinwheel.TextureGraph
             return compatiblePorts;
         }
 
-        public override void HandleEvent(EventBase evt)
+        public void HandleEvent(EventBase evt)
         {
-            base.HandleEvent(evt);
+            // base.HandleEvent(evt);
             if (evt is MouseDownEvent || evt is MouseUpEvent)
             {
                 HandleNodeToInspect();

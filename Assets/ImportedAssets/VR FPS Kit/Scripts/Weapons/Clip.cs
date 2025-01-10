@@ -25,7 +25,7 @@ public class Clip : MonoBehaviour
         {
             transform.SetParent(null);
             GetComponent<Rigidbody>().isKinematic = false;
-            GetComponent<Rigidbody>().velocity = -transform.up * 2f;
+            GetComponent<Rigidbody>().linearVelocity = -transform.up * 2f;
             Destroy(this);
         }
         return bullet;

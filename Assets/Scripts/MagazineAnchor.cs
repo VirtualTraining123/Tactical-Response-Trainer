@@ -1,56 +1,47 @@
-using System;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(XRGrabInteractable))]
 public class MagazineAnchor : MonoBehaviour {
-  public Transform anchorPoint; // Punto de anclaje en el chaleco
+  public Transform anchorPoint;
 
   private Rigidbody rb;
   private XRGrabInteractable grabInteractable;
   private bool isHeld;
 
-  [Obsolete("Obsolete")]
-  void Awake() {
+  public void Awake() {
     rb = GetComponent<Rigidbody>();
     grabInteractable = GetComponent<XRGrabInteractable>();
 
-    grabInteractable.onSelectEntered.AddListener(OnGrab);
-    grabInteractable.onSelectExited.AddListener(OnRelease);
+    grabInteractable.selectEntered.AddListener(OnGrab);
+    grabInteractable.selectExited.AddListener(OnRelease);
     isHeld = false;
     rb.isKinematic = true;
   }
 
-  void Start() {
-    AnchorMagazine();
+  private void Start() {
+    MoveToAnchor();
   }
 
-  void FixedUpdate() {
-    if (!isHeld) {
-      // Mantener el cargador en el punto de anclaje cuando no se sostiene
-      rb.MovePosition(anchorPoint.position);
-      rb.MoveRotation(anchorPoint.rotation);
-    }
+  public void FixedUpdate() {
+    if (isHeld) return;
+    MoveToAnchor();
   }
 
-  private void OnGrab(XRBaseInteractor interactor) {
+  private void OnGrab(SelectEnterEventArgs interactor) {
     isHeld = true;
     rb.isKinematic = false;
-
-    // Cambiar la etiqueta al momento de tomarlo
-    // gameObject.tag = "HeldMagazine";
   }
 
-  private void OnRelease(XRBaseInteractor interactor) {
+  private void OnRelease(SelectExitEventArgs interactor) {
     isHeld = false;
-    rb.isKinematic = true; // Desactivar la física mientras está anclado
-    AnchorMagazine();
+    rb.isKinematic = true;
+    MoveToAnchor();
   }
 
-  private void AnchorMagazine() {
-    // Mover el cargador al punto de anclaje
-    transform.position = anchorPoint.position;
-    transform.rotation = anchorPoint.rotation;
+  private void MoveToAnchor() {
+    rb.Move(anchorPoint.position, anchorPoint.rotation);
   }
 }

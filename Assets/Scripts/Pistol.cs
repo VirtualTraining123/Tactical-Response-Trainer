@@ -1,6 +1,8 @@
-﻿using Projectiles;
+﻿using System;
+using Projectiles;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class Pistol : Weapon {
   [SerializeField] private Projectile bulletPrefab;
@@ -21,8 +23,9 @@ public class Pistol : Weapon {
     bButtonAction.action.Enable();
   }
 
-  protected override void StartShooting(XRBaseInteractor interactor) {
-    currentInteractor = interactor;
+  [Obsolete("Obsolete")]
+  protected override void StartShooting(ActivateEventArgs interactor) {
+    currentInteractor = interactor.interactor;
     Shoot();
   }
 
@@ -90,7 +93,7 @@ public class Pistol : Weapon {
   }
 
   private static void SendHapticImpulse(XRBaseInteractor interactor) {
-    var controllerInteractor = interactor as XRBaseControllerInteractor;
+    var controllerInteractor = interactor as XRBaseInputInteractor;
     if (controllerInteractor == null) return;
     var controller = controllerInteractor.xrController;
     if (controller == null) return;
