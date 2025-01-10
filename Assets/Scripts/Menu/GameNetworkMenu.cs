@@ -1,5 +1,6 @@
 ﻿using System;
 using Fusion;
+using Networking;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,6 +12,7 @@ namespace Menu {
     
     public ConnectedPlayersDisplay connectedPlayersDisplay;
     public NetworkRunner runner;
+    public InputManager inputManager;
 
 
     private void Start() {
@@ -34,6 +36,8 @@ namespace Menu {
           }
         );
         Log(result);
+        runner.AddGlobal(inputManager);
+        runner.AddCallbacks(inputManager);
       } catch (Exception e) {
         Log("Exception: " + e.Message);
       }

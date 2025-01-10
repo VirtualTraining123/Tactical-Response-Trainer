@@ -1,5 +1,6 @@
 using System.Linq;
 using Fusion;
+using Networking;
 using TMPro;
 using UnityEngine;
 
@@ -16,8 +17,8 @@ namespace Menu {
 
     public void Update() {
       var localPlayer = $"Local: {networkRunner.LocalPlayer}\n";
-      var connectedPlayers = $"Connected Players: {networkRunner.ActivePlayers.Count()} ({(gameLogic.IsSpawned ? gameLogic.Players.Count : -1)})\n";
-      var players = gameLogic.IsSpawned ? gameLogic.Players.Aggregate("", (acc, player) => $"{acc}- {player.Key}\n") : "Not spawned :c";
+      var connectedPlayers = $"Connected Players: {networkRunner.ActivePlayers.Count()} ({(gameLogic.isSpawned ? gameLogic.Players.Count : -1)})\n";
+      var players = gameLogic.isSpawned ? gameLogic.Players.Aggregate("", (acc, player) => $"{acc}- {player.Key}\n") : "Not spawned :c";
       connectedPlayersText.text = localPlayer + connectedPlayers + players + _logData;
     }
   }
