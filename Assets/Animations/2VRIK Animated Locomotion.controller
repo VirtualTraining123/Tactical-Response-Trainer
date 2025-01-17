@@ -11,7 +11,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 6897509305189388958}
-    m_Position: {x: 328.9372, y: 136.55945, z: 0}
+    m_Position: {x: 320, y: 120, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -103,6 +103,12 @@ AnimatorController:
     m_Controller: {fileID: 9100000}
   - m_Name: Trigger_Right
     m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: Pistol
+    m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
@@ -640,7 +646,7 @@ BlendTree:
     m_DirectBlendParameter: VRIK_Turn
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: b5d8085c877e8ff488a24d892a588361, type: 2}
+    m_Motion: {fileID: 7400000, guid: cc35a6ae6be676d4cb3267ba0f10428c, type: 2}
     m_Threshold: 0.33333334
     m_Position: {x: 0, y: 1}
     m_TimeScale: 1
@@ -648,7 +654,7 @@ BlendTree:
     m_DirectBlendParameter: VRIK_Turn
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: e58ae5c3f0f69d04b9f5207a376173c8, type: 2}
+    m_Motion: {fileID: 7400000, guid: 5ff6d14eed25eb54c861d99dc9a475fa, type: 2}
     m_Threshold: 0.6666667
     m_Position: {x: 1, y: 0}
     m_TimeScale: 1
@@ -656,7 +662,7 @@ BlendTree:
     m_DirectBlendParameter: VRIK_Turn
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 32b74d73f6a70f840906a1e3e83a50e2, type: 2}
+    m_Motion: {fileID: 7400000, guid: cc35a6ae6be676d4cb3267ba0f10428c, type: 2}
     m_Threshold: 1
     m_Position: {x: 1, y: 1}
     m_TimeScale: 1
@@ -739,7 +745,7 @@ BlendTree:
     m_DirectBlendParameter: VRIK_Turn
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: b5d8085c877e8ff488a24d892a588361, type: 2}
+    m_Motion: {fileID: 7400000, guid: cc35a6ae6be676d4cb3267ba0f10428c, type: 2}
     m_Threshold: 0.33333334
     m_Position: {x: 0, y: 1}
     m_TimeScale: 1
@@ -747,7 +753,7 @@ BlendTree:
     m_DirectBlendParameter: VRIK_Turn
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: e58ae5c3f0f69d04b9f5207a376173c8, type: 2}
+    m_Motion: {fileID: 7400000, guid: 5ff6d14eed25eb54c861d99dc9a475fa, type: 2}
     m_Threshold: 0.6666667
     m_Position: {x: 1, y: 0}
     m_TimeScale: 1
@@ -755,7 +761,7 @@ BlendTree:
     m_DirectBlendParameter: VRIK_Turn
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 32b74d73f6a70f840906a1e3e83a50e2, type: 2}
+    m_Motion: {fileID: 7400000, guid: cc35a6ae6be676d4cb3267ba0f10428c, type: 2}
     m_Threshold: 1
     m_Position: {x: 1, y: 1}
     m_TimeScale: 1
