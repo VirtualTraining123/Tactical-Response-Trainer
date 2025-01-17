@@ -16,13 +16,13 @@ public class HandsAnimationController : MonoBehaviour
 
     private void TriggerPressed(InputAction.CallbackContext obj)
     {
-        var aux = "Trigger_";
+        var aux = "Select_";
         handAnimator.SetFloat(aux+nHand, obj.ReadValue<float>());
     }
 
     private void GripPressed(InputAction.CallbackContext obj)
     {
-        var aux = "Grip_";
+        var aux = "Grab_";
         handAnimator.SetFloat(aux+nHand, obj.ReadValue<float>());
     }
     
