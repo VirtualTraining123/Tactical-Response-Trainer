@@ -1,9 +1,11 @@
 ﻿using Fusion;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Networking {
   public class NetworkGameLogic : NetworkBehaviour, IPlayerJoined, IPlayerLeft {
     [SerializeField] private NetworkPrefabRef playerPrefab;
+    [SerializeField] private FollowPlayer followPlayer;
     [Networked, Capacity(12)] public NetworkDictionary<PlayerRef, NetworkedPlayer> Players => default;
 
     public bool isSpawned;
@@ -16,7 +18,9 @@ namespace Networking {
     public void PlayerJoined(PlayerRef player) {
       if (!HasStateAuthority) return;
       var playerObject = Runner.Spawn(playerPrefab, Vector3.up, Quaternion.identity, player);
-      Players.Add(player, playerObject.GetComponent<NetworkedPlayer>());
+      var networkedPlayer = playerObject.GetComponent<NetworkedPlayer>();
+      followPlayer.player = networkedPlayer;
+      Players.Add(player, networkedPlayer);
     }
   
     public void PlayerLeft(PlayerRef player) {

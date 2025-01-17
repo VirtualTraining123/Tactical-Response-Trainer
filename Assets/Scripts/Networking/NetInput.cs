@@ -9,6 +9,7 @@ namespace Networking {
   public struct NetInput : INetworkInput {
     public NetworkButtons Buttons;
     public Vector2 Direction;
-    public Quaternion LookDirection;
+    public Vector3 GazePosition;
+    public Quaternion GazeDirection; // Note: Maybe someone can cheat with this.
   }
 }
