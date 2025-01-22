@@ -5,10 +5,12 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class Pistol : Weapon {
+  private static readonly int PistolShoot = Animator.StringToHash("PistolShoot");
   [SerializeField] private Projectile bulletPrefab;
   [SerializeField] private float debugRayDuration = 2f;
   [SerializeField] private bool isEvaluated = true;
   [SerializeField] private int maxBullets = 12;
+  [SerializeField] private Animator pistolAnimator;
   public GameObject bulletHolePrefab;
 
   private Evaluator evaluator;
@@ -42,6 +44,8 @@ public class Pistol : Weapon {
 
     DrawDebugRaycast();
     base.Shoot();
+    //llamamos al animador de pistol y modificamos el parametro PistolShoot de 0 a 1 y luego de 1 a 0 para volver a idle
+    pistolAnimator.SetBool(PistolShoot, true);
     evaluator?.OnBulletUsed();
     currentBullets--;
 
@@ -53,6 +57,7 @@ public class Pistol : Weapon {
     if (!Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out var hit)) return;
     if (!ShouldMakeBulletHole(hit)) return;
     InstantiateBulletHole(hit.point, hit.normal, hit.collider.transform);
+    pistolAnimator.SetBool(PistolShoot, false);
   }
 
   private static bool ShouldMakeBulletHole(RaycastHit hit) {

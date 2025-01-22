@@ -1411,6 +1411,9 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
   nHand: 
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &210001957 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 808951037584652587, guid: 49f576a03ece56a4e9c640ed081f6a68, type: 3}
@@ -3777,6 +3780,9 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
   nHand: Right
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &468290227
 GameObject:
   m_ObjectHideFlags: 0
@@ -9457,6 +9463,9 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
   nHand: 
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!4 &1668196202 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3240524871626806264, guid: 534053b397750e74588f25f926e8da72, type: 3}
@@ -16425,6 +16434,9 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
   nHand: Left
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!4 &2066499348 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3240524871626806210, guid: 534053b397750e74588f25f926e8da72, type: 3}
