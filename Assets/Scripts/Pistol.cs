@@ -9,7 +9,7 @@ public class Pistol : Weapon {
   [SerializeField] private Projectile bulletPrefab;
   [SerializeField] private float debugRayDuration = 2f;
   [SerializeField] private bool isEvaluated = true;
-  [SerializeField] private int maxBullets = 12;
+  [SerializeField] private int maxBullets = 100;
   [SerializeField] private Animator pistolAnimator;
   public GameObject bulletHolePrefab;
 
@@ -21,8 +21,14 @@ public class Pistol : Weapon {
   protected void Start() {
     currentBullets = maxBullets;
     if (isEvaluated)  evaluator = FindObjectOfType<Evaluator>();
-    aButtonAction.action.Enable();
-    bButtonAction.action.Enable();
+  }
+
+  public void OnPistolAnimationEnd(AnimationEvent eventInfo) {
+    if (eventInfo.animatorClipInfo.clip.name == "PistolShoot") {
+      pistolAnimator.SetBool(PistolShoot, false);
+    } else {
+      Debug.LogWarning("Animation event not found.");
+    }
   }
 
   [Obsolete("Obsolete")]
@@ -57,7 +63,6 @@ public class Pistol : Weapon {
     if (!Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out var hit)) return;
     if (!ShouldMakeBulletHole(hit)) return;
     InstantiateBulletHole(hit.point, hit.normal, hit.collider.transform);
-    pistolAnimator.SetBool(PistolShoot, false);
   }
 
   private static bool ShouldMakeBulletHole(RaycastHit hit) {

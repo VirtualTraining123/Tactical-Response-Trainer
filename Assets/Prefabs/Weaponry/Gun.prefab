@@ -330,7 +330,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: -3281485610557029835, guid: 28b50149f29a723429270c4ae38ebbae, type: 3}
   debugRayDuration: 2
   isEvaluated: 1
-  maxBullets: 12
+  maxBullets: 100
+  pistolAnimator: {fileID: 3093411618117054372}
   bulletHolePrefab: {fileID: 179232, guid: b2ac1383a96f94a50b7ed458be173bbd, type: 3}
   isSafetyOn: 1
 --- !u!95 &3093411618117054372

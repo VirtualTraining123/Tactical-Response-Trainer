@@ -1376,44 +1376,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handAnimator: {fileID: 2808724967610814851}
-  gripAction:
-    m_Name: Grip
+  rightTriggerAction:
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 102c97d6-867c-4b2e-b48d-5cfa9be24f1a
+    m_Id: 442ce4d9-440a-46eb-86bf-4806450767cf
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: c16aaac3-c7db-4131-8cd7-b559984d2477
-      m_Path: <XRController>{RightHand}/grip
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Grip
-      m_Flags: 0
+    m_SingletonActionBindings: []
     m_Flags: 0
-  triggerAction:
-    m_Name: Trigger
+  leftTriggerAction:
+    m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: c170c611-8e2b-47c4-b1b2-0a64e8c63a03
+    m_Id: ec8b86d6-daaa-4523-916c-5d62a72e1a9a
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 20b3eba5-e194-4ce8-9043-bfbb93df473b
-      m_Path: <XRController>{RightHand}/trigger
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Trigger
-      m_Flags: 0
+    m_SingletonActionBindings: []
     m_Flags: 0
-  nHand: 
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 0
+  rightGrabAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: a942a35a-aa9e-4d06-8789-81633031968e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  leftGrabAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: e9ac6870-2429-4a6d-8ad9-1c76e901ce1c
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  leftInteractor: {fileID: 0}
+  rightInteractor: {fileID: 0}
 --- !u!1 &210001957 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 808951037584652587, guid: 49f576a03ece56a4e9c640ed081f6a68, type: 3}
@@ -2252,6 +2252,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 1e4c9d0deb3bcc144ae6e91318e143a7, type: 3}
+--- !u!1 &369587886 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1509156498999029594, guid: d9100cd9f575e6e4b919c1d5e167a415, type: 3}
+  m_PrefabInstance: {fileID: 2808724967610814850}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &399606085
 GameObject:
   m_ObjectHideFlags: 0
@@ -3664,7 +3669,6 @@ GameObject:
   - component: {fileID: 452463684}
   - component: {fileID: 454449749}
   - component: {fileID: 454449747}
-  - component: {fileID: 454449750}
   m_Layer: 0
   m_Name: Direct Interactor
   m_TagString: Untagged
@@ -3732,57 +3736,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &454449750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 454449746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57e4e595e9d8c3e409ce0b29a315f206, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handAnimator: {fileID: 2808724967610814851}
-  gripAction:
-    m_Name: Grip
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 102c97d6-867c-4b2e-b48d-5cfa9be24f1a
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: c16aaac3-c7db-4131-8cd7-b559984d2477
-      m_Path: <XRController>{RightHand}/grip
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Grip
-      m_Flags: 0
-    m_Flags: 0
-  triggerAction:
-    m_Name: Trigger
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: c170c611-8e2b-47c4-b1b2-0a64e8c63a03
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 20b3eba5-e194-4ce8-9043-bfbb93df473b
-      m_Path: <XRController>{RightHand}/trigger
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Trigger
-      m_Flags: 0
-    m_Flags: 0
-  nHand: Right
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1 &468290227
 GameObject:
   m_ObjectHideFlags: 0
@@ -9105,7 +9058,6 @@ GameObject:
   - component: {fileID: 1664957127}
   - component: {fileID: 1664957126}
   - component: {fileID: 1664957125}
-  - component: {fileID: 1664957128}
   m_Layer: 0
   m_Name: Left Controller
   m_TagString: LeftHand
@@ -9415,57 +9367,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1664957128
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1664957123}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57e4e595e9d8c3e409ce0b29a315f206, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handAnimator: {fileID: 2808724967610814851}
-  gripAction:
-    m_Name: Grip
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 0c9cdabe-6483-4c7c-bd7e-a360b3b99c48
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: dc11afa7-a94a-4605-b5a6-41cd92f85422
-      m_Path: <XRController>{LeftHand}/grip
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Grip
-      m_Flags: 0
-    m_Flags: 0
-  triggerAction:
-    m_Name: Trigger
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: e1f53b44-0552-48c5-9960-478a60a21bf5
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 62fc9f81-5256-4cdc-af22-f1d705d0867c
-      m_Path: <XRController>{LeftHand}/trigger
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Trigger
-      m_Flags: 0
-    m_Flags: 0
-  nHand: 
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!4 &1668196202 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3240524871626806264, guid: 534053b397750e74588f25f926e8da72, type: 3}
@@ -16357,7 +16258,6 @@ GameObject:
   - component: {fileID: 1491728100}
   - component: {fileID: 331643180}
   - component: {fileID: 2063655347}
-  - component: {fileID: 2063655348}
   m_Layer: 0
   m_Name: Direct Interactor
   m_TagString: Untagged
@@ -16386,57 +16286,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2063655348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2063655346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57e4e595e9d8c3e409ce0b29a315f206, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handAnimator: {fileID: 2808724967610814851}
-  gripAction:
-    m_Name: Grip
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 0c9cdabe-6483-4c7c-bd7e-a360b3b99c48
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: dc11afa7-a94a-4605-b5a6-41cd92f85422
-      m_Path: <XRController>{LeftHand}/grip
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Grip
-      m_Flags: 0
-    m_Flags: 0
-  triggerAction:
-    m_Name: Trigger
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: e1f53b44-0552-48c5-9960-478a60a21bf5
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 62fc9f81-5256-4cdc-af22-f1d705d0867c
-      m_Path: <XRController>{LeftHand}/trigger
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Trigger
-      m_Flags: 0
-    m_Flags: 0
-  nHand: Left
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!4 &2066499348 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3240524871626806210, guid: 534053b397750e74588f25f926e8da72, type: 3}
@@ -16839,6 +16688,10 @@ PrefabInstance:
       propertyPath: solver.spine.headTarget
       value: 
       objectReference: {fileID: 68576689}
+    - target: {fileID: 3519003173149701729, guid: d9100cd9f575e6e4b919c1d5e167a415, type: 3}
+      propertyPath: solver.leftArm.armLengthMlp
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6423098391141989493, guid: d9100cd9f575e6e4b919c1d5e167a415, type: 3}
       propertyPath: m_Controller
       value: 
@@ -16899,6 +16752,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1509156498999029594, guid: d9100cd9f575e6e4b919c1d5e167a415, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2808724967610814859}
     - targetCorrespondingSourceObject: {fileID: 3557172469098807805, guid: d9100cd9f575e6e4b919c1d5e167a415, type: 3}
       insertIndex: -1
       addedObject: {fileID: 788323725165268439}
@@ -16928,6 +16784,89 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8900343497467657010, guid: d9100cd9f575e6e4b919c1d5e167a415, type: 3}
   m_PrefabInstance: {fileID: 2808724967610814850}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2808724967610814859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369587886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e4e595e9d8c3e409ce0b29a315f206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handAnimator: {fileID: 2808724967610814851}
+  rightTriggerAction:
+    m_Name: Right Trigger
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 2bd5276b-f15c-4a8d-9794-2cc6c06df61a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: ea845cbf-5ef8-4008-b3b5-b7f5e0ea826a
+      m_Path: <XRController>{RightHand}/trigger
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Right Trigger
+      m_Flags: 0
+    m_Flags: 0
+  leftTriggerAction:
+    m_Name: Left Trigger
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: a8b416b1-a886-4c56-9280-e25419985098
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 8cdb26bd-55ed-469e-b5c0-c6f0bfe43a40
+      m_Path: <XRController>{LeftHand}/trigger
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Left Trigger
+      m_Flags: 0
+    m_Flags: 0
+  rightGrabAction:
+    m_Name: Right Grab
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 8ede521a-e3dd-447f-a1e5-e936c609e886
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 077d1ea9-5005-487a-ac91-000f265da72b
+      m_Path: <XRController>{RightHand}/grip
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Right Grab
+      m_Flags: 0
+    m_Flags: 0
+  leftGrabAction:
+    m_Name: Left Grab
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: afcc4961-a3f2-4ba6-ab55-b879e9510c61
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 09a61abe-9ddc-4a66-94dd-dd22db568247
+      m_Path: <XRController>{LeftHand}/grip
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Left Grab
+      m_Flags: 0
+    m_Flags: 0
+  leftInteractor: {fileID: 331643180}
+  rightInteractor: {fileID: 452463684}
 --- !u!4 &2966697326455488096 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7016374935230295129, guid: d9100cd9f575e6e4b919c1d5e167a415, type: 3}

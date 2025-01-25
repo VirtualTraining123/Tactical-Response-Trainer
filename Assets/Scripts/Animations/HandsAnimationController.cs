@@ -1,114 +1,91 @@
+using System.Collections.Generic;
+using ReadyPlayerMe.Core;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
-namespace Animations
-{
-    public class HandsAnimationController : MonoBehaviour
-    {
-        private static readonly int Pistol1 = Animator.StringToHash("Pistol");
-        private static readonly int Shooting = Animator.StringToHash("Shooting");
-        [SerializeField] private Animator handAnimator;
-        [SerializeField] private InputAction gripAction;
-        [SerializeField] private InputAction triggerAction;
-        [SerializeField] private string nHand = "";
+namespace Animations {
+  public enum Hand {
+    Left,
+    Right,
+  }
 
-        [SerializeField] private LayerMask interactableLayer; // Capa para objetos interactuables
-        private GameObject currentWeapon; // Referencia al arma tomada
-        private bool isHoldingPistol;
+  public class HandsAnimationController : MonoBehaviour {
+    private const string GRIP_AUX = "Grip_";
+    private const string SELECT_AUX = "Trigger_";
+    private const string PISTOL_AUX = "IsHoldingPistol_";
+    private const string MAGAZINE_AUX = "IsHoldingMagazine_";
+    [SerializeField] private Animator handAnimator;
+    [SerializeField] private InputAction rightTriggerAction;
+    [SerializeField] private InputAction leftTriggerAction;
+    [SerializeField] private InputAction rightGrabAction;
+    [SerializeField] private InputAction leftGrabAction;
+    [SerializeField] private XRBaseInteractor leftInteractor;
+    [SerializeField] private XRBaseInteractor rightInteractor;
 
-        private void Awake()
-        {
-            gripAction.performed += GripPressed;
-            gripAction.canceled += GripReleased; // Detecta cuando se suelta el botón de agarre
-            triggerAction.performed += TriggerPressed;
-        }
-
-        private void GripPressed(InputAction.CallbackContext obj)
-        {
-            if (!isHoldingPistol)
-            {
-                // Detectar si se toma un objeto interactuable
-                Collider[] hitColliders = Physics.OverlapSphere(transform.position, 0.1f, interactableLayer);
-                foreach (var hitCollider in hitColliders)
-                {
-                    if (hitCollider.CompareTag("Weapon"))
-                    {
-                        // Se detectó un arma
-                        isHoldingPistol = true;
-                        currentWeapon = hitCollider.gameObject;
-                        handAnimator.SetBool(Pistol1, true); //revisar, falta aux+nHand para que no anime ambas manos?
-
-                        // Opcional: fijar el arma a la mano //no lo veo necesario
-                        currentWeapon.transform.SetParent(transform);
-                        currentWeapon.transform.localPosition = Vector3.zero;
-                        currentWeapon.transform.localRotation = Quaternion.identity;
-                        currentWeapon.GetComponent<Rigidbody>().isKinematic = true;
-
-                        break;
-                    }
-                    else
-                    {
-                        var aux = "Grab_";
-                        handAnimator.SetFloat(aux + nHand, obj.ReadValue<float>());
-
-                    }
-                }
-            }
-        }
-
-        private void GripReleased(InputAction.CallbackContext obj)
-        {
-            if (isHoldingPistol)
-            {
-                // Soltar el arma
-                isHoldingPistol = false;
-                handAnimator.SetBool(Pistol1, false); //revisar, falta aux+nHand para que no anime ambas manos?
-
-                if (currentWeapon != null)
-                {
-                    // Liberar el arma de la mano
-                    currentWeapon.transform.SetParent(null);
-                    Rigidbody rb = currentWeapon.GetComponent<Rigidbody>();
-                    if (rb != null)
-                    {
-                        rb.isKinematic = false;
-                    }
-
-                    currentWeapon = null;
-                }
-            }
-        }
-
-        private void TriggerPressed(InputAction.CallbackContext obj)
-        {
-            if (isHoldingPistol)
-            {
-                // Controla la animación del disparo
-                handAnimator.SetFloat(Shooting, obj.ReadValue<float>()); //revisar, falta aux+nHand para que no anime ambas manos?
-            }
-            else
-            {
-                var aux = "Select_";
-                handAnimator.SetFloat(aux + nHand, obj.ReadValue<float>()); 
-            }
-        }
-
-        private void OnEnable()
-        {
-            gripAction.Enable();
-            triggerAction.Enable();
-        }
-
-        private void OnDisable()
-        {
-            gripAction.Disable();
-            triggerAction.Disable();
-        }
+    private static string For(string complement, Hand hand) {
+      var s = hand.ToString();
+      return complement + s[..1].ToUpper() + s[1..].ToLower();
     }
+
+    private void Awake() {
+      var hands = new Dictionary<XRBaseInteractor, Hand> {
+        { rightInteractor, Hand.Right },
+        { leftInteractor, Hand.Left }
+      };
+
+      foreach (var (interactor, hand) in hands) {
+        interactor.selectEntered.AddListener(NewInteractionHandler(hand));
+        interactor.selectExited.AddListener(_ => handAnimator.SetBool(For(PISTOL_AUX, hand), false));
+      }
+    }
+
+    private UnityAction<SelectEnterEventArgs> NewInteractionHandler(Hand hand) {
+      return arg => {
+        var xrBaseInteractable = arg.interactableObject as XRBaseInteractable;
+        if (xrBaseInteractable == null) {
+          Debug.Log("No XRBaseInteractable found in grabbed item :c");
+          return;
+        }
+
+        var o = xrBaseInteractable.gameObject;
+        Debug.Log($"Grabbed object: {o.name} with tag: {o.tag}");
+        switch (o.tag) {
+          case "Weapon":
+            handAnimator.SetBool(For(PISTOL_AUX, hand), true);
+            break;
+          case "Magazine":
+            handAnimator.SetBool(For(MAGAZINE_AUX, hand), true);
+            break;
+          default:
+            Debug.Log("No tag found in grabbed item :c");
+            break;
+        }
+      };
+    }
+
+    private void Update() {
+      handAnimator.SetFloat(For(SELECT_AUX, Hand.Right), rightTriggerAction.ReadValue<float>());
+      handAnimator.SetFloat(For(SELECT_AUX, Hand.Left), leftTriggerAction.ReadValue<float>());
+      handAnimator.SetFloat(For(GRIP_AUX, Hand.Right), rightGrabAction.ReadValue<float>());
+      handAnimator.SetFloat(For(GRIP_AUX, Hand.Left), leftGrabAction.ReadValue<float>());
+    }
+
+    private void OnEnable() {
+      rightTriggerAction.Enable();
+      leftTriggerAction.Enable();
+      rightGrabAction.Enable();
+      leftGrabAction.Enable();
+    }
+
+    private void OnDisable() {
+      rightTriggerAction.Disable();
+      leftTriggerAction.Disable();
+      rightGrabAction.Disable();
+      leftGrabAction.Disable();
+    }
+  }
 }
-
-
-
-
-
- 

@@ -1,9 +1,6 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.InputSystem;
+﻿using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
-using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(XRGrabInteractable))]
@@ -13,20 +10,14 @@ public class Weapon : MonoBehaviour {
   [SerializeField] private float recoilForce;
   [SerializeField] private float damage;
   private AudioManager audioManager;
-
   private Rigidbody rigidBody;
   private XRGrabInteractable interactableWeapon;
-  public InputActionProperty aButtonAction;
-  public InputActionProperty bButtonAction;
 
   protected virtual void Awake() {
     interactableWeapon = GetComponent<XRGrabInteractable>();
     rigidBody = GetComponent<Rigidbody>();
     SetupInteractableWeaponEvents();
-    audioManager = FindObjectOfType<AudioManager>();
-
-    aButtonAction.action.performed += _ => ReloadSound();
-    bButtonAction.action.performed += _ => ToggleSafetySound();
+    audioManager = FindFirstObjectByType<AudioManager>();
 
     audioManager.Request("shot", gameObject);
     audioManager.Request("shells", gameObject);
