@@ -38,7 +38,7 @@ namespace Networking {
       }
       
       if (gazePosition != null) {
-        _accumulatedInput.GazePosition = gazePosition.ReadValue();
+        _accumulatedInput.GazePosition += gazePosition.ReadValue();
       }
     }
 
