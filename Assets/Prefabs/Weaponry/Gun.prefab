@@ -303,30 +303,6 @@ MonoBehaviour:
   bulletSpawn: {fileID: 3166538116959224135}
   recoilForce: 2
   damage: 100
-  aButtonAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: A Button
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 9e75701d-f031-41f7-ba25-e4460f70ecb6
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -7776179242393464317, guid: 7943e966b5d175e4d80320bb83685c28, type: 3}
-  bButtonAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: B Button
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 8611ec6b-048d-4510-b994-bc308883feb1
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -8463144124054689998, guid: 7943e966b5d175e4d80320bb83685c28, type: 3}
   bulletPrefab: {fileID: -3281485610557029835, guid: 28b50149f29a723429270c4ae38ebbae, type: 3}
   debugRayDuration: 2
   isEvaluated: 1
@@ -345,8 +321,8 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: a1b9b7940431d244c928225a41cdc1c0, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
+  m_CullingMode: 1
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
