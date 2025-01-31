@@ -508,7 +508,7 @@ BlendTree:
     m_Motion: {fileID: 7400000, guid: 3affd10708e348646b7068811e84852c, type: 2}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
-    m_TimeScale: 1
+    m_TimeScale: 12
     m_CycleOffset: 0
     m_DirectBlendParameter: VRIK_Turn
     m_Mirror: 0
@@ -516,7 +516,7 @@ BlendTree:
     m_Motion: {fileID: 7400000, guid: f5e5decefc8e95949a800be905598e1d, type: 2}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
-    m_TimeScale: 1
+    m_TimeScale: 10
     m_CycleOffset: 0
     m_DirectBlendParameter: VRIK_Turn
     m_Mirror: 0
@@ -858,7 +858,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: No grab
-  m_Speed: 1
+  m_Speed: 80
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -8683788676068309713}
@@ -885,7 +885,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Grab Pistol
-  m_Speed: 1
+  m_Speed: 80
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -4068957262301924612}
@@ -912,7 +912,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: No Grab
-  m_Speed: 1
+  m_Speed: 80
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 5346543936082936043}
@@ -939,7 +939,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Grab Pistol
-  m_Speed: 1
+  m_Speed: 80
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -7112398655793500179}
