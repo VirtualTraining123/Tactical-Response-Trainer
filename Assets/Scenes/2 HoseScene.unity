@@ -4987,7 +4987,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7338,7 +7338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e127f0c9e115c4a40ad64210017fa0c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletHolePrefab: {fileID: 6312226573956130947, guid: 0f52727e191864d42b7afc7dc395ab20, type: 3}
+  bulletHolePrefab: {fileID: 4611187475497915823, guid: eb8349588c2eb5142a1762af02f6b8d5, type: 3}
   decalOffset: 0.005
 --- !u!4 &1365450148
 Transform:
