@@ -39,7 +39,7 @@ namespace Animations {
 
       foreach (var (interactor, hand) in hands) {
         interactor.selectEntered.AddListener(NewInteractionHandler(hand));
-        interactor.selectExited.AddListener(_ => handAnimator.SetBool(For(PISTOL_AUX, hand), false));
+        interactor.selectExited.AddListener(NewInteractionHandler2(hand));
       }
     }
 
@@ -59,6 +59,30 @@ namespace Animations {
             break;
           case "Magazine":
             handAnimator.SetBool(For(MAGAZINE_AUX, hand), true);
+            break;
+          default:
+            Debug.Log("No tag found in grabbed item :c");
+            break;
+        }
+      };
+    }
+    
+    private UnityAction<SelectExitEventArgs> NewInteractionHandler2(Hand hand) {
+      return arg => {
+        var xrBaseInteractable = arg.interactableObject as XRBaseInteractable;
+        if (xrBaseInteractable == null) {
+          Debug.Log("No XRBaseInteractable found in grabbed item :c");
+          return;
+        }
+
+        var o = xrBaseInteractable.gameObject;
+        Debug.Log($"Grabbed object: {o.name} with tag: {o.tag}");
+        switch (o.tag) {
+          case "Weapon":
+            handAnimator.SetBool(For(PISTOL_AUX, hand), false);
+            break;
+          case "Magazine":
+            handAnimator.SetBool(For(MAGAZINE_AUX, hand), false);
             break;
           default:
             Debug.Log("No tag found in grabbed item :c");
