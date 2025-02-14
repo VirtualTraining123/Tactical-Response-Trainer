@@ -13,6 +13,10 @@ namespace Networking {
     [SerializeField] public XRInputValueReader<Vector2> moveAction;
     [SerializeField] public XRInputValueReader<Quaternion> gazeRotation;
     [SerializeField] public XRInputValueReader<Vector3> gazePosition;
+    [SerializeField] public XRInputValueReader<Quaternion> leftControllerRotation;
+    [SerializeField] public XRInputValueReader<Vector3> leftControllerPosition;
+    [SerializeField] public XRInputValueReader<Quaternion> rightControllerRotation;
+    [SerializeField] public XRInputValueReader<Vector3> rightControllerPosition;
 
 
     private void Awake() {
@@ -38,7 +42,23 @@ namespace Networking {
       }
       
       if (gazePosition != null) {
-        _accumulatedInput.GazePosition += gazePosition.ReadValue();
+        _accumulatedInput.GazePosition = gazePosition.ReadValue();
+      }
+      
+      if (leftControllerRotation != null) {
+        _accumulatedInput.LeftControllerRotation = leftControllerRotation.ReadValue();
+      }
+      
+      if (leftControllerPosition != null) {
+        _accumulatedInput.LeftControllerPosition = leftControllerPosition.ReadValue();
+      }
+      
+      if (rightControllerRotation != null) {
+        _accumulatedInput.RightControllerRotation = rightControllerRotation.ReadValue();
+      }
+      
+      if (rightControllerPosition != null) {
+        _accumulatedInput.RightControllerPosition = rightControllerPosition.ReadValue();
       }
     }
 

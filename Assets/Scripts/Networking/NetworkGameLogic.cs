@@ -1,5 +1,4 @@
 ﻿using Fusion;
-using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Networking {
