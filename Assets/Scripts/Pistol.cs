@@ -5,10 +5,12 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class Pistol : Weapon {
+  private static readonly int PistolShoot = Animator.StringToHash("PistolShoot");
   [SerializeField] private Projectile bulletPrefab;
   [SerializeField] private float debugRayDuration = 2f;
   [SerializeField] private bool isEvaluated = true;
-  [SerializeField] private int maxBullets = 12;
+  [SerializeField] private int maxBullets = 100;
+  [SerializeField] private Animator pistolAnimator;
 
   private Evaluator evaluator;
   private int currentBullets;
@@ -18,8 +20,14 @@ public class Pistol : Weapon {
   protected void Start() {
     currentBullets = maxBullets;
     if (isEvaluated)  evaluator = FindFirstObjectByType<Evaluator>();
-    aButtonAction.action.Enable();
-    bButtonAction.action.Enable();
+  }
+
+  public void OnPistolAnimationEnd(AnimationEvent eventInfo) {
+    if (eventInfo.animatorClipInfo.clip.name == "PistolShoot") {
+      pistolAnimator.SetBool(PistolShoot, false);
+    } else {
+      Debug.LogWarning("Animation event not found.");
+    }
   }
 
   [Obsolete("Obsolete")]
@@ -40,6 +48,8 @@ public class Pistol : Weapon {
     }
 
     base.Shoot();
+    //llamamos al animador de pistol y modificamos el parametro PistolShoot de 0 a 1 y luego de 1 a 0 para volver a idle
+    pistolAnimator.SetBool(PistolShoot, true);
     evaluator?.OnBulletUsed();
     currentBullets--;
 

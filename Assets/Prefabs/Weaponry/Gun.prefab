@@ -81,9 +81,10 @@ GameObject:
   - component: {fileID: 3590340194884987640}
   - component: {fileID: 4017368667619452159}
   - component: {fileID: 531383358652848800}
+  - component: {fileID: 3093411618117054372}
   m_Layer: 0
   m_Name: Gun
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -302,36 +303,35 @@ MonoBehaviour:
   bulletSpawn: {fileID: 3166538116959224135}
   recoilForce: 2
   damage: 100
-  aButtonAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: A Button
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 9e75701d-f031-41f7-ba25-e4460f70ecb6
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -7776179242393464317, guid: 7943e966b5d175e4d80320bb83685c28, type: 3}
-  bButtonAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: B Button
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 8611ec6b-048d-4510-b994-bc308883feb1
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -8463144124054689998, guid: 7943e966b5d175e4d80320bb83685c28, type: 3}
   bulletPrefab: {fileID: -3281485610557029835, guid: 28b50149f29a723429270c4ae38ebbae, type: 3}
   debugRayDuration: 2
   isEvaluated: 1
-  maxBullets: 12
+  maxBullets: 100
+  pistolAnimator: {fileID: 3093411618117054372}
   bulletHolePrefab: {fileID: 179232, guid: b2ac1383a96f94a50b7ed458be173bbd, type: 3}
   isSafetyOn: 1
+--- !u!95 &3093411618117054372
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3629924245981088715}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a1b9b7940431d244c928225a41cdc1c0, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5442422671774460932
 GameObject:
   m_ObjectHideFlags: 0

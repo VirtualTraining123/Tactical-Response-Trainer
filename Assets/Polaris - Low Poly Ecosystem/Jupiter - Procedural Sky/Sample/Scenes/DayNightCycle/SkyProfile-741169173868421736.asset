@@ -45,6 +45,7 @@ Material:
     m_Colors:
     - _OverheadCloudColor: {r: 1, g: 1, b: 1, a: 0.22709298}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +264,7 @@ Material:
     - _SunDirection: {r: -0.5450131, g: -0.39390957, b: -0.74013245, a: 0}
     - _SunLightColor: {r: 1, g: 0.99511117, b: 0.8632076, a: 1}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!21 &8993251732621375409
 Material:
   serializedVersion: 8
@@ -306,3 +308,4 @@ Material:
     m_Colors:
     - _OverheadCloudColor: {r: 1, g: 1, b: 1, a: 0.22709298}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
