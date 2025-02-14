@@ -1883,6 +1883,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7650167130523095328, guid: d9100cd9f575e6e4b919c1d5e167a415, type: 3}
   m_PrefabInstance: {fileID: 2808724967610814850}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &312165330
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 312165332}
+  - component: {fileID: 312165331}
+  m_Layer: 0
+  m_Name: BulletHoleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &312165331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312165330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e127f0c9e115c4a40ad64210017fa0c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletHolePrefab: {fileID: 4611187475497915823, guid: eb8349588c2eb5142a1762af02f6b8d5, type: 3}
+  decalOffset: 0.005
+--- !u!4 &312165332
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312165330}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.6343368, y: 17.6675, z: -18.529865}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &312422282
 GameObject:
   m_ObjectHideFlags: 0
@@ -4535,6 +4581,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: -1.2
       objectReference: {fileID: 0}
+    - target: {fileID: 1679932608705118274, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 6944144138450602449, guid: d6bb8ccf0d2f6d749a208dcdd9dbb357, type: 3}
     - target: {fileID: 2534856946539297901, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
       propertyPath: m_Name
       value: Left
@@ -16835,6 +16885,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1873935079}
     m_Modifications:
+    - target: {fileID: 1679932608705118274, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 6944144138450602449, guid: d6bb8ccf0d2f6d749a208dcdd9dbb357, type: 3}
     - target: {fileID: 2534856946539297901, guid: 80849d988dab5044b854555fb93ec38d, type: 3}
       propertyPath: m_Name
       value: Right
@@ -17658,3 +17712,4 @@ SceneRoots:
   - {fileID: 904010979}
   - {fileID: 1543872314}
   - {fileID: 1998918738}
+  - {fileID: 312165332}
