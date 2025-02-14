@@ -11,7 +11,6 @@ public class Pistol : Weapon {
   [SerializeField] private bool isEvaluated = true;
   [SerializeField] private int maxBullets = 100;
   [SerializeField] private Animator pistolAnimator;
-  public GameObject bulletHolePrefab;
 
   private Evaluator evaluator;
   private int currentBullets;
@@ -20,7 +19,7 @@ public class Pistol : Weapon {
 
   protected void Start() {
     currentBullets = maxBullets;
-    if (isEvaluated)  evaluator = FindObjectOfType<Evaluator>();
+    if (isEvaluated)  evaluator = FindFirstObjectByType<Evaluator>();
   }
 
   public void OnPistolAnimationEnd(AnimationEvent eventInfo) {
@@ -48,7 +47,6 @@ public class Pistol : Weapon {
       return;
     }
 
-    DrawDebugRaycast();
     base.Shoot();
     //llamamos al animador de pistol y modificamos el parametro PistolShoot de 0 a 1 y luego de 1 a 0 para volver a idle
     pistolAnimator.SetBool(PistolShoot, true);
@@ -60,25 +58,6 @@ public class Pistol : Weapon {
     projectileInstance.Launch();
 
     if (currentInteractor != null) SendHapticImpulse(currentInteractor);
-    if (!Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out var hit)) return;
-    if (!ShouldMakeBulletHole(hit)) return;
-    InstantiateBulletHole(hit.point, hit.normal, hit.collider.transform);
-  }
-
-  private static bool ShouldMakeBulletHole(RaycastHit hit) {
-    return !hit.collider.CompareTag("Enemy") && !hit.collider.CompareTag("Civil") && !hit.collider.CompareTag("Bullet");
-  }
-
-  private void InstantiateBulletHole(Vector3 position, Vector3 normal, Transform parent) {
-    var rotation = Quaternion.FromToRotation(Vector3.up, normal);
-
-    var bulletHoleInstance = Instantiate(bulletHolePrefab, position, rotation);
-    bulletHoleInstance.transform.localScale = new Vector3(0.2f, 0.005f, 0.2f);
-    bulletHoleInstance.transform.SetParent(parent, true);
-  }
-
-  private void DrawDebugRaycast() {
-    Debug.DrawRay(bulletSpawn.position, bulletSpawn.forward * 100f, Color.yellow, debugRayDuration);
   }
 
   // ReSharper disable once UnusedMember.Local
