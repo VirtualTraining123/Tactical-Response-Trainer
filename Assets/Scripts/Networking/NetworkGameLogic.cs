@@ -17,7 +17,7 @@ namespace Networking {
     public void PlayerJoined(PlayerRef player) {
       if (!HasStateAuthority) return;
       var playerObject = Runner.Spawn(playerPrefab, Vector3.up, Quaternion.identity, player);
-      var networkedPlayer = playerObject.GetComponent<NetworkedPlayer>();
+      var networkedPlayer = playerObject.GetComponentInChildren<NetworkedPlayer>();
       followPlayer.player = networkedPlayer;
       Players.Add(player, networkedPlayer);
     }

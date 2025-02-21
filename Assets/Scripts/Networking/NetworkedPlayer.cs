@@ -14,11 +14,11 @@ namespace Networking {
 
 
     private void Start() {
-      Controller = gameObject.GetComponent<NetworkCharacterController>();
     }
 
     public override void Spawned() {
       base.Spawned();
+      Controller = gameObject.GetComponent<NetworkCharacterController>();
       Debug.Log("Player spawned!!");
     }
 
@@ -37,12 +37,12 @@ namespace Networking {
       // }
       
       Controller.Move(speed * dir.normalized * Runner.DeltaTime);
-      gaze.transform.localPosition = input.GazePosition;
-      gaze.transform.localRotation = input.GazeDirection;
-      leftController.transform.localPosition = input.LeftControllerPosition;
-      leftController.transform.localRotation = input.LeftControllerRotation;
-      rightController.transform.localPosition = input.RightControllerPosition;
-      rightController.transform.localRotation = input.RightControllerRotation;
+      gaze.transform.localPosition = input.GazePosition - transform.position * 0.5f;
+      gaze.transform.rotation = input.GazeDirection;
+      leftController.transform.localPosition = input.LeftControllerPosition - transform.position * 0.5f;
+      leftController.transform.rotation = input.LeftControllerRotation;
+      rightController.transform.localPosition = input.RightControllerPosition - transform.position * 0.5f;
+      rightController.transform.rotation = input.RightControllerRotation;
     }
 
     private void Shoot() {
