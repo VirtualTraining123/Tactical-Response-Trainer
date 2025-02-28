@@ -25,7 +25,7 @@ namespace Networking {
     public override void FixedUpdateNetwork() {
       if (!HasStateAuthority) return;
       if (!GetInput<NetInput>(out var input)) return;
-      Debug.Log($"Player input: {input.Direction}");
+      //Debug.Log($"Player input: {input.Direction}");
       var dir = input.GazeDirection * new Vector3(input.Direction.x, 0, input.Direction.y);
       dir.y = 0;
       _relativeTransform += dir.normalized * speed;

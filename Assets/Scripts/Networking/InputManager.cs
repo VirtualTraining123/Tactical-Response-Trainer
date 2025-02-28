@@ -64,7 +64,7 @@ namespace Networking {
     }
 
     public void OnInput(NetworkRunner runner, NetworkInput input) {
-      Debug.Log("OnInput!!!");
+      //Debug.Log("OnInput!!!");
       _accumulatedInput.Direction.Normalize();
       input.Set(_accumulatedInput);
       _resetInput = true;
