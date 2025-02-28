@@ -3,9 +3,9 @@
 namespace Projectiles {
   public class Projectile : MonoBehaviour {
     protected Weapon Weapon;
-    private float speed = 150f;
+    public float speed = 150f;
     public GameObject bulletTrailPrefab;
-    private GameObject bulletTrail;
+    protected GameObject bulletTrail;
 
     public virtual void Init(Weapon weapon) {
       Weapon = weapon;
@@ -38,5 +38,8 @@ namespace Projectiles {
       var damageable = hitTransform.GetComponent<ITakeDamage>();
       damageable?.TakeDamage(Weapon, this, contact.point);
     }
+    
+    // Added to support network behavior overrides
+    public virtual void FixedUpdateNetwork() { }
   }
 }
