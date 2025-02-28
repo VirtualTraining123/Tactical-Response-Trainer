@@ -29,37 +29,26 @@ namespace Networking {
         _resetInput = false;
       }
 
-      if (shootAction != null && shootAction.ReadValue()) {
-        _accumulatedInput.Buttons.SetDown(InputButton.Shoot);
-      }
+      if (shootAction != null) _accumulatedInput.Buttons.Set(InputButton.Shoot, shootAction.ReadValue());
+      if (moveAction != null) _accumulatedInput.Direction += moveAction.ReadValue().normalized;
+      if (gazeRotation != null) _accumulatedInput.GazeDirection = gazeRotation.ReadValue();
+      if (gazePosition != null) _accumulatedInput.GazePosition = MapPosition(gazePosition.ReadValue());
+      if (leftControllerRotation != null)
+        _accumulatedInput.LeftControllerRotation = MapRotation(leftControllerRotation.ReadValue());
+      if (leftControllerPosition != null)
+        _accumulatedInput.LeftControllerPosition = MapPosition(leftControllerPosition.ReadValue());
+      if (rightControllerRotation != null)
+        _accumulatedInput.RightControllerRotation = MapRotation(rightControllerRotation.ReadValue());
+      if (rightControllerPosition != null)
+        _accumulatedInput.RightControllerPosition = MapPosition(rightControllerPosition.ReadValue());
+    }
 
-      if (moveAction != null) {
-        _accumulatedInput.Direction += moveAction.ReadValue().normalized;
-      }
-      
-      if (gazeRotation != null) {
-        _accumulatedInput.GazeDirection = gazeRotation.ReadValue();
-      }
-      
-      if (gazePosition != null) {
-        _accumulatedInput.GazePosition = gazePosition.ReadValue();
-      }
-      
-      if (leftControllerRotation != null) {
-        _accumulatedInput.LeftControllerRotation = leftControllerRotation.ReadValue();
-      }
-      
-      if (leftControllerPosition != null) {
-        _accumulatedInput.LeftControllerPosition = leftControllerPosition.ReadValue();
-      }
-      
-      if (rightControllerRotation != null) {
-        _accumulatedInput.RightControllerRotation = rightControllerRotation.ReadValue();
-      }
-      
-      if (rightControllerPosition != null) {
-        _accumulatedInput.RightControllerPosition = rightControllerPosition.ReadValue();
-      }
+    private static Vector3 MapPosition(Vector3 position) {
+      return new Vector3(-position.x, position.y, -position.z);
+    }
+
+    private static Quaternion MapRotation(Quaternion rotation) {
+      return new Quaternion(rotation.x, -rotation.y, rotation.z, -rotation.w);
     }
 
     public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player) {
