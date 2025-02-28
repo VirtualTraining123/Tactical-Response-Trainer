@@ -31,7 +31,7 @@ namespace Networking {
 
       if (shootAction != null) _accumulatedInput.Buttons.Set(InputButton.Shoot, shootAction.ReadValue());
       if (moveAction != null) _accumulatedInput.Direction += moveAction.ReadValue().normalized;
-      if (gazeRotation != null) _accumulatedInput.GazeDirection = gazeRotation.ReadValue();
+      if (gazeRotation != null) _accumulatedInput.GazeDirection = MapRotation(gazeRotation.ReadValue());
       if (gazePosition != null) _accumulatedInput.GazePosition = MapPosition(gazePosition.ReadValue());
       if (leftControllerRotation != null)
         _accumulatedInput.LeftControllerRotation = MapRotation(leftControllerRotation.ReadValue());
