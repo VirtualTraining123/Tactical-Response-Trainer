@@ -24,12 +24,14 @@ namespace Menu {
 
     public float distanceFromPlayer = 2f; // Distance from the player to display the menu
 
+    [SerializeField] private LobbyManager lobbyManager;
     // Start is called before the first frame update
     void Start() {
       EnableMainMenu();
 
       //Hook events
-      startButton.onClick.AddListener(EnableIntroductionMenu1);
+      //startButton.onClick.AddListener(EnableIntroductionMenu1);
+      startButton.onClick.AddListener(StartGame);
       optionButton.onClick.AddListener(EnableOption);
       aboutButton.onClick.AddListener(EnableAbout);
       quitButton.onClick.AddListener(QuitGame);
@@ -59,10 +61,18 @@ namespace Menu {
     }
 
     public void StartGame() {
-      HideAll();
-      SceneTransitionManager.Singleton.GoToSceneAsync(Scene.Evaluation);
+      //HideAll();
+      
+      if (lobbyManager != null)
+      {
+        lobbyManager.StartEvaluationScene();
+      }
+      else
+      {
+        Debug.LogError("LobbyManager no asignado en el menú.");
+      }
+      //SceneTransitionManager.Singleton.GoToSceneAsync(Scene.Evaluation);
     }
-
     public void EnableIntroductionMenu1() {
       mainMenu.SetActive(false);
       options.SetActive(false);
