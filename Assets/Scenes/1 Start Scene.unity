@@ -184,6 +184,39 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b09d33c8b7830a34d89d176d138cba96, type: 3}
+--- !u!1 &56215781 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7684516347748598512, guid: 2cc1ebd0b161e1e42807f275bc484438, type: 3}
+  m_PrefabInstance: {fileID: 1531203570}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &56215784 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8226659539979986591, guid: 2cc1ebd0b161e1e42807f275bc484438, type: 3}
+  m_PrefabInstance: {fileID: 1531203570}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &56215790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56215781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b512ea3583e38814c9a5653b39ccc22a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootingForce: 50
+  bulletSpawn: {fileID: 254277699}
+  recoilForce: 2
+  damage: 100
+  projectilePrefab: {fileID: 8384214882349524315, guid: 4a0022519dd8a00428e202b29bc85e10, type: 3}
+  debugRayDuration: 2
+  isEvaluated: 1
+  maxBullets: 100
+  pistolAnimator: {fileID: 56215784}
+  isSafetyOn: 0
+  networkRunner: {fileID: 1535267762}
 --- !u!1 &79910497
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,6 +967,11 @@ MonoBehaviour:
   isSpawned: 0
   _Players:
     _items: []
+--- !u!4 &254277699 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8301607021215336572, guid: 2cc1ebd0b161e1e42807f275bc484438, type: 3}
+  m_PrefabInstance: {fileID: 1531203570}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &256391882
 GameObject:
   m_ObjectHideFlags: 0
@@ -7383,6 +7421,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6889148848463516571, guid: 2cc1ebd0b161e1e42807f275bc484438, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6889148848463516571, guid: 2cc1ebd0b161e1e42807f275bc484438, type: 3}
       propertyPath: isSafetyOn
       value: 0
       objectReference: {fileID: 0}
@@ -7423,7 +7465,10 @@ PrefabInstance:
     - {fileID: 381063114081853812, guid: 2cc1ebd0b161e1e42807f275bc484438, type: 3}
     - {fileID: 2437446080422052691, guid: 2cc1ebd0b161e1e42807f275bc484438, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7684516347748598512, guid: 2cc1ebd0b161e1e42807f275bc484438, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 56215790}
   m_SourcePrefab: {fileID: 100100000, guid: 2cc1ebd0b161e1e42807f275bc484438, type: 3}
 --- !u!1 &1535267758
 GameObject:
