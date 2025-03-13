@@ -14,6 +14,7 @@ Material:
   m_ValidKeywords: []
   m_InvalidKeywords:
   - DETAIL_OVERLAY_ROTATION
+  - HORIZON_CLOUD
   - MOON
   - OVERHEAD_CLOUD
   - STARS
@@ -110,7 +111,7 @@ MonoBehaviour:
   moonLightColor: {r: 0.8431373, g: 0.9843138, b: 1, a: 1}
   moonLightIntensity: 0.046027362
   customCloudTexture: {fileID: 0}
-  enableHorizonCloud: 0
+  enableHorizonCloud: 1
   horizonCloudColor: {r: 1, g: 1, b: 1, a: 1}
   horizonCloudStartPosition: -0.01
   horizonCloudEndPosition: 0.264
@@ -150,6 +151,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - DETAIL_OVERLAY_ROTATION
+  - HORIZON_CLOUD
   - MOON
   - OVERHEAD_CLOUD
   - STARS
