@@ -12,9 +12,9 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _METALLICSPECGLOSSMAP
   - _NORMALMAP
   - _OCCLUSIONMAP
+  - _PARALLAXMAP
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -57,7 +57,7 @@ Material:
         m_Scale: {x: 0.008, y: 0.01}
         m_Offset: {x: -0.06, y: 0.21}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 22220c01c0b8e174892e8d39de63b1ea, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5553fe2b5b331e844975852e86e9961d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
