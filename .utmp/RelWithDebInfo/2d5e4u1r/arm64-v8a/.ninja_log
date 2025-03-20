@@ -1,0 +1,12 @@
+# ninja log v5
+31	225	7640482662823523	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	e1519caa1d872433
+228	447	7640482665145619	E:/Projects/police-trainer/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/2d5e4u1r/obj/arm64-v8a/libswappywrapper.so	730d70453e2403cc
+17	836	7640482668918424	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	e6d2e2dcd4f34004
+9	840	7640482669045134	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	86a00a479c502f22
+3	864	7640482669186543	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	edf418cdc24c4146
+27	876	7640482669318021	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	df9592fed20fd611
+21	948	7640482670141868	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	406637395180c533
+6	1002	7640482670616157	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	fe2fdc7a95ab42e4
+14	1117	7640482671836338	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	67bc9a1e165f3314
+0	1207	7640482672717396	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	3321936f2fba0459
+1207	1283	7640482673522959	E:/Projects/police-trainer/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/2d5e4u1r/obj/arm64-v8a/libgame.so	b63c925c8d25620d
