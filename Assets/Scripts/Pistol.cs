@@ -11,6 +11,7 @@ public class Pistol : Weapon {
   [SerializeField] private bool isEvaluated = true;
   [SerializeField] private int maxBullets = 100;
   [SerializeField] private Animator pistolAnimator;
+  [SerializeField] private bool isLeftHanded = false;
 
   private Evaluator evaluator;
   private int currentBullets;
@@ -20,6 +21,7 @@ public class Pistol : Weapon {
   protected void Start() {
     currentBullets = maxBullets;
     if (isEvaluated)  evaluator = FindFirstObjectByType<Evaluator>();
+    SetLeftHanded(isLeftHanded);
   }
 
   public void OnPistolAnimationEnd(AnimationEvent eventInfo) {
@@ -88,4 +90,13 @@ public class Pistol : Weapon {
     if (controller == null) return;
     controller.SendHapticImpulse(1f, 0.3f);
   }
+    public void SetLeftHanded(bool leftHanded) {
+      if (leftHanded) {
+        Transform childTransform = transform.GetChild(0); // Asumiendo que el objeto hijo es el primero
+        Vector3 newScale = childTransform.localScale;
+        newScale.y = -Mathf.Abs(newScale.y); // Cambia la escala en el eje y a su valor negativo
+        childTransform.localScale = newScale;
+      }
+    }
 }
+  
