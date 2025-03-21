@@ -34,7 +34,7 @@ public class Pistol : Weapon {
 
   [Obsolete("Obsolete")]
   protected override void StartShooting(ActivateEventArgs interactor) {
-    currentInteractor = (XRBaseInteractor)interactor.interactorObject; //Esto dio error. raro el cambio
+    currentInteractor = interactor.interactor; //Esto dio error. raro el cambio
     Shoot();
   }
 
