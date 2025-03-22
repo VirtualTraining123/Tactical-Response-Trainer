@@ -24,7 +24,7 @@ EditorBuildSettings:
     path: Assets/Scenes/3 Replay.unity
     guid: dbe01472af4e2d14b97804a852d1fe95
   - enabled: 0
-    path: Assets/Samples/XR Interaction Toolkit/3.0.7/Starter Assets/DemoScene.unity
+    path: Assets/Samples/XR Interaction Toolkit/3.1.1/Starter Assets/DemoScene.unity
     guid: 319dafa5c80f29f428dc1e0d03f04177
   - enabled: 0
     path: Assets/Samples/XR Interaction Toolkit/2.5.4/Hands Interaction Demo/HandsDemoScene.unity

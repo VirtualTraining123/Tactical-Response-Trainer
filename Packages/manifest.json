@@ -21,7 +21,7 @@
     "com.unity.visualscripting": "1.9.5",
     "com.unity.xr.arfoundation": "6.0.4",
     "com.unity.xr.hands": "1.5.0",
-    "com.unity.xr.interaction.toolkit": "3.0.7",
+    "com.unity.xr.interaction.toolkit": "3.1.1",
     "com.unity.xr.management": "4.5.0",
     "com.unity.xr.openxr": "1.13.1",
     "io.extendreality.tilia.camerarigs.trackedalias.unity": "2.5.2",
@@ -67,7 +67,9 @@
     {
       "name": "npmjs",
       "url": "https://registry.npmjs.org/",
-      "scopes": ["io.extendreality"]
+      "scopes": [
+        "io.extendreality"
+      ]
     }
   ]
 }
