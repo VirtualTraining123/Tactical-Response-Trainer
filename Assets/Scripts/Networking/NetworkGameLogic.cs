@@ -22,7 +22,7 @@ namespace Networking {
       if (!HasStateAuthority) return;
 
       // Spawn del PlayerMaker (objeto que contiene el script NetworkedPlayer)
-      var playerObject = Runner.Spawn(playerPrefab, Vector3.up, Quaternion.identity, player);
+      var playerObject = Runner.Spawn(playerPrefab, Vector3.up * 5, Quaternion.identity, player);
       var networkedPlayer = playerObject.GetComponentInChildren<NetworkedPlayer>();
       if (networkedPlayer == null) {
         Debug.LogError("No se encontró el componente NetworkedPlayer en el prefab del PlayerMaker.");

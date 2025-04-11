@@ -9,6 +9,9 @@ namespace Networking {
   public class InputManager : SimulationBehaviour, IBeforeUpdate, INetworkRunnerCallbacks {
     private NetInput _accumulatedInput;
     private bool _resetInput;
+
+    [SerializeField] public bool invertX = true;
+    [SerializeField] public bool invertY = true;
     [SerializeField] public XRInputValueReader<bool> shootAction;
     [SerializeField] public XRInputValueReader<Vector2> moveAction;
     [SerializeField] public XRInputValueReader<Quaternion> gazeRotation;
@@ -30,7 +33,7 @@ namespace Networking {
       }
 
       if (shootAction != null) _accumulatedInput.Buttons.Set(InputButton.Shoot, shootAction.ReadValue());
-      if (moveAction != null) _accumulatedInput.Direction += moveAction.ReadValue().normalized;
+      if (moveAction != null) _accumulatedInput.Direction = Flip(moveAction.ReadValue().normalized);
       if (gazeRotation != null) _accumulatedInput.GazeDirection = MapRotation(gazeRotation.ReadValue());
       if (gazePosition != null) _accumulatedInput.GazePosition = MapPosition(gazePosition.ReadValue());
       if (leftControllerRotation != null)
@@ -41,6 +44,10 @@ namespace Networking {
         _accumulatedInput.RightControllerRotation = MapRotation(rightControllerRotation.ReadValue());
       if (rightControllerPosition != null)
         _accumulatedInput.RightControllerPosition = MapPosition(rightControllerPosition.ReadValue());
+    }
+    
+    private Vector2 Flip(Vector2 vector) {
+      return new Vector2(vector.x * (invertX ? -1 : 1), vector.y * (invertY ? -1 : 1));
     }
 
     private static Vector3 MapPosition(Vector3 position) {
@@ -64,7 +71,6 @@ namespace Networking {
     }
 
     public void OnInput(NetworkRunner runner, NetworkInput input) {
-      Debug.Log("OnInput!!!");
       _accumulatedInput.Direction.Normalize();
       input.Set(_accumulatedInput);
       _resetInput = true;
