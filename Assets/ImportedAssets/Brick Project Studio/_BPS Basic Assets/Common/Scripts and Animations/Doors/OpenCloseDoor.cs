@@ -5,6 +5,7 @@ namespace SojaExiles {
   public class OpenCloseDoor : MonoBehaviour {
     public Animator animator;
     private void OnTriggerEnter(Collider collision) {
+      Debug.Log("Trigger con " + collision.gameObject.name + " " + collision.gameObject.tag);
       if (collision.gameObject.CompareTag("MainCamera")) {
         animator.Play("Opening");
       }
