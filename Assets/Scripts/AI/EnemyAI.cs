@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -7,109 +6,199 @@ using Random = UnityEngine.Random;
 namespace AI {
   [RequireComponent(typeof(NavMeshAgent))]
   public class EnemyAI : RunToTargetAI {
+    [Header("Crouch timing (ms)")]
     [SerializeField] public long minCrouchTimeMS = 5000;
+    [SerializeField] public long maxCrouchTimeMS = 8000;
+
+    [Header("Shooting settings")]
+    [SerializeField] private float maxShootingDistance = 20f;
+    [SerializeField] private float maxAimAngle = 60f;
+    [SerializeField] private float minSpreadAngle = 0.5f;
+    [SerializeField] private float maxSpreadAngle = 5f;
+    [SerializeField] private float minAimTime = 0.5f;
+    [SerializeField] private float maxAimTime = 1.2f;
+    [SerializeField] private float bulletRadius = 0.05f;
+
     [SerializeField] private int minShotsToTake;
     [SerializeField] private int maxShotsToTake;
-
-    /// <summary>
-    /// The damage the enemy deals to the player on each shot.
-    /// </summary>
     [SerializeField] private float damage;
-
-    /// <summary>
-    /// The probability of the enemy hitting the player on each shot.
-    /// </summary>
     [Range(0, 100)] [SerializeField] private float shootingAccuracy;
+    [SerializeField] private Transform shootingPosition;
+
+    private long timerMs;
+    private long crouchDurationMs;
+
+    private bool isAiming;
+    private float aimTimer;
+
+    private int currentShotsTaken;
+    private int currentMaxShotsToTake;
+
+    // Debug visualization storage
+    private Vector3 lastVisionHitPoint;
+    private bool hasLastVisionHit;
+    private Vector3 lastShotHitPoint;
+    private bool hasLastShotHit;
 
     protected override void Awake() {
       base.Awake();
       audioManager.Request("shot", gameObject);
     }
 
-    /// <summary>
-    /// The offset from the enemy's position to the position where the bullets are shot from.
-    /// </summary>
-    [SerializeField] private Transform shootingPosition;
-
-    private long timerMs = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
-
-    private int currentShotsTaken;
-    private int currentMaxShotsToTake;
     protected override void OnDie() => Evaluator.OnEnemyKilled();
 
     protected override void UpdateCrouching() {
-      if (Player.IsVisibleFrom(transform.position)) {
+      if (CanSeePlayerViaSphereCast()) {
         Debug.Log("Player was visible, abort crouch");
         OnStartShooting();
         return;
       }
 
       var nowMs = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
-      var deltaMs = nowMs - timerMs;
-      if (deltaMs <= 0) {
+      if (timerMs == 0) {
         timerMs = nowMs;
+        // Random.Range returns int, cast to long
+        crouchDurationMs = Random.Range((int)minCrouchTimeMS, (int)maxCrouchTimeMS);
+        Debug.Log($"Entering Crouch: will crouch for {crouchDurationMs} ms");
         return;
       }
 
-      if (deltaMs <= minCrouchTimeMS) return;
-      timerMs = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+      var deltaMs = nowMs - timerMs;
+      if (deltaMs <= crouchDurationMs) return;
+
+      timerMs = 0;
       ToState(State.Running);
     }
 
     private void OnStartShooting() {
       currentShotsTaken = 0;
       currentMaxShotsToTake = Random.Range(minShotsToTake, maxShotsToTake);
+      isAiming = true;
+      aimTimer = Random.Range(minAimTime, maxAimTime);
       ToState(State.Shooting);
     }
 
     protected override void UpdateRunning() {
-      if (Player.IsVisibleFrom(transform.position)) {
+      if (CanSeePlayerViaSphereCast()) {
         OnStartShooting();
         return;
       }
-
       base.UpdateRunning();
     }
 
     protected override void UpdateShooting() {
-      if (!Player.IsVisibleFrom(transform.position)) {
+      // Distance check
+      float distance = Vector3.Distance(transform.position, Player.transform.position);
+      if (distance > maxShootingDistance) {
         ToState(State.Running);
         return;
       }
 
-      // Look at the player
+      // Visibility check via SphereCast
+      if (!CanSeePlayerViaSphereCast()) {
+        ToState(State.Running);
+        return;
+      }
+
+      // Field of view check
+      Vector3 toTarget = (Player.transform.position - transform.position).normalized;
+      float angle = Vector3.Angle(transform.forward, toTarget);
+      if (angle > maxAimAngle) {
+        RotateTowardsPlayer();
+        return;
+      }
+
       RotateTowardsPlayer();
 
+      // Aiming delay
+      if (isAiming) {
+        aimTimer -= Time.deltaTime;
+        if (aimTimer > 0f) return;
+        isAiming = false;
+      }
+
+      // Continue shooting via animation events
       if (currentShotsTaken < currentMaxShotsToTake) return;
+
       ToState(State.Running);
     }
 
-
-    // ReSharper disable once UnusedMember.Global This is called from the animation event.
     public void Shoot() {
       RaycastShot(Player);
       currentShotsTaken++;
     }
 
-    private void RaycastShot(Player player) {
-      if (!Physics.Linecast(shootingPosition.position, player.GetBodyCenterPosition(), out var hit)) return;
-      Debug.DrawLine(shootingPosition.position, player.GetBodyCenterPosition(), Color.red, 1f);
-      // Get the object that was hit
+    private bool CanSeePlayerViaSphereCast() {
+      Vector3 origin = transform.position + Vector3.up * 1.6f; // eye height
+      Vector3 targetPos = Player.GetBodyCenterPosition();
+      Vector3 dir = (targetPos - origin).normalized;
+      float distance = Vector3.Distance(origin, targetPos);
 
-      audioManager.Play("shot", gameObject);
-      var hitObject = hit.collider.gameObject;
+      // Debug draw cast line
+      Debug.DrawLine(origin, origin + dir * Mathf.Min(distance, maxShootingDistance), Color.yellow, 0.1f);
 
-      if (!hit.collider.CompareTag("Player")) {
-        Debug.Log("Ray Hit something that is not the player, It hit: " + hitObject.name);
-        return;
+      if (Physics.SphereCast(origin, bulletRadius, dir, out RaycastHit hit, maxShootingDistance)) {
+        hasLastVisionHit = hit.collider.CompareTag("Player");
+        lastVisionHitPoint = hit.point;
+        return hasLastVisionHit;
       }
 
-      if (Random.Range(0, 100) < shootingAccuracy) {
-        Debug.Log("Shot the player!!!");
-        player.TakeDamage(damage);
+      hasLastVisionHit = false;
+      lastVisionHitPoint = Vector3.zero;
+      return false;
+    }
+
+    private void RaycastShot(Player player) {
+      Vector3 origin = shootingPosition.position;
+      Vector3 targetPos = player.GetBodyCenterPosition();
+      float distance = Vector3.Distance(origin, targetPos);
+
+      // Spread based on distance
+      float normDist = Mathf.Clamp01(distance / maxShootingDistance);
+      float spreadAngle = Mathf.Lerp(minSpreadAngle, maxSpreadAngle, normDist);
+      Vector3 toPlayer = (targetPos - origin).normalized;
+      Vector3 jitter = Random.insideUnitCircle * Mathf.Tan(spreadAngle * Mathf.Deg2Rad);
+      Vector3 aimDir = (toPlayer + shootingPosition.right * jitter.x + shootingPosition.up * jitter.y).normalized;
+
+      // Debug draw cast line
+      Debug.DrawLine(origin, origin + aimDir * maxShootingDistance, Color.red, 0.1f);
+
+      if (Physics.SphereCast(origin, bulletRadius, aimDir, out RaycastHit hit, maxShootingDistance)) {
+        hasLastShotHit = true;
+        lastShotHitPoint = hit.point;
+
+        audioManager.Play("shot", gameObject);
+        var hitObject = hit.collider.gameObject;
+
+        if (!hit.collider.CompareTag("Player")) {
+          Debug.Log("Ray hit non-player: " + hitObject.name);
+          return;
+        }
+
+        if (Random.Range(0, 100) < shootingAccuracy) {
+          Debug.Log("Shot the player!!!");
+          player.TakeDamage(damage);
+        } else {
+          Debug.Log("But it missed :c");
+        }
       } else {
-        Debug.Log("But it missed :c");
+        hasLastShotHit = false;
+        lastShotHitPoint = Vector3.zero;
       }
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos() {
+      if (!Application.isPlaying) return;
+      if (hasLastVisionHit) {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(lastVisionHitPoint, bulletRadius);
+      }
+      if (hasLastShotHit) {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(lastShotHitPoint, bulletRadius);
+      }
+    }
+#endif
   }
 }

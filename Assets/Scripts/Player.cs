@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
   }
 
   public void TakeDamage(float damage) {
-    StartCoroutine(cameraShake.Shake());
+    //StartCoroutine(cameraShake.Shake());
     health -= damage;
     // TODO: Add player take damage 
     Debug.LogWarning($"Player health: {health}");
