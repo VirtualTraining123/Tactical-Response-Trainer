@@ -17,7 +17,7 @@ namespace AI {
 
     protected override void Awake() {
       base.Awake();
-      Player = FindObjectOfType<Player>();
+      Player = FindFirstObjectByType<Player>();
     }
 
     protected void RotateTowardsPlayer() {

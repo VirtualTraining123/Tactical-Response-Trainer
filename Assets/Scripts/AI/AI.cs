@@ -5,13 +5,14 @@ using UnityEngine;
 using UnityEngine.AI;
 
 namespace AI {
-  public abstract class AI : MonoBehaviour, ITakeDamage {
+  public abstract class AI : BodyMasterDamageable {
     [SerializeField] public Material deadMaterial;
     [SerializeField] public ParticleSystem bloodSplatterFX;
     protected Animator Animator;
     protected NavMeshAgent NavigationMesh;
     protected AudioManager audioManager;
     [SerializeField] private float health;
+    [SerializeField] private bool updateAI;
     private Renderer[] renderers;
     private Collider[] colliders;
     /// <summary>
@@ -33,12 +34,13 @@ namespace AI {
       renderers = GetComponentsInChildren<Renderer>();
       colliders = GetComponentsInChildren<Collider>();
       Animator = GetComponent<Animator>();
-      NavigationMesh = FindObjectOfType<NavMeshAgent>();
-      Evaluator = FindObjectOfType<Evaluator>();
-      audioManager = FindObjectOfType<AudioManager>();
+      NavigationMesh = FindFirstObjectByType<NavMeshAgent>();
+      Evaluator = FindFirstObjectByType<Evaluator>(FindObjectsInactive.Include);
+      audioManager = FindFirstObjectByType<AudioManager>();
     }
 
-    public void TakeDamage(Weapon weapon, Projectile projectile, Vector3 contactPoint) {
+    public override void TakeDamage(Weapon weapon, Projectile projectile, Vector3 contactPoint, BodyPart part) {
+      Debug.Log($"Hit on {part}");
       var effect = Instantiate(
         bloodSplatterFX,
         contactPoint,
@@ -107,6 +109,7 @@ namespace AI {
     }
 
     private void Update() {
+      if (!updateAI) return;
       switch (state) {
         case State.Running:
           UpdateRunning();

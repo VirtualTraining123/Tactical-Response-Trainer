@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 3027631717335379665}
   - component: {fileID: 3022112976077376992}
   - component: {fileID: 7117090251808328911}
-  - component: {fileID: -3281485610557029835}
   - component: {fileID: -6098967878459537494}
   - component: {fileID: 4216725909878956733}
   - component: {fileID: 4683839338703273881}
+  - component: {fileID: 8158752281166352080}
   m_Layer: 0
   m_Name: Bullet Prefab
   m_TagString: Bullet
@@ -63,6 +63,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -109,22 +112,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-3281485610557029835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4002851217193674575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d6b363674434a641b44d03a4533bfdb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lifeTime: 10
-  gravity: 0.01
-  bulletHolePrefab: {fileID: 179232, guid: b2ac1383a96f94a50b7ed458be173bbd, type: 3}
-  bulletTrailPrefab: {fileID: 9151508955501655213, guid: c5de23f184c321d4a8eb291df728342d, type: 3}
 --- !u!54 &-6098967878459537494
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -193,6 +180,9 @@ TrailRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -279,3 +269,16 @@ TrailRenderer:
   m_Autodestruct: 1
   m_Emitting: 1
   m_ApplyActiveColorSpace: 0
+--- !u!114 &8158752281166352080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4002851217193674575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e2a01cb5c38cd244a65f718da9846b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletTrailPrefab: {fileID: 9151508955501655213, guid: c5de23f184c321d4a8eb291df728342d, type: 3}
