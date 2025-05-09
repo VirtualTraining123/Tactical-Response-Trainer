@@ -76,9 +76,6 @@ namespace Networking {
 
     public void OnInput(NetworkRunner runner, NetworkInput input) {
       _accumulatedInput.Direction.Normalize();
-
-      bool isShootSet = _accumulatedInput.Buttons.IsSet(InputButton.Shoot);
-      Debug.Log($"InputManager.OnInput: Sending Input. Shoot Button State: {isShootSet}");
       input.Set(_accumulatedInput);
       _resetInput = true;
       if (_accumulatedInput.Direction.magnitude > 0.01) {
