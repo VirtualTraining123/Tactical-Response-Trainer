@@ -12,7 +12,7 @@ namespace Networking {
 
     [SerializeField] public bool invertX = true;
     [SerializeField] public bool invertY = true;
-    [SerializeField] public XRInputValueReader<bool> shootAction;
+    [SerializeField] public XRInputValueReader<float> shootAction;
     [SerializeField] public XRInputValueReader<Vector2> moveAction;
     [SerializeField] public XRInputValueReader<Quaternion> gazeRotation;
     [SerializeField] public XRInputValueReader<Vector3> gazePosition;
@@ -32,7 +32,11 @@ namespace Networking {
         _resetInput = false;
       }
 
-      if (shootAction != null) _accumulatedInput.Buttons.Set(InputButton.Shoot, shootAction.ReadValue());
+      if (shootAction != null){
+        float shootValue = shootAction.ReadValue();
+        bool isShooting = shootValue > 0.5f;
+        _accumulatedInput.Buttons.Set(InputButton.Shoot, isShooting); 
+      }
       if (moveAction != null) _accumulatedInput.Direction = Flip(moveAction.ReadValue().normalized);
       if (gazeRotation != null) _accumulatedInput.GazeDirection = MapRotation(gazeRotation.ReadValue());
       if (gazePosition != null) _accumulatedInput.GazePosition = MapPosition(gazePosition.ReadValue());
@@ -72,6 +76,9 @@ namespace Networking {
 
     public void OnInput(NetworkRunner runner, NetworkInput input) {
       _accumulatedInput.Direction.Normalize();
+
+      bool isShootSet = _accumulatedInput.Buttons.IsSet(InputButton.Shoot);
+      Debug.Log($"InputManager.OnInput: Sending Input. Shoot Button State: {isShootSet}");
       input.Set(_accumulatedInput);
       _resetInput = true;
       if (_accumulatedInput.Direction.magnitude > 0.01) {
