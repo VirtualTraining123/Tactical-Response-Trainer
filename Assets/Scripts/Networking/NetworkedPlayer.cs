@@ -71,10 +71,7 @@ namespace Networking
     {
       if (!HasStateAuthority) return;
       if (!GetInput<NetInput>(out var input)) return;
-
-      // Debug.Log($"Player input: {input.Direction}");
-
-      // Calcular la dirección de movimiento en base a la dirección de la mirada y el input.
+      //Debug.Log($"Player input: {input.Direction}");
       var dir = input.GazeDirection * new Vector3(input.Direction.x, 0, input.Direction.y);
       dir.y = 0;
       relativeTransform += dir.normalized * speed;

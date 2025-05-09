@@ -38,7 +38,7 @@ namespace AI {
       audioManager = FindObjectOfType<AudioManager>();
     }
 
-    public void TakeDamage(Weapon weapon, Projectile projectile, Vector3 contactPoint) {
+    public void TakeDamage(Weapon weapon, BaseProjectile projectile, Vector3 contactPoint) {
       var effect = Instantiate(
         bloodSplatterFX,
         contactPoint,
