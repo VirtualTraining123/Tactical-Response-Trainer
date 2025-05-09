@@ -78309,16 +78309,28 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 848590742}
     - target: {fileID: 1379193557123943057, guid: ff1f8567cd1253345a1611ab1650b324, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.1004626
+      objectReference: {fileID: 0}
+    - target: {fileID: 1379193557123943057, guid: ff1f8567cd1253345a1611ab1650b324, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.1004626
+      objectReference: {fileID: 0}
+    - target: {fileID: 1379193557123943057, guid: ff1f8567cd1253345a1611ab1650b324, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1004626
+      objectReference: {fileID: 0}
+    - target: {fileID: 1379193557123943057, guid: ff1f8567cd1253345a1611ab1650b324, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 153.97
       objectReference: {fileID: 0}
     - target: {fileID: 1379193557123943057, guid: ff1f8567cd1253345a1611ab1650b324, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1379193557123943057, guid: ff1f8567cd1253345a1611ab1650b324, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -8.3
       objectReference: {fileID: 0}
     - target: {fileID: 1379193557123943057, guid: ff1f8567cd1253345a1611ab1650b324, type: 3}
       propertyPath: m_LocalRotation.w
@@ -124959,6 +124971,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caf3f0b7ba4e22b4ca990665088315a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handType: 0
+  root: {fileID: 0}
+  animator: {fileID: 0}
+  fingerBones: []
 --- !u!114 &788323725165268438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124971,6 +124987,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42824bff11e13294d8bfea8a085475a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gripInputActionReference: {fileID: 0}
+  triggerInputActionReference: {fileID: 0}
 --- !u!95 &788323725165268439
 Animator:
   serializedVersion: 7
@@ -125404,6 +125422,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caf3f0b7ba4e22b4ca990665088315a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handType: 0
+  root: {fileID: 0}
+  animator: {fileID: 0}
+  fingerBones: []
 --- !u!114 &5544307408936450963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125416,6 +125438,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42824bff11e13294d8bfea8a085475a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gripInputActionReference: {fileID: 0}
+  triggerInputActionReference: {fileID: 0}
 --- !u!95 &5544307408936450964
 Animator:
   serializedVersion: 7
