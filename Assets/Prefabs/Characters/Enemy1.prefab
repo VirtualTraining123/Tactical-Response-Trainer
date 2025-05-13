@@ -2238,7 +2238,7 @@ MonoBehaviour:
   minShotsToTake: 4
   maxShotsToTake: 8
   damage: 110
-  shootingAccuracy: 36
+  shootingAccuracy: 5
   shootingPosition: {fileID: 3058126443458833854}
 --- !u!64 &2839359204647574015
 MeshCollider:

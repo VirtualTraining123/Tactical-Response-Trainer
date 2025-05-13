@@ -43,6 +43,8 @@ namespace AI {
     protected override void Awake() {
       base.Awake();
       audioManager.Request("shot", gameObject);
+      audioManager.Request("Foot", gameObject);
+
     }
 
     protected override void OnDie() => Evaluator.OnEnemyKilled();
@@ -127,6 +129,11 @@ namespace AI {
       RaycastShot(Player);
       currentShotsTaken++;
     }
+    
+    public void PlayFootSound() {
+      audioManager.Play("Foot", gameObject);
+    }
+
 
     private bool CanSeePlayerViaSphereCast() {
       Vector3 origin = transform.position + Vector3.up * 1.6f; // eye height

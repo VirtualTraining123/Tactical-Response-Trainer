@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class StartEvaluation : MonoBehaviour {
     [SerializeField] private Evaluator evaluator;
-    private bool hasTriggered = false;
+    private bool hasTriggered;
 
     private void OnTriggerEnter(Collider other) {
         Debug.Log("Trigger con " + other.gameObject.name + " " + other.gameObject.tag);
