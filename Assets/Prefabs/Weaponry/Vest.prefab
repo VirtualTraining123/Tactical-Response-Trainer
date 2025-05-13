@@ -189,6 +189,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -333,6 +336,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -547,7 +553,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8372668694669780804, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
-      propertyPath: m_Colliders.Array.data[0]
+      propertyPath: 'm_Colliders.Array.data[0]'
       value: 
       objectReference: {fileID: 7053602971262027465}
     m_RemovedComponents: []
@@ -583,7 +589,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -670,7 +676,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8372668694669780804, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
-      propertyPath: m_Colliders.Array.data[0]
+      propertyPath: 'm_Colliders.Array.data[0]'
       value: 
       objectReference: {fileID: 8522674072673585438}
     m_RemovedComponents: []
@@ -701,7 +707,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -785,7 +791,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8372668694669780804, guid: 3de7eb172f11dec4f9dfd071c771d060, type: 3}
-      propertyPath: m_Colliders.Array.data[0]
+      propertyPath: 'm_Colliders.Array.data[0]'
       value: 
       objectReference: {fileID: 2469659111293680719}
     m_RemovedComponents: []
@@ -816,7 +822,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
