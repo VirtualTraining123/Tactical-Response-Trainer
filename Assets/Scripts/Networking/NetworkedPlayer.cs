@@ -47,7 +47,7 @@ public override void Spawned()
         uiCamObject.SetActive(false); 
       }
 
-      if (HasStateAuthority) 
+      if (Object.HasInputAuthority) 
       {
         Debug.Log($"Local player {Object.Id}: Setting up local player visuals and camera follow.");
         playerHead.ForEach(x =>
