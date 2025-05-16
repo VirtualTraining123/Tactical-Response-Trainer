@@ -1,4 +1,5 @@
 using Animations;
+using AreaCollider;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using UnityEngine;
 using Utils;
 
-public class GameStateManager : MonoBehaviour {
+public class GameStateManager : AreaColliderNotifiable {
   public enum GameState {
     Outside,
     Inside,
@@ -28,6 +29,10 @@ public class GameStateManager : MonoBehaviour {
   [SerializeField]
   [CanBeNull]
   public MovementAnimator transitionAnimator;
+  [SerializeField]
+  public AreaCollider.AreaCollider TransitionCollider;
+  [SerializeField]
+  public AreaCollider.AreaCollider InsiderCollider;
   private bool OutsideAnimatorState = false;
   private bool InsideAnimatorState = false;
   private bool TransitionAnimatorState = false;
@@ -39,12 +44,10 @@ public class GameStateManager : MonoBehaviour {
     if (IntersectingMeshes.Any(mesh => !OutsideMeshes.Contains(mesh))) {
       Debug.LogError("IntersectingMeshes must be a subset of OutsideMeshes");
     }
+    
   }
 
   private void Update() {
-    // if (shouldGoInside()) currentGameState = GameState.Inside;
-    // else if (shouldTransition()) currentGameState = GameState.Transition;
-    // else if (shouldGoOutside()) currentGameState = GameState.Outside;
     if (currentGameState == lastGameState) return;
     switch (currentGameState) {
       case GameState.Inside:
@@ -60,21 +63,6 @@ public class GameStateManager : MonoBehaviour {
         throw new ArgumentOutOfRangeException();
     }
     lastGameState = currentGameState;
-  }
-
-  public bool shouldGoInside() {
-    // TODO
-    return false;
-  }
-
-  public bool shouldTransition() {
-    // TODO
-    return false;
-  }
-
-  public bool shouldGoOutside() {
-    // TODO
-    return true;
   }
 
   public void DisplayOutside() {
@@ -149,5 +137,10 @@ public class GameStateManager : MonoBehaviour {
     outsideAnimator?.SetActive(false);
     insideAnimator?.SetActive(true);
     transitionAnimator?.SetActive(false);
+  }
+  public override void OnTransitionListener(AreaCollider.AreaCollider collider, Collider other) {
+    var inside = InsiderCollider.GetPlayerInside().Count > 0;
+    var transition = TransitionCollider.GetPlayerInside().Count > 0;
+    currentGameState = transition ? GameState.Transition : (inside ? GameState.Inside : GameState.Outside);
   }
 }
