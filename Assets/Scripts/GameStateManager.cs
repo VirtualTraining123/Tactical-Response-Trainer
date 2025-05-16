@@ -1,7 +1,10 @@
+using Animations;
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Utils;
 
 public class GameStateManager : MonoBehaviour {
   public enum GameState {
@@ -15,8 +18,19 @@ public class GameStateManager : MonoBehaviour {
   private List<GameObject> InsideMeshes;
   [SerializeField]
   private List<GameObject> IntersectingMeshes;
+  [SerializeField] private GameState currentGameState = GameState.Outside;
   [SerializeField]
-  private GameState currentGameState = GameState.Outside;
+  [CanBeNull]
+  public MovementAnimator outsideAnimator;
+  [SerializeField]
+  [CanBeNull]
+  public MovementAnimator insideAnimator;
+  [SerializeField]
+  [CanBeNull]
+  public MovementAnimator transitionAnimator;
+  private bool OutsideAnimatorState = false;
+  private bool InsideAnimatorState = false;
+  private bool TransitionAnimatorState = false;
   private GameState lastGameState = GameState.Inside;
 
 
@@ -101,18 +115,39 @@ public class GameStateManager : MonoBehaviour {
   }
 
   public void ToOutside() {
-    DisplayOutside();
-    HideInside();
+    CallbackWaiter<Vector3> waiter = new(end => {
+      DisplayOutside();
+      HideInside();
+    });
+    outsideAnimator?.SetOnAnimationEnd(waiter.CreateCallback());
+    insideAnimator?.SetOnAnimationEnd(waiter.CreateCallback());
+    transitionAnimator?.SetOnAnimationEnd(waiter.CreateCallback());
+    outsideAnimator?.SetActive(true);
+    insideAnimator?.SetActive(false);
+    transitionAnimator?.SetActive(false);
+
   }
 
   public void ToTransition() {
     DisplayOutside();
     DisplayInside();
     HideIntersecting();
+    outsideAnimator?.SetActive(false);
+    insideAnimator?.SetActive(false);
+    transitionAnimator?.SetActive(true);
   }
 
   public void ToInside() {
-    HideOutside();
-    DisplayInside();
+    CallbackWaiter<Vector3> waiter = new(end => {
+      HideOutside();
+      DisplayInside();
+    });
+    outsideAnimator?.SetOnAnimationEnd(waiter.CreateCallback());
+    insideAnimator?.SetOnAnimationEnd(waiter.CreateCallback());
+    transitionAnimator?.SetOnAnimationEnd(waiter.CreateCallback());
+
+    outsideAnimator?.SetActive(false);
+    insideAnimator?.SetActive(true);
+    transitionAnimator?.SetActive(false);
   }
 }
