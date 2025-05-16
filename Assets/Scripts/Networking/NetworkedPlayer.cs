@@ -33,31 +33,52 @@ namespace Networking
     [Networked]
     private NetworkButtons _previousButtons { get; set; }
 
-    public override void Spawned()
+public override void Spawned()
     {
       base.Spawned();
 
       Controller = GetComponent<NetworkCharacterController>();
-      Debug.Log("Player spawned!!");
-      GameObject uiCamObject = GameObject.Find("UI Camera"); // Find the camera by name
-      Debug.Log($"uiCamObject: {uiCamObject}");
+      Debug.Log($"Player {Object.Id} spawned! HasStateAuthority: {HasStateAuthority}");
+      
+      // Deactivate a generic UI camera if it exists, as the XR rig will take over.
+      GameObject uiCamObject = GameObject.Find("UI Camera"); 
       if (uiCamObject != null)
       {
-        uiCamObject.SetActive(false); // Deactivate the camera
+        uiCamObject.SetActive(false); 
       }
-      if (HasStateAuthority)
+
+      if (HasStateAuthority) 
       {
+        Debug.Log($"Local player {Object.Id}: Setting up local player visuals and camera follow.");
         playerHead.ForEach(x =>
         {
           if (x.TryGetComponent<MeshRenderer>(out var meshRenderer)) meshRenderer.enabled = false;
           if (x.TryGetComponent<SkinnedMeshRenderer>(out var skinnedMeshRenderer)) skinnedMeshRenderer.enabled = false;
         });
-        if (xrRigRoot != null) xrRigRoot.SetActive(true);
+
+        if (xrRigRoot != null) 
+        {
+            xrRigRoot.SetActive(true); 
+        } else {
+            Debug.LogWarning($"xrRigRoot is null on local player {Object.Id}. Camera might not attach correctly.");
+        }
+
+        FollowPlayer sceneFollowPlayer = FindFirstObjectByType <FollowPlayer>(); 
+        if (sceneFollowPlayer != null) 
+        {
+            sceneFollowPlayer.player = this; 
+            Debug.Log($"Local player {Object.Id} has set itself as the target for FollowPlayer '{sceneFollowPlayer.gameObject.name}'.");
+        } else {
+            Debug.LogError($"Local player {Object.Id} could not find a FollowPlayer instance in the scene. Camera will not follow.");
+        }
       }
       else
       {
-        Debug.Log($"Deactivating XR Rig for remote player {Object.Id}");
-        if (xrRigRoot != null) xrRigRoot.SetActive(false);
+        Debug.Log($"Remote player {Object.Id}: Setting up remote player visuals.");
+        if (xrRigRoot != null) 
+        {
+            xrRigRoot.SetActive(false);
+        }
 
         playerHead.ForEach(x =>
        {
