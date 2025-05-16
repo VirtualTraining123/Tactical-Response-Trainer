@@ -30,7 +30,6 @@ namespace Networking {
       }
 
       // Asignar el player para que se siga (por ejemplo, en una cámara o UI de seguimiento)
-      followPlayer.player = networkedPlayer;
       Players.Add(player, networkedPlayer);
     }
 
