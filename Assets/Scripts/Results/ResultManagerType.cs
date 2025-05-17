@@ -1,5 +1,6 @@
 ﻿namespace Results {
   public enum ResultManagerType {
-    PlayerPrefs
+    PlayerPrefs,
+    FixedResultManager
   }
 }

@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using AI;
+using SimpleJSON;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Results {
@@ -11,6 +14,7 @@ namespace Results {
       PlayerPrefs.SetFloat(nameof(result.FinalScore), result.FinalScore);
       PlayerPrefs.SetString(nameof(result.AgentDeath), result.AgentDeath.ToString());
       PlayerPrefs.SetString(nameof(result.SafetyOff), result.SafetyOff.ToString());
+      PlayerPrefs.SetString(nameof(result.Hits), JsonUtility.ToJson(result.Hits));
     }
 
     public Task<EvaluationResult> LoadResult() {
@@ -21,7 +25,8 @@ namespace Results {
         PlayerPrefs.GetInt(nameof(EvaluationResult.ExtraBulletsUsed)),
         PlayerPrefs.GetFloat(nameof(EvaluationResult.FinalScore)),
         bool.Parse(PlayerPrefs.GetString(nameof(EvaluationResult.AgentDeath))),
-        int.Parse(PlayerPrefs.GetString(nameof(EvaluationResult.SafetyOff)))
+        int.Parse(PlayerPrefs.GetString(nameof(EvaluationResult.SafetyOff))),
+        JsonUtility.FromJson<Dictionary<string, BodyPart>>(PlayerPrefs.GetString(nameof(EvaluationResult.Hits)))
       );
 
       return Task.FromResult(result);

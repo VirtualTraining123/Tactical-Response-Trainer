@@ -1,22 +1,25 @@
+using AI;
 using System;
 using System.Linq;
 using Results;
 using Spawner;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Scene = Scenes.Scene;
 
 public class Evaluator : MonoBehaviour {
-  [Header("Settings")] public long maxSimulationTime = 3;
+  [Header("Scoring")] public long maxSimulationTime = 3;
   [SerializeField] public float maxScore = 10f;
   [SerializeField] public float minPassingScore = 6f;
   [SerializeField] public float scorePenaltyForEnemy = 1f;
   [SerializeField] public float scorePenaltyForCivilian = 2f;
   [SerializeField] public float scorePenaltyForExtraBullet = 0.25f;
   [SerializeField] public float scorePenaltyForLeavingSafetyOff = 1f;
+  [Header("References")]
   [SerializeField] public Pistol[] pistols;
   [SerializeField] public ResultManagerType resultManagerType;
   [SerializeField] public Scene targetScene;
+  private readonly Dictionary<string, BodyPart> hits = new();
 
   private IResultManager resultManager;
   private long simulationStartTime;
@@ -33,7 +36,7 @@ public class Evaluator : MonoBehaviour {
 
 
   private void Awake() {
-    spawnManager = FindObjectOfType<SpawnManager>();
+    spawnManager = FindFirstObjectByType<SpawnManager>(FindObjectsInactive.Include);
     parBulletCount = spawnManager.GetTotalEnemies();
     simulationStartTime = GetTime();
     totalEnemyCount = 0;
@@ -57,14 +60,16 @@ public class Evaluator : MonoBehaviour {
 
   public static long GetTime() => DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
-  public void OnEnemyKilled() {
+  public void OnEnemyKilled(BodyPart hitLocation, string enemyName) {
     if (!isActiveAndEnabled) return;
     enemiesKilled++;
+    hits.Add(enemyName, hitLocation);
   }
 
-  public void OnCivilianKilled() {
+  public void OnCivilianKilled(BodyPart hitLocation, string civilianName) {
     if (!isActiveAndEnabled) return;
     civiliansKilled++;
+    hits.Add(civilianName, hitLocation);
   }
 
   public void OnBulletUsed() {
@@ -102,7 +107,8 @@ public class Evaluator : MonoBehaviour {
       GetExtraBulletsUsed(),
       score,
       isPlayerDead,
-      GetSafetyOffCount()
+      GetSafetyOffCount(),
+      hits
     );
     resultManager.SaveResult(evaluationResult);
     SceneTransitionManager.Singleton.GoToSceneAsync(targetScene);

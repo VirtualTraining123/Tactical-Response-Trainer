@@ -423,6 +423,37 @@ RectTransform:
   m_AnchoredPosition: {x: -2957.5261, y: 727.6701}
   m_SizeDelta: {x: 25.5979, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &243362987
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 243362988}
+  m_Layer: 0
+  m_Name: EnemyDisplayRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &243362988
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243362987}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.4636767, y: -0.8082781, z: 7.82}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &256391882
 GameObject:
   m_ObjectHideFlags: 0
@@ -2115,7 +2146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15aec1189908a034992f7cf50683e866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resultManagerType: 0
+  resultManagerType: 1
   skyboxWin: {fileID: 2100000, guid: c1b2f1fec9069bc44856b9582cda54d0, type: 2}
   skyboxLose: {fileID: 2100000, guid: 86b3e114b294cb2468e9bcee35ab09c4, type: 2}
   gameOverMenu: {fileID: 1163744328}
@@ -2129,6 +2160,9 @@ MonoBehaviour:
   safetyActive: {fileID: 391740590}
   finalScore: {fileID: 882072509}
   title: {fileID: 226729184}
+  enemyDisplayRoot: {fileID: 243362987}
+  layoutDirection: {x: 1, y: 0, z: 0}
+  enemyDisplayPrefab: {fileID: 678882675866491399, guid: 6bb00e774c1cb674daddeb657f55c7a4, type: 3}
   playerCamera: {fileID: 9014170783998532103}
 --- !u!1 &1273556205
 GameObject:
@@ -5523,3 +5557,4 @@ SceneRoots:
   - {fileID: 4134505311032341761}
   - {fileID: 838107453}
   - {fileID: 19669739}
+  - {fileID: 243362988}

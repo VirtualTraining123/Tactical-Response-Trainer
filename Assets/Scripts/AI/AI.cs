@@ -54,11 +54,11 @@ namespace AI {
       DisableAllColliders();
       isDestroyed = true;
       StopAnimations();
-      OnDie();
+      OnDie(part);
       ToState(State.Dead);
     }
 
-    protected abstract void OnDie();
+    protected abstract void OnDie(BodyPart finalHit);
 
     private void StopAnimations() {
       NavigationMesh.isStopped = true;

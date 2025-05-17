@@ -12,7 +12,9 @@ namespace AI {
         private long timerMs = 0;
         private long crouchDurationMs;
 
-        protected override void OnDie() => Evaluator.OnCivilianKilled();
+        protected override void OnDie(BodyPart lastHitPart) {
+            Evaluator.OnCivilianKilled(lastHitPart, name);
+        }
 
         protected override void UpdateCrouching() {
             var nowMs = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;

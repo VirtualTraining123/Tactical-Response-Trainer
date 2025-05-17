@@ -1,9 +1,11 @@
+using AI;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Globalization;
 using Results;
 using Scenes;
+using System.Linq;
 
 
 public class GameRestartMenu : MonoBehaviour {
@@ -22,7 +24,11 @@ public class GameRestartMenu : MonoBehaviour {
   public TMP_Text safetyActive;
   public TMP_Text finalScore;
   public TMP_Text title;
-  
+  [Header("Enemy Display")]
+  public GameObject enemyDisplayRoot;
+  public Vector3 layoutDirection;
+  public KillDisplayDummy enemyDisplayPrefab;
+
   private IResultManager resultManager;
 
   [Header("Player Camera")] public Transform playerCamera;
@@ -71,5 +77,19 @@ public class GameRestartMenu : MonoBehaviour {
     finalScore.text = $"Puntaje final: {result.FinalScore}";
     title.text = result.Passed ? I18N.I18N.GetPassedText() : I18N.I18N.GetFailedText();
     RenderSettings.skybox = result.Passed ? skyboxWin : skyboxLose;
+
+    var itemWidth = layoutDirection.normalized * 1;
+    var fullWidth = result.Hits.Count * itemWidth;
+
+    _ = result.Hits.Select((enemy, index) => {
+      var enemyDisplay = Instantiate(
+        enemyDisplayPrefab,
+        enemyDisplayRoot.transform.position - fullWidth / 2 + itemWidth * index,
+        enemyDisplayRoot.transform.rotation,
+        enemyDisplayRoot.transform
+      );
+      enemyDisplay.DisplayDamagedPart(enemy.Value);
+      return enemyDisplay;
+    }).All(x=>true);
   }
 }

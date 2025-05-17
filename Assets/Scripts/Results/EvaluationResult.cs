@@ -1,12 +1,16 @@
-﻿namespace Results {
+﻿using AI;
+using System.Collections.Generic;
+namespace Results {
   public class EvaluationResult {
-    public EvaluationResult(float time,
+    public EvaluationResult(
+      float time,
       int injuredCivilians,
       int missingEnemies,
       int extraBulletsUsed,
       float finalScore,
       bool agentDeath,
-      int safetyOff
+      int safetyOff,
+      Dictionary<string, BodyPart> hits
     ) {
       Time = time;
       InjuredCivilians = injuredCivilians;
@@ -15,6 +19,7 @@
       FinalScore = finalScore;
       AgentDeath = agentDeath;
       SafetyOff = safetyOff;
+      Hits = hits;
     }
 
     public float Time { get; }
@@ -24,6 +29,7 @@
     public float FinalScore { get; }
     public bool AgentDeath { get; }
     public int SafetyOff { get; }
+    public Dictionary<string, BodyPart> Hits { get; }
     public bool Passed => FinalScore > 6 && !AgentDeath;
 
     public void Deconstruct(
@@ -33,7 +39,8 @@
       out int extraBulletsUsed,
       out float finalScore,
       out bool agentDeath,
-      out int safetyOff
+      out int safetyOff,
+      out Dictionary<string, BodyPart> hits
     ) {
       time = Time;
       injuredCivilians = InjuredCivilians;
@@ -42,11 +49,11 @@
       finalScore = FinalScore;
       agentDeath = AgentDeath;
       safetyOff = SafetyOff;
+      hits = Hits;
     }
 
     public override string ToString() {
-      return $"Time: {Time}, Injured Civilians: {InjuredCivilians}, Missing Enemies: {MissingEnemies}, Extra Bullets Used: {ExtraBulletsUsed}, Final Score: {FinalScore}, Agent Death: {AgentDeath}, Safety Off: {SafetyOff}";
+      return $"Time: {Time}, Injured Civilians: {InjuredCivilians}, Missing Enemies: {MissingEnemies}, Extra Bullets Used: {ExtraBulletsUsed}, Final Score: {FinalScore}, Agent Death: {AgentDeath}, Safety Off: {SafetyOff}, Hits: {Hits}";
     }
   }
-  
 }
