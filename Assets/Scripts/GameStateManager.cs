@@ -65,25 +65,25 @@ public class GameStateManager : AreaColliderNotifiable {
     lastGameState = currentGameState;
   }
 
-  public void DisplayOutside() {
+  private void DisplayOutside() {
     // Show outside meshes
     foreach (GameObject mesh in OutsideMeshes) {
       mesh.SetActive(true);
     }
   }
-  public void HideOutside() {
+  private void HideOutside() {
     // Hide outside meshes
     foreach (GameObject mesh in OutsideMeshes) {
       mesh.SetActive(false);
     }
   }
-  public void DisplayInside() {
+  private void DisplayInside() {
     // Show inside meshes
     foreach (GameObject mesh in InsideMeshes) {
       mesh.SetActive(true);
     }
   }
-  public void HideInside() {
+  private void HideInside() {
     // Hide inside meshes
     foreach (GameObject mesh in InsideMeshes) {
       mesh.SetActive(false);
@@ -95,28 +95,25 @@ public class GameStateManager : AreaColliderNotifiable {
       mesh.SetActive(true);
     }
   }
-  public void HideIntersecting() {
+  private void HideIntersecting() {
     // Hide intersecting meshes
     foreach (GameObject mesh in IntersectingMeshes) {
       mesh.SetActive(false);
     }
   }
 
-  public void ToOutside() {
-    CallbackWaiter<Vector3> waiter = new(end => {
+  private void ToOutside() {
+    ReplaceAnimatorCallbacks(new(end => {
       DisplayOutside();
       HideInside();
-    });
-    outsideAnimator?.SetOnAnimationEnd(waiter.CreateCallback());
-    insideAnimator?.SetOnAnimationEnd(waiter.CreateCallback());
-    transitionAnimator?.SetOnAnimationEnd(waiter.CreateCallback());
+    }));
     outsideAnimator?.SetActive(true);
     insideAnimator?.SetActive(false);
     transitionAnimator?.SetActive(false);
 
   }
 
-  public void ToTransition() {
+  private void ToTransition() {
     DisplayOutside();
     DisplayInside();
     HideIntersecting();
@@ -125,20 +122,26 @@ public class GameStateManager : AreaColliderNotifiable {
     transitionAnimator?.SetActive(true);
   }
 
-  public void ToInside() {
-    CallbackWaiter<Vector3> waiter = new(end => {
+  private void ToInside() {
+    ReplaceAnimatorCallbacks(new(end => {
       HideOutside();
       DisplayInside();
-    });
-    outsideAnimator?.SetOnAnimationEnd(waiter.CreateCallback());
-    insideAnimator?.SetOnAnimationEnd(waiter.CreateCallback());
-    transitionAnimator?.SetOnAnimationEnd(waiter.CreateCallback());
-
+    }));
     outsideAnimator?.SetActive(false);
     insideAnimator?.SetActive(true);
     transitionAnimator?.SetActive(false);
   }
-  public override void OnTransitionListener(AreaCollider.AreaCollider collider, Collider other) {
+  private void ReplaceAnimatorCallbacks(CallbackWaiter<Vector3> waiter) {
+    foreach (var animator in new List<MovementAnimator> {
+        outsideAnimator,
+        insideAnimator,
+        transitionAnimator
+      }) {
+      animator?.ClearOnAnimationEndCallbacks();
+      animator?.SetOnAnimationEnd(waiter.CreateCallback());
+    }
+  }
+  public override void OnTransitionListener(AreaCollider.AreaCollider coll, Collider other) {
     var inside = InsiderCollider.GetPlayerInside().Count > 0;
     var transition = TransitionCollider.GetPlayerInside().Count > 0;
     currentGameState = transition ? GameState.Transition : (inside ? GameState.Inside : GameState.Outside);

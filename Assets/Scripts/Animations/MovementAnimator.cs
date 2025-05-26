@@ -14,6 +14,10 @@ namespace Animations {
       OnAnimationEndCallbacks.Remove(callback);
     }
     
+    public virtual void ClearOnAnimationEndCallbacks() {
+      OnAnimationEndCallbacks.Clear();
+    }
+    
     public abstract void SetActive(bool value);
   }
 }
