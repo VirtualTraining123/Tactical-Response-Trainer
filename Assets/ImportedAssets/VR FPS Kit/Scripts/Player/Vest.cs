@@ -9,7 +9,7 @@ public class Vest : MonoBehaviour
     private float neckLength;
     // Start is called before the first frame update
     void Awake() {
-        //head = transform.parent.GetComponentInChildren<Camera>().transform;
+        head = transform.parent.GetComponentInChildren<Camera>().transform;
         
     }
 
@@ -28,8 +28,8 @@ public class Vest : MonoBehaviour
         transform.position = desiredPosition;
     }
     private void OnDrawGizmosSelected() {
-        //var head = transform.parent.GetComponentInChildren<Camera>().transform;
+        var head = transform.parent.GetComponentInChildren<Camera>().transform;
         //Show the neck
-        //Gizmos.DrawLine(head.transform.position, head.transform.position - (head.up * neckLength));
+        Gizmos.DrawLine(head.transform.position, head.transform.position - (head.up * neckLength));
     }
 }

@@ -34,6 +34,7 @@ namespace AI {
             if (deltaMs <= crouchDurationMs) return;
 
             ToState(State.Running);
+            PlaySound("PavementTiles_Mono_03");
             timerMs = 0;
         }
     }

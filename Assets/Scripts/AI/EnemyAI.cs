@@ -42,8 +42,7 @@ namespace AI {
 
     protected override void Awake() {
       base.Awake();
-      audioManager.Request("shot", gameObject);
-      audioManager.Request("Foot", gameObject);
+      
 
     }
 
@@ -87,6 +86,7 @@ namespace AI {
         OnStartShooting();
         return;
       }
+      PlaySound("PavementTiles_Mono_03");
       base.UpdateRunning();
     }
 
@@ -95,6 +95,7 @@ namespace AI {
       float distance = Vector3.Distance(transform.position, Player.transform.position);
       if (distance > maxShootingDistance) {
         ToState(State.Running);
+        
         return;
       }
 
@@ -132,9 +133,7 @@ namespace AI {
       currentShotsTaken++;
     }
     
-    public void PlayFootSound() {
-      audioManager.Play("Foot", gameObject);
-    }
+    
 
 
     private bool CanSeePlayerViaSphereCast() {
@@ -176,7 +175,7 @@ namespace AI {
         hasLastShotHit = true;
         lastShotHitPoint = hit.point;
 
-        audioManager.Play("shot", gameObject);
+        PlaySound("Weapons_SMG_Shoot");
         var hitObject = hit.collider.gameObject;
 
         if (!hit.collider.CompareTag("Player")) {

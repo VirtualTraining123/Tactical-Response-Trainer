@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Projectiles;
 using UnityEngine;
@@ -10,7 +11,8 @@ namespace AI {
     [SerializeField] public ParticleSystem bloodSplatterFX;
     protected Animator Animator;
     protected NavMeshAgent NavigationMesh;
-    protected AudioManager audioManager;
+    private Dictionary<string, AudioSource> audioSources = new();
+
     [SerializeField] private float health;
     [SerializeField] private bool updateAI;
     private Renderer[] renderers;
@@ -36,7 +38,11 @@ namespace AI {
       Animator = GetComponent<Animator>();
       NavigationMesh = FindFirstObjectByType<NavMeshAgent>();
       Evaluator = FindFirstObjectByType<Evaluator>(FindObjectsInactive.Include);
-      audioManager = FindFirstObjectByType<AudioManager>();
+      foreach (var source in GetComponentsInChildren<AudioSource>()) {
+        if (!audioSources.TryAdd(source.clip.name, source)) {
+          Debug.LogWarning($"Audio clip name conflict: {source.clip.name} already exists.");
+        }
+      }
     }
 
     public override void TakeDamage(Weapon weapon, Projectile projectile, Vector3 contactPoint, BodyPart part) {
@@ -127,10 +133,20 @@ namespace AI {
           throw new ArgumentOutOfRangeException();
       }
     }
+    
+    protected void PlaySound(string clipName) {
+      if (audioSources.TryGetValue(clipName, out var source)) {
+        source.Play();
+      } else {
+        Debug.LogWarning($"Audio clip '{clipName}' not found on {gameObject.name}");
+      }
+    }
 
     protected abstract void UpdateRunning();
     protected abstract void UpdateDead();
     protected abstract void UpdateCrouching();
     protected abstract void UpdateShooting();
   }
+  
+  
 }
