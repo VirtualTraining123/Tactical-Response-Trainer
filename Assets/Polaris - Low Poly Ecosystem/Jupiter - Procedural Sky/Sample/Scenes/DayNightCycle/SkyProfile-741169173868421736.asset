@@ -262,7 +262,7 @@ Material:
     - _StarsColor0: {r: 0.96470594, g: 0.9450981, b: 0.76470596, a: 1}
     - _StarsColor1: {r: 1, g: 0.5294118, b: 0.93725497, a: 1}
     - _StarsColor2: {r: 0, g: 0.92549026, b: 1, a: 1}
-    - _SunColor: {r: 0.9716981, g: 0.9237518, b: 0.8438976, a: 1}
+    - _SunColor: {r: 0.9716981, g: 0.92359686, b: 0.84339476, a: 1}
     - _SunDirection: {r: -0.5450131, g: -0.39390957, b: -0.74013245, a: 0}
     - _SunLightColor: {r: 1, g: 0.99511117, b: 0.8632076, a: 1}
   m_BuildTextureStacks: []
