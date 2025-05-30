@@ -49,14 +49,6 @@ namespace AI {
       // TODO: Play audio ???
     }
 
-    protected override void UpdateCrouching() {
-      ToState(State.Running);
-    }
-
-    protected override void UpdateShooting() {
-      ToState(State.Running);
-    }
-
     private bool HaveMadeItToTargetSpot() {
       if (!targetSpot) return false;
       return (transform.position - targetSpot.position).sqrMagnitude <= 0.1f;

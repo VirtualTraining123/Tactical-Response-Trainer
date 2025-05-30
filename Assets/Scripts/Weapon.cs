@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using Audio;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -13,18 +13,21 @@ public class Weapon : MonoBehaviour {
 
   private Rigidbody rigidBody;
   private XRGrabInteractable interactableWeapon;
-  private Dictionary<string, AudioSource> audioSources = new();
+  protected readonly InlineAudioManager InlineAudioManager = new();
 
 
   protected virtual void Awake() {
     interactableWeapon = GetComponent<XRGrabInteractable>();
     rigidBody = GetComponent<Rigidbody>();
     SetupInteractableWeaponEvents();
-    foreach (var source in GetComponentsInChildren<AudioSource>()) {
-      if (!audioSources.TryAdd(source.clip.name, source)) {
-        Debug.LogWarning($"Audio clip name conflict: {source.clip.name} already exists.");
-      }
-    }
+    InlineAudioManager.Scan(this);
+    InlineAudioManager.RequestAudioSources(
+      ClipName.GUNSHOT,
+      ClipName.BULLET_SHELLS,
+      ClipName.RELOAD,
+      ClipName.SAFETY_TOGGLE,
+      ClipName.DRY_FIRE
+    );
   }
 
   private void SetupInteractableWeaponEvents() {
@@ -36,7 +39,7 @@ public class Weapon : MonoBehaviour {
 
   private static void PickUpWeapon(SelectEnterEventArgs interactor) {
     var meshHider = interactor.interactorObject.transform.GetComponent<MeshHider>();
-    if (meshHider != null) {
+    if (meshHider) {
       meshHider.Hide();
     } else {
       Debug.LogWarning("MeshHider component missing on interactor.");
@@ -45,7 +48,7 @@ public class Weapon : MonoBehaviour {
 
   private static void DropWeapon(SelectExitEventArgs interactor) {
     var meshHider = interactor.interactorObject.transform.GetComponent<MeshHider>();
-    if (meshHider != null) {
+    if (meshHider) {
       meshHider.Show();
     } else {
       Debug.LogWarning("MeshHider component missing on interactor.");
@@ -58,8 +61,8 @@ public class Weapon : MonoBehaviour {
 
   protected virtual void Shoot() {
     ApplyRecoil();
-    PlaySound("Weapons_SMG_Shoot");
-    PlaySound("bulletshells02");
+    InlineAudioManager.GetAudioSource(ClipName.GUNSHOT).Play();
+    InlineAudioManager.GetAudioSource(ClipName.BULLET_SHELLS).Play();
   }
 
   private void ApplyRecoil() {
@@ -84,28 +87,19 @@ public class Weapon : MonoBehaviour {
   }
 
   protected void ReloadSound() {
-    PlaySound("reloadSound");
+    InlineAudioManager.GetAudioSource(ClipName.RELOAD).Play();
   }
 
   protected void ToggleSafetySound() {
-    PlaySound("Weapon_Safety");
+    InlineAudioManager.GetAudioSource(ClipName.SAFETY_TOGGLE).Play();
   }
 
   protected void SafetyStillActiveSound() {
-    PlaySound("Dry-Pistol-Gunfire-Single-A");
+    InlineAudioManager.GetAudioSource(ClipName.DRY_FIRE).Play();
   }
 
 
   protected void ShotNoBulletsSound() {
-    PlaySound("Dry-Pistol-Gunfire-Single-A");
+    InlineAudioManager.GetAudioSource(ClipName.DRY_FIRE).Play();
   }
-
-  private void PlaySound(string clipName) {
-    if (audioSources.TryGetValue(clipName, out var source)) {
-      source.Play();
-    } else {
-      Debug.LogWarning($"Audio clip '{clipName}' not found on {gameObject.name}");
-    }
-  }
-
 }

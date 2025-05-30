@@ -59,7 +59,7 @@ public class Pistol : Weapon {
     projectileInstance.Init(this);
     projectileInstance.Launch();
 
-    if (currentInteractor != null) SendHapticImpulse(currentInteractor);
+    if (currentInteractor) SendHapticImpulse(currentInteractor);
   }
 
   // ReSharper disable once UnusedMember.Local

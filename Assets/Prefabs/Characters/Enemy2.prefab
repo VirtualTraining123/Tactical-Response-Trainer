@@ -3161,7 +3161,7 @@ Animator:
   m_GameObject: {fileID: 8636926368577821441}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: aeb7e7c69ab9d534b91074a858c245be, type: 3}
-  m_Controller: {fileID: 9100000, guid: 5c55f2ac64d0ead4aa676083346fafda, type: 2}
+  m_Controller: {fileID: 9100000, guid: cd643ba7e64cabb4a83ff5ca5fc8cab8, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -3211,6 +3211,7 @@ MonoBehaviour:
   bloodSplatterFX: {fileID: 19886758, guid: 8c27aeead6d968e4ba986702d6b84335, type: 3}
   health: 100
   updateAI: 0
+  state: 0
   rotationSpeed: 250
   targetSpot: {fileID: 0}
   minCrouchTimeMS: 10000

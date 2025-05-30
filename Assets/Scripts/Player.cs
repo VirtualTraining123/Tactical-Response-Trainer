@@ -1,13 +1,15 @@
-﻿using System.Linq;
+﻿using Plugins.Android;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Android;
+using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour {
   [SerializeField] private float health;
   [SerializeField] private Transform head;
   [SerializeField] private BloodEffectPlane bloodEffectPlane;
   [SerializeField] private Collider bodyCollider;
-  public CameraShake cameraShake;
+  [SerializeField] private string bluetoothName = "ESP32_BT";
 
   private const string MOTOR1 = "F";
   private const string MOTOR2 = "B";
@@ -20,15 +22,15 @@ public class Player : MonoBehaviour {
     isConnected = false;
     BluetoothService.CreateBluetoothObject();
     AssertConnected();
-    BluetoothService.WritetoBluetooth(MOTOR1);
-    evaluator = FindObjectOfType<Evaluator>();
+    BluetoothService.WriteToBluetooth(MOTOR1);
+    evaluator = FindAnyObjectByType<Evaluator>(FindObjectsInactive.Include);
   }
 
   private static void RequestBluetoothPermission() {
 #if (UNITY_ANDROID && UNITY_2020_2_OR_NEWER)
     var permissions = new[] {
-      Permission.CoarseLocation,
-      Permission.FineLocation,
+      // Permission.CoarseLocation,
+      // Permission.FineLocation,
       "android.permission.BLUETOOTH_SCAN",
       "android.permission.BLUETOOTH_ADVERTISE",
       "android.permission.BLUETOOTH_CONNECT"
@@ -40,11 +42,10 @@ public class Player : MonoBehaviour {
 
   private void AssertConnected() {
     for (var i = 0; i < 10 && !isConnected; i++)
-      isConnected = BluetoothService.StartBluetoothConnection("ESP32_BT");
+      isConnected = BluetoothService.StartBluetoothConnection(bluetoothName);
   }
 
   public void TakeDamage(float damage) {
-    //StartCoroutine(cameraShake.Shake());
     health -= damage;
     // TODO: Add player take damage 
     Debug.LogWarning($"Player health: {health}");
@@ -57,7 +58,7 @@ public class Player : MonoBehaviour {
   }
 
   private static void ActivateRandomMotor() {
-    BluetoothService.WritetoBluetooth(Random.Range(0, 100) < 50 ? MOTOR1 : MOTOR2);
+    BluetoothService.WriteToBluetooth(Random.Range(0, 100) < 50 ? MOTOR1 : MOTOR2);
   }
 
   private void GameOver() {
@@ -70,10 +71,5 @@ public class Player : MonoBehaviour {
 
   public Vector3 GetBodyCenterPosition() {
     return bodyCollider.bounds.center;
-  }
-
-  public bool IsVisibleFrom(Vector3 transformPosition) {
-    return Physics.Linecast(transformPosition, GetBodyCenterPosition(), out var hit) &&
-      hit.collider == bodyCollider;
   }
 }

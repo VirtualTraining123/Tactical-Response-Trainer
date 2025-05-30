@@ -2997,6 +2997,7 @@ MonoBehaviour:
   bloodSplatterFX: {fileID: 19886758, guid: 8c27aeead6d968e4ba986702d6b84335, type: 3}
   health: 100
   updateAI: 1
+  state: 0
   rotationSpeed: 250
   targetSpot: {fileID: 0}
   minCrouchTimeMS: 10000

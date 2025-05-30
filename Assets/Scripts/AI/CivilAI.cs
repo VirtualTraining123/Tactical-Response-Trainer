@@ -1,3 +1,4 @@
+using Audio;
 using System;
 using UnityEngine;
 using UnityEngine.AI;
@@ -16,6 +17,9 @@ namespace AI {
       Evaluator.OnCivilianKilled(lastHitPart, name);
     }
 
+    protected override bool ShouldRunWithGun() {
+      return false;
+    }
     protected override void UpdateCrouching() {
       var nowMs = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
 
@@ -34,8 +38,10 @@ namespace AI {
       if (deltaMs <= crouchDurationMs) return;
 
       ToState(State.Running);
-      PlaySound("PavementTiles_Mono_03");
       timerMs = 0;
+    }
+    protected override void UpdateShooting() {
+      ToState(State.Running);
     }
   }
 }
