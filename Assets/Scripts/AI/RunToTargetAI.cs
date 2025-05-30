@@ -52,10 +52,9 @@ namespace AI {
     protected override void UpdateCrouching() {
       ToState(State.Running);
     }
-    
+
     protected override void UpdateShooting() {
       ToState(State.Running);
-
     }
 
     private bool HaveMadeItToTargetSpot() {

@@ -44,7 +44,6 @@ public class GameStateManager : AreaColliderNotifiable {
     if (IntersectingMeshes.Any(mesh => !OutsideMeshes.Contains(mesh))) {
       Debug.LogError("IntersectingMeshes must be a subset of OutsideMeshes");
     }
-    
   }
 
   private void Update() {
@@ -110,7 +109,6 @@ public class GameStateManager : AreaColliderNotifiable {
     outsideAnimator?.SetActive(true);
     insideAnimator?.SetActive(false);
     transitionAnimator?.SetActive(false);
-
   }
 
   private void ToTransition() {

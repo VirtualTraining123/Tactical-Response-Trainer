@@ -6,7 +6,7 @@ namespace Animations {
     [SerializeField] private Vector3 direction;
     [SerializeField] private float speed = 1f;
     [SerializeField] private float distance = 5f;
-    
+
 
     private bool active;
     private Vector3 startPosition;
@@ -33,10 +33,10 @@ namespace Animations {
       active = value;
       IsAnimating = true;
     }
-    
+
     private void MoveTo(Vector3 position) {
       var step = speed * Time.deltaTime * (Vector3.Distance(GetPosition(), position) * 0.5f + 0.1f);
-      
+
       SetPosition(Vector3.MoveTowards(GetPosition(), position, step));
       if (!(Vector3.Distance(GetPosition(), position) < 0.001f)) return;
       SetPosition(position);

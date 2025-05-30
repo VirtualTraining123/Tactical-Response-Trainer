@@ -42,8 +42,6 @@ namespace AI {
 
     protected override void Awake() {
       base.Awake();
-      
-
     }
 
     protected override void OnDie(BodyPart finalHitPart) {
@@ -95,7 +93,7 @@ namespace AI {
       float distance = Vector3.Distance(transform.position, Player.transform.position);
       if (distance > maxShootingDistance) {
         ToState(State.Running);
-        
+
         return;
       }
 
@@ -132,8 +130,8 @@ namespace AI {
       RaycastShot(Player);
       currentShotsTaken++;
     }
-    
-    
+
+
 
 
     private bool CanSeePlayerViaSphereCast() {

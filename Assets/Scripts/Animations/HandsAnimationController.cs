@@ -66,7 +66,7 @@ namespace Animations {
         }
       };
     }
-    
+
     private UnityAction<SelectExitEventArgs> NewInteractionHandler2(Hand hand) {
       return arg => {
         var xrBaseInteractable = arg.interactableObject as XRBaseInteractable;

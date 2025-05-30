@@ -21,7 +21,7 @@ namespace AI {
     /// Has the AI been destroyed?
     /// </summary>
     private bool isDestroyed;
-    
+
     // TODO: Move these to a separate class
     protected const string RUN_TRIGGER = "Run";
     protected const string CROUCH_TRIGGER = "Crouch";
@@ -133,7 +133,7 @@ namespace AI {
           throw new ArgumentOutOfRangeException();
       }
     }
-    
+
     protected void PlaySound(string clipName) {
       if (audioSources.TryGetValue(clipName, out var source)) {
         source.Play();
@@ -147,6 +147,6 @@ namespace AI {
     protected abstract void UpdateCrouching();
     protected abstract void UpdateShooting();
   }
-  
-  
+
+
 }

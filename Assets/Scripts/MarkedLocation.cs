@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class MarkedLocation: MonoBehaviour {
+public class MarkedLocation : MonoBehaviour {
   [SerializeField] private MarkedLocationType type;
 
   // Public setter for type
@@ -19,7 +19,6 @@ public class MarkedLocation: MonoBehaviour {
       case MarkedLocationType.Cover:
         Gizmos.color = Color.blue;
         break;
-      
     }
     Gizmos.DrawWireSphere(transform.position, 0.25f);
   }

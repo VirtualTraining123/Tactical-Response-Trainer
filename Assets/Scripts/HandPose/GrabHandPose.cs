@@ -32,7 +32,7 @@ namespace HandPose {
 
     private void SetupPose(BaseInteractionEventArgs arg) {
       if (arg.interactorObject is not XRDirectInteractor &&
-          arg.interactorObject is not XRRayInteractor) return;
+        arg.interactorObject is not XRRayInteractor) return;
       var handData = arg.interactorObject.transform.GetComponentInChildren<HandData>();
       handData.animator.enabled = false;
 

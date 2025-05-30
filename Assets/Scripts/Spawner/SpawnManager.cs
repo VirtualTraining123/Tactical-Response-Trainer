@@ -29,7 +29,6 @@ namespace Spawner {
             coverLocations.Add(markedLocation);
             break;
         }
-        
       }
       Debug.Log("Enemy locations: " + enemyLocations.Count);
       Debug.Log("Civilian locations: " + civilianLocations.Count);

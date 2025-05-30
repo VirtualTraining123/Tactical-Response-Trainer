@@ -10,16 +10,16 @@ namespace Projectiles {
     public virtual void Init(Weapon weapon) {
       Weapon = weapon;
     }
-    
+
     public virtual void Launch() {
       GetComponent<Rigidbody>().linearVelocity = transform.forward * speed;
-      
+
       // Instanciar el rastro de bala
       if (bulletTrailPrefab == null) return;
       bulletTrail = Instantiate(bulletTrailPrefab, transform.position, Quaternion.identity);
       bulletTrail.transform.SetParent(transform); // Hacer que el rastro siga la bala
     }
-    
+
     private void OnCollisionEnter(Collision collision) {
       var contact = collision.GetContact(0);
       HandleHit(contact, collision.transform);
@@ -29,9 +29,9 @@ namespace Projectiles {
     protected virtual void HandleHit(ContactPoint contact, Transform hitTransform) {
       // Create a bullet hole where the projectile hit
       BulletHoleManager.Instance.CreateBulletHole(
-          contact.point,
-          contact.normal,
-          hitTransform
+        contact.point,
+        contact.normal,
+        hitTransform
       );
 
       // Check if the hit object can take damage

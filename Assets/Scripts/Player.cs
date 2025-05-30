@@ -2,8 +2,7 @@
 using UnityEngine;
 using UnityEngine.Android;
 
-public class Player : MonoBehaviour
-{
+public class Player : MonoBehaviour {
   [SerializeField] private float health;
   [SerializeField] private Transform head;
   [SerializeField] private BloodEffectPlane bloodEffectPlane;
@@ -68,13 +67,13 @@ public class Player : MonoBehaviour
   public Vector3 GetHeadPosition() {
     return head.position;
   }
-  
+
   public Vector3 GetBodyCenterPosition() {
     return bodyCollider.bounds.center;
   }
 
   public bool IsVisibleFrom(Vector3 transformPosition) {
     return Physics.Linecast(transformPosition, GetBodyCenterPosition(), out var hit) &&
-           hit.collider == bodyCollider;
+      hit.collider == bodyCollider;
   }
 }

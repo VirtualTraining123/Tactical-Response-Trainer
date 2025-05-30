@@ -20,7 +20,7 @@ public class Pistol : Weapon {
 
   protected void Start() {
     currentBullets = maxBullets;
-    if (isEvaluated)  evaluator = FindFirstObjectByType<Evaluator>();
+    if (isEvaluated) evaluator = FindFirstObjectByType<Evaluator>();
     SetLeftHanded(isLeftHanded);
   }
 
@@ -90,13 +90,12 @@ public class Pistol : Weapon {
     if (controller == null) return;
     controller.SendHapticImpulse(1f, 0.3f);
   }
-    public void SetLeftHanded(bool leftHanded) {
-      if (leftHanded) {
-        Transform childTransform = transform.GetChild(0); // Asumiendo que el objeto hijo es el primero
-        Vector3 newScale = childTransform.localScale;
-        newScale.y = -Mathf.Abs(newScale.y); // Cambia la escala en el eje y a su valor negativo
-        childTransform.localScale = newScale;
-      }
+  public void SetLeftHanded(bool leftHanded) {
+    if (leftHanded) {
+      Transform childTransform = transform.GetChild(0); // Asumiendo que el objeto hijo es el primero
+      Vector3 newScale = childTransform.localScale;
+      newScale.y = -Mathf.Abs(newScale.y); // Cambia la escala en el eje y a su valor negativo
+      childTransform.localScale = newScale;
     }
+  }
 }
-  

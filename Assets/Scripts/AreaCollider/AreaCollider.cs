@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace AreaCollider {
   [RequireComponent(typeof(Collider))]
-  public class AreaCollider: MonoBehaviour {
+  public class AreaCollider : MonoBehaviour {
     [SerializeField]
     private Collider collider;
     [SerializeField]
     private AreaColliderName name;
     [SerializeField]
     private AreaColliderNotifiable notifiable;
-    private readonly List<Collider> playerInside = new();  
+    private readonly List<Collider> playerInside = new();
 
     public AreaColliderName GetName() {
       return name;

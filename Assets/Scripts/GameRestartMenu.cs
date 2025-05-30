@@ -90,6 +90,6 @@ public class GameRestartMenu : MonoBehaviour {
       );
       enemyDisplay.DisplayDamagedPart(enemy.Value);
       return enemyDisplay;
-    }).All(x=>true);
+    }).All(x => true);
   }
 }

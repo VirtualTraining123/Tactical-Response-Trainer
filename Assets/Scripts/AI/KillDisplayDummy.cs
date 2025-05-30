@@ -26,7 +26,6 @@ namespace AI {
           }
         } catch (NullReferenceException) {
           Debug.Log($"Failed to get component for {bodyPart}.");
-
         }
       }
     }
