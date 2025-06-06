@@ -1,5 +1,6 @@
 ﻿using Audio;
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -19,6 +20,7 @@ namespace AI {
     [SerializeField] private float minAimTime = 0.5f;
     [SerializeField] private float maxAimTime = 1.2f;
     [SerializeField] private float bulletRadius = 0.05f;
+    [SerializeField] private GameObject headTransform;
 
     [SerializeField] private int minShotsToTake;
     [SerializeField] private int maxShotsToTake;
@@ -47,7 +49,7 @@ namespace AI {
     }
 
     protected override void UpdateCrouching() {
-      if (CanSeePlayerViaSphereCast()) {
+      if (IsPlayerVisible()) {
         Debug.Log("Player was visible, abort crouch");
         OnStartShooting();
         return;
@@ -81,11 +83,13 @@ namespace AI {
       return true;
     }
     protected override void UpdateRunning() {
-      if (CanSeePlayerViaSphereCast()) {
+      if (IsPlayerVisible()) {
+        TargetPosition = null;
+        NavigationMesh.isStopped = true;
         OnStartShooting();
-        return;
+      } else {
+        base.UpdateRunning();
       }
-      base.UpdateRunning();
     }
 
     protected override void UpdateShooting() {
@@ -93,13 +97,17 @@ namespace AI {
       var distance = Vector3.Distance(transform.position, Player.transform.position);
       if (distance > maxShootingDistance) {
         ToState(State.Running);
-
         return;
       }
 
       // Visibility check via SphereCast
-      if (!CanSeePlayerViaSphereCast()) {
+      if (!IsPlayerVisible()) {
         ToState(State.Running);
+        TargetPosition = new(
+          lastVisionHitPoint.x,
+          transform.position.y,
+          lastVisionHitPoint.z
+        );
         return;
       }
 
@@ -132,17 +140,19 @@ namespace AI {
       currentShotsTaken++;
     }
 
-    private bool CanSeePlayerViaSphereCast() {
-      var origin = transform.position + Vector3.up * 1.6f; // eye height
+    private bool IsPlayerVisible() {
+      var origin = headTransform.transform.position;
       var targetPos = Player.GetBodyCenterPosition();
       var dir = (targetPos - origin).normalized;
       var distance = Vector3.Distance(origin, targetPos);
 
       // Debug draw cast line
-      Debug.DrawLine(origin, origin + dir * Mathf.Min(distance, maxShootingDistance), Color.yellow, 0.1f);
+      Debug.DrawLine(origin + dir * 0.5f, origin + dir * Mathf.Min(distance, maxShootingDistance), Color.yellow, 0.1f);
 
-      if (Physics.SphereCast(origin, bulletRadius, dir, out var hit, maxShootingDistance)) {
-        hasLastVisionHit = hit.collider.CompareTag("Player");
+      if (Physics.SphereCast(origin + dir * 0.5f, bulletRadius, dir, out var hit, maxShootingDistance, ~LayerMask.GetMask("Enemy"))) {
+        // Debug draw cast line
+        Debug.DrawLine(origin, hit.point, Color.cyan, 0.1f);
+        hasLastVisionHit = IsPlayer(hit);
         lastVisionHitPoint = hit.point;
         return hasLastVisionHit;
       }
@@ -167,28 +177,36 @@ namespace AI {
       // Debug draw cast line
       Debug.DrawLine(origin, origin + aimDir * maxShootingDistance, Color.red, 0.1f);
 
-      if (Physics.SphereCast(origin, bulletRadius, aimDir, out var hit, maxShootingDistance)) {
-        hasLastShotHit = true;
-        lastShotHitPoint = hit.point;
-
-        InlineAudioManager.GetAudioSource(ClipName.GUNSHOT).Play();
-        var hitObject = hit.collider.gameObject;
-
-        if (!hit.collider.CompareTag("Player")) {
-          Debug.Log("Ray hit non-player: " + hitObject.name);
-          return;
-        }
-
-        if (Random.Range(0, 100) < shootingAccuracy) {
-          Debug.Log("Shot the player!!!");
-          player.TakeDamage(damage);
-        } else {
-          Debug.Log("But it missed :c");
-        }
-      } else {
+      if (!Physics.SphereCast(origin, bulletRadius, aimDir, out var hit, maxShootingDistance, ~LayerMask.GetMask("Enemy"))) {
         hasLastShotHit = false;
         lastShotHitPoint = Vector3.zero;
+        return;
       }
+      Debug.DrawLine(origin, hit.point, Color.magenta, 0.1f);
+      hasLastShotHit = true;
+      lastShotHitPoint = hit.point;
+
+      InlineAudioManager.GetAudioSource(ClipName.GUNSHOT).Play();
+      var hitObject = hit.collider.gameObject;
+
+      if (!IsPlayer(hit)) {
+        Debug.Log("Ray hit non-player: " + hitObject.name);
+        return;
+      }
+
+      if (Random.Range(0, 100) < shootingAccuracy) {
+        Debug.Log("Shot the player!!!");
+        player.TakeDamage(damage);
+      } else {
+        Debug.Log("But it missed :c");
+      }
+    }
+    private static bool IsPlayer(RaycastHit hit) {
+      var output = hit.collider.CompareTag("Player") || hit.collider.CompareTag("LeftHand") || hit.collider.CompareTag("RightHand");
+      if (!output) {
+        Debug.Log($"Raycast hit non-player: {hit.collider.name} (Tag: {hit.collider.tag})");
+      }
+      return output;
     }
 
 #if UNITY_EDITOR
@@ -202,6 +220,8 @@ namespace AI {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(lastShotHitPoint, bulletRadius);
       }
+      Gizmos.color = IsPlayerVisible() ? Color.green: Color.red;
+      Gizmos.DrawWireSphere(transform.position + Vector3.up * 2, bulletRadius);
     }
 #endif
   }

@@ -12,12 +12,15 @@ namespace AI {
   public abstract class RunToTargetAI : AI {
     [SerializeField] public float rotationSpeed;
     protected Player Player;
-    [SerializeField] private Transform targetSpot;
+    [SerializeField] protected Vector3? TargetPosition;
     private MarkedLocation[] markedLocations;
 
     protected override void Awake() {
       base.Awake();
-      Player = FindFirstObjectByType<Player>();
+      Player = FindFirstObjectByType<Player>(FindObjectsInactive.Include);
+      if (!Player) {
+        Debug.LogError("RunToTargetAI: Player not found in scene!");
+      }
     }
 
     protected void RotateTowardsPlayer() {
@@ -31,12 +34,10 @@ namespace AI {
     }
 
     protected override void UpdateRunning() {
-      if (!targetSpot) {
-        targetSpot = markedLocations[Random.Range(0, markedLocations.Length)].transform;
-      }
+      TargetPosition ??= markedLocations[Random.Range(0, markedLocations.Length)].transform.position;
 
       if (HaveMadeItToTargetSpot()) {
-        targetSpot = null;
+        TargetPosition = null;
         ToState(State.Crouching);
         NavigationMesh.isStopped = true;
         return;
@@ -45,13 +46,12 @@ namespace AI {
       NavigationMesh.isStopped = false;
       Animator.enabled = true;
       ToState(State.Running);
-      NavigationMesh.SetDestination(targetSpot.position);
-      // TODO: Play audio ???
+      NavigationMesh.SetDestination(TargetPosition.Value);
     }
 
     private bool HaveMadeItToTargetSpot() {
-      if (!targetSpot) return false;
-      return (transform.position - targetSpot.position).sqrMagnitude <= 0.1f;
+      if (!TargetPosition.HasValue) return false;
+      return (transform.position - TargetPosition.Value).sqrMagnitude <= 0.1f;
     }
 
     public void SetMarkedLocations(MarkedLocation[] markedLocations) {

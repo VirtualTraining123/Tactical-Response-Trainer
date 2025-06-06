@@ -70,6 +70,6 @@ public class Player : MonoBehaviour {
   }
 
   public Vector3 GetBodyCenterPosition() {
-    return bodyCollider.bounds.center;
+    return head.position;
   }
 }
