@@ -74,6 +74,7 @@ public class Evaluator : MonoBehaviour {
 
   public void OnBulletUsed() {
     if (!isActiveAndEnabled) return;
+    Debug.Log("Bullet used");
     usedBulletCount++;
   }
 
@@ -99,6 +100,7 @@ public class Evaluator : MonoBehaviour {
     score -= ConsiderMissedEnemies();
     score -= CheckSafetyPenalty();
     score -= ConsiderUsedBullets();
+    score = Mathf.Max(score, 0f); // Ensure score is not negative
 
     var evaluationResult = new EvaluationResult(
       GetElapsedTime(),
@@ -107,7 +109,7 @@ public class Evaluator : MonoBehaviour {
       GetExtraBulletsUsed(),
       score,
       isPlayerDead,
-      GetSafetyOffCount(),
+      GetSafetyOffCount()*(-1),
       hits
     );
     resultManager.SaveResult(evaluationResult);

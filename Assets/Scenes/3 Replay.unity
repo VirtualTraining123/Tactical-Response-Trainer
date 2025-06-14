@@ -2509,7 +2509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15aec1189908a034992f7cf50683e866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resultManagerType: 1
+  resultManagerType: 0
   skyboxWin: {fileID: 2100000, guid: c1b2f1fec9069bc44856b9582cda54d0, type: 2}
   skyboxLose: {fileID: 2100000, guid: 86b3e114b294cb2468e9bcee35ab09c4, type: 2}
   gameOverMenu: {fileID: 1163744328}

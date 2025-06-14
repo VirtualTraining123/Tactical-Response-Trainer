@@ -73,7 +73,7 @@ public class GameRestartMenu : MonoBehaviour {
     extraBulletsUsed.text = $"Balas extra usadas: {result.ExtraBulletsUsed}";
     timeOnScene.text = $"Tiempo en escena: {result.Time.ToString(CultureInfo.InvariantCulture)}s";
     agentDeath.text = $"Muerte del agente: {I18N.I18N.Get(result.AgentDeath)}";
-    safetyActive.text = $"Seguridad activada: {result.SafetyOff}";
+    safetyActive.text = $"Seguros sin colocar: {result.SafetyOff}";
     finalScore.text = $"Puntaje final: {result.FinalScore}";
     title.text = result.Passed ? I18N.I18N.GetPassedText() : I18N.I18N.GetFailedText();
     RenderSettings.skybox = result.Passed ? skyboxWin : skyboxLose;

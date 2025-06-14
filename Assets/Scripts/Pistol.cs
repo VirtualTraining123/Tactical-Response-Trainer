@@ -20,7 +20,7 @@ public class Pistol : Weapon {
 
   protected void Start() {
     currentBullets = maxBullets;
-    if (isEvaluated) evaluator = FindFirstObjectByType<Evaluator>();
+    if (isEvaluated) evaluator = FindFirstObjectByType<Evaluator>(FindObjectsInactive.Include);
     SetLeftHanded(isLeftHanded);
   }
 
