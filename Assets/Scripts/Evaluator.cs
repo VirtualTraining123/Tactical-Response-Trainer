@@ -19,7 +19,7 @@ public class Evaluator : MonoBehaviour {
   [SerializeField] public Pistol[] pistols;
   [SerializeField] public ResultManagerType resultManagerType;
   [SerializeField] public Scene targetScene;
-  private readonly Dictionary<string, BodyPart> hits = new();
+  public readonly Dictionary<string, BodyPart> hits = new();
 
   private IResultManager resultManager;
   private long simulationStartTime;
@@ -33,6 +33,10 @@ public class Evaluator : MonoBehaviour {
   private int parBulletCount;
   private int usedBulletCount;
   private SpawnManager spawnManager;
+  
+  public SpawnManager GetSpawnManager() {
+    return spawnManager;
+  }
 
 
   private void Awake() {

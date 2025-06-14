@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using AI;
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Spawner {
   public class SpawnManager : MonoBehaviour {
@@ -28,6 +30,8 @@ namespace Spawner {
           case MarkedLocationType.Cover:
             coverLocations.Add(markedLocation);
             break;
+          default:
+            throw new ArgumentOutOfRangeException();
         }
       }
       Debug.Log("Enemy locations: " + enemyLocations.Count);
@@ -42,6 +46,7 @@ namespace Spawner {
         var selectedTransformId = Random.Range(0, markedLocations.Count);
         var prefab = Instantiate(prefabs[selectedId], markedLocations[selectedTransformId].transform);
         prefab.SetMarkedLocations(coverLocations.ToArray());
+        prefab.name += $"_{i}";
         Debug.Log($"Spawned {prefab.name} at {markedLocations[selectedTransformId].transform.position}");
         markedLocations.RemoveAt(selectedTransformId);
       }
