@@ -8,7 +8,7 @@ public class Vest : MonoBehaviour
     [SerializeField]
     private float neckLength;
     // Start is called before the first frame update
-    void Awake() {
+    void Spawn() {
         head = transform.parent.GetComponentInChildren<Camera>().transform;
         
     }

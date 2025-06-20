@@ -1,4 +1,5 @@
 using AI;
+using JetBrains.Annotations;
 using System;
 using System.Linq;
 using Results;
@@ -19,7 +20,7 @@ public class Evaluator : MonoBehaviour {
   [SerializeField] public Pistol[] pistols;
   [SerializeField] public ResultManagerType resultManagerType;
   [SerializeField] public Scene targetScene;
-  public readonly Dictionary<string, BodyPart> hits = new();
+  public readonly Dictionary<string, List<BodyPart>> hits = new();
 
   private IResultManager resultManager;
   private long simulationStartTime;
@@ -67,13 +68,15 @@ public class Evaluator : MonoBehaviour {
   public void OnEnemyKilled(BodyPart hitLocation, string enemyName) {
     if (!isActiveAndEnabled) return;
     enemiesKilled++;
-    hits.Add(enemyName, hitLocation);
+    var hitsOnEnemy = hits.GetValueOrDefault(enemyName, new());
+    hitsOnEnemy.Add(hitLocation);
   }
 
   public void OnCivilianKilled(BodyPart hitLocation, string civilianName) {
     if (!isActiveAndEnabled) return;
     civiliansKilled++;
-    hits.Add(civilianName, hitLocation);
+    var hitsOnEnemy = hits.GetValueOrDefault(civilianName, new());
+    hitsOnEnemy.Add(hitLocation);
   }
 
   public void OnBulletUsed() {

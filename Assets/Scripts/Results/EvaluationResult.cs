@@ -10,7 +10,7 @@ namespace Results {
       float finalScore,
       bool agentDeath,
       int safetyOff,
-      Dictionary<string, BodyPart> hits
+      Dictionary<string, List<BodyPart>> hits
     ) {
       Time = time;
       InjuredCivilians = injuredCivilians;
@@ -29,7 +29,7 @@ namespace Results {
     public float FinalScore { get; }
     public bool AgentDeath { get; }
     public int SafetyOff { get; }
-    public Dictionary<string, BodyPart> Hits { get; }
+    public Dictionary<string, List<BodyPart>> Hits { get; }
     public bool Passed => FinalScore > 6 && !AgentDeath;
 
     public void Deconstruct(
@@ -40,7 +40,7 @@ namespace Results {
       out float finalScore,
       out bool agentDeath,
       out int safetyOff,
-      out Dictionary<string, BodyPart> hits
+      out Dictionary<string, List<BodyPart>> hits
     ) {
       time = Time;
       injuredCivilians = InjuredCivilians;

@@ -25,7 +25,7 @@ namespace Results {
         PlayerPrefs.GetFloat(nameof(EvaluationResult.FinalScore)),
         bool.Parse(PlayerPrefs.GetString(nameof(EvaluationResult.AgentDeath))),
         int.Parse(PlayerPrefs.GetString(nameof(EvaluationResult.SafetyOff))),
-        JsonUtility.FromJson<Dictionary<string, BodyPart>>(PlayerPrefs.GetString(nameof(EvaluationResult.Hits)))
+        JsonUtility.FromJson<Dictionary<string, List<BodyPart>>>(PlayerPrefs.GetString(nameof(EvaluationResult.Hits)))
       );
 
       return Task.FromResult(result);

@@ -4,7 +4,7 @@ public class AmbientSound : MonoBehaviour {
   protected AudioManager audioManager;
   // Start is called once before the first execution of Update after the MonoBehaviour is created
   void Awake() {
-    audioManager = FindFirstObjectByType<AudioManager>();
+    audioManager = FindFirstObjectByType<AudioManager>(FindObjectsInactive.Include);
     audioManager.Request("Ambient", gameObject);
     audioManager.Play("Ambient", gameObject);
   }

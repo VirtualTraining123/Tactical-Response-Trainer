@@ -1,4 +1,5 @@
 ﻿using AI;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -18,8 +19,15 @@ namespace Results {
         true,
         0,
         new() {
-          { "enemy1", BodyPart.HEAD },
-          { "enemy2", BodyPart.TORSO_HIGH },
+          {
+            "enemy1", new() {
+              BodyPart.HEAD
+            }
+          }, {
+            "enemy2", new() {
+              BodyPart.TORSO_HIGH
+            }
+          },
         }
       );
 

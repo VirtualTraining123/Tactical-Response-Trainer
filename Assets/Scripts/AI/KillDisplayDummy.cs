@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 namespace AI {
@@ -15,19 +16,25 @@ namespace AI {
     }
 
     public void DisplayDamagedPart(BodyPart part) {
-      // Assign undamaged material to all parts except the specified one
+      DisplayDamagedParts(bodyPart => bodyPart == part);
+    }
+
+    public void DisplayDamagedParts(List<BodyPart> parts) {
+      DisplayDamagedParts(parts.Contains);
+    }
+    
+    public void DisplayDamagedParts(Predicate<BodyPart> predicate) {
+      // Assign undamaged material to all parts except the specified ones
       foreach (var bodyPart in bodyParts) {
         try {
           if (bodyPart.Value.gameObject.GetNamedChild("bone_display").TryGetComponent<Renderer>(out var component)) {
-            component.material = bodyPart.Key == part ? damagedMaterial : undamagedMaterial;
-            // Debug.Log($"{bodyPart} OK.");
-          } else {
-            // Debug.Log($"Failed to get component for {bodyPart}.");
+            component.material = predicate.Invoke(bodyPart.Key) ? damagedMaterial : undamagedMaterial;
           }
         } catch (NullReferenceException) {
-          // Debug.Log($"Failed to get component for {bodyPart}.");
+          // Pass
         }
       }
     }
+
   }
 }

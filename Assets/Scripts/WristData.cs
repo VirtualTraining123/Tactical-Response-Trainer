@@ -1,27 +1,27 @@
 using AI;
 using JetBrains.Annotations;
+using Spawner;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using Utils;
 
 public class WristData : MonoBehaviour {
   [CanBeNull] public TextMeshProUGUI timeText;
-  [SerializeField] private Evaluator evaluator;
   [SerializeField] private Transform enemyDisplayLocation;
   [SerializeField] private float enemyDisplayLocationWidth;
   [SerializeField] private KillDisplayDummy enemyDisplayPrefab;
   
-  private List<KillDisplayDummy> enemyDisplays = new();
+  private Evaluator evaluator;
+  private readonly List<KillDisplayDummy> enemyDisplays = new();
 
   private void Awake() {
     // Spawn a display for each enemy in the evaluator
-    if (!evaluator) {
-      Debug.LogError("Evaluator is not assigned in WristData.");
-      return;
-    }
-    var enemyCount = evaluator.GetSpawnManager().GetTotalEnemies();
+    evaluator = Instance<Evaluator>.Get();
+    var spawnManager = Instance<SpawnManager>.Get();
+    var enemyCount = spawnManager.GetTotalEnemies();
     for (var i = 0; i < enemyCount;i++) {
       var enemyDisplay = Instantiate(enemyDisplayPrefab, enemyDisplayLocation);
       enemyDisplay.transform.localPosition = new((i - (enemyCount >> 1)) * enemyDisplayLocationWidth, 0, 0);
@@ -37,20 +37,12 @@ public class WristData : MonoBehaviour {
     text += "Evaluando? " + (evaluator.isActiveAndEnabled ? "Sí" : "No") + "\n";
     if (timeText) timeText.text = text;
     // Update enemy displays based on evaluator hits
-    // foreach (var hit in evaluator.hits) {
-    //   var enemyDisplay = enemyDisplays.Find(ed => ed.name == "EnemyDisplay_" + hit.Key);
-    //   if (enemyDisplay) {
-    //     enemyDisplay.DisplayDamagedPart(hit.Value);
-    //   } else {
-    //     // Debug.LogWarning($"No display found for enemy {hit.Key}");
-    //   }
-    // }
+
     var keys = evaluator.hits.Keys;
     for (var i = 0; i < evaluator.hits.Count; i++) {
       var enemyDisplay = enemyDisplays[i];
       if (enemyDisplay) {
-        var hit = evaluator.hits[keys.ElementAt(i)];
-        enemyDisplay.DisplayDamagedPart(hit);
+        enemyDisplay.DisplayDamagedParts(evaluator.hits[keys.ElementAt(i)]);
       } else {
         Debug.LogWarning($"No display found for enemy {i}");
       }

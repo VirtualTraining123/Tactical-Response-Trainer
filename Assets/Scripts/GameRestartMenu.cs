@@ -88,7 +88,7 @@ public class GameRestartMenu : MonoBehaviour {
         enemyDisplayRoot.transform.rotation,
         enemyDisplayRoot.transform
       );
-      enemyDisplay.DisplayDamagedPart(enemy.Value);
+      enemyDisplay.DisplayDamagedParts(enemy.Value);
       return enemyDisplay;
     }).All(x => true);
   }
