@@ -20,12 +20,12 @@ namespace AI {
         try {
           if (bodyPart.Value.gameObject.GetNamedChild("bone_display").TryGetComponent<Renderer>(out var component)) {
             component.material = bodyPart.Key == part ? damagedMaterial : undamagedMaterial;
-            Debug.Log($"{bodyPart} OK.");
+            // Debug.Log($"{bodyPart} OK.");
           } else {
-            Debug.Log($"Failed to get component for {bodyPart}.");
+            // Debug.Log($"Failed to get component for {bodyPart}.");
           }
         } catch (NullReferenceException) {
-          Debug.Log($"Failed to get component for {bodyPart}.");
+          // Debug.Log($"Failed to get component for {bodyPart}.");
         }
       }
     }

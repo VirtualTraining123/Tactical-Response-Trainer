@@ -45,7 +45,7 @@ namespace AI {
     
 
     protected override void OnDie(BodyPart finalHitPart) {
-      Evaluator.OnEnemyKilled(finalHitPart, name);
+      Evaluator.OnEnemyKilled(finalHitPart, name + GetInstanceID());
     }
 
     protected override void UpdateCrouching() {
