@@ -502,7 +502,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &8603271965354008792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -533,7 +533,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeText: {fileID: 7084685076270046939}
-  evaluator: {fileID: 0}
   enemyDisplayLocation: {fileID: 4265647343230051191}
   enemyDisplayLocationWidth: 1
   enemyDisplayPrefab: {fileID: 678882675866491399, guid: 6bb00e774c1cb674daddeb657f55c7a4, type: 3}
