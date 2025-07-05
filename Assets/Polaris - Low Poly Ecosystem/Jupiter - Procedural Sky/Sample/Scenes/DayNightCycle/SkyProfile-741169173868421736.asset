@@ -99,7 +99,7 @@ MonoBehaviour:
   sunGlow: 0.45
   useBakedSun: 0
   sunCubemap: {fileID: 0}
-  sunLightColor: {r: 0.4811321, g: 0.46965498, b: 0.079432175, a: 1}
+  sunLightColor: {r: 0.9622642, g: 0.9557862, b: 0.73985404, a: 1}
   sunLightIntensity: 1
   enableMoon: 1
   moonTexture: {fileID: 0}
@@ -266,7 +266,7 @@ Material:
     - _StarsColor2: {r: 0, g: 0.92549026, b: 1, a: 1}
     - _SunColor: {r: 0.9716981, g: 0.92382324, b: 0.84412956, a: 1}
     - _SunDirection: {r: -0.39260456, g: -0.8660254, b: -0.30961555, a: 0}
-    - _SunLightColor: {r: 0.4811321, g: 0.46965498, b: 0.079432175, a: 1}
+    - _SunLightColor: {r: 0.9622642, g: 0.9557862, b: 0.73985404, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!21 &8993251732621375409
