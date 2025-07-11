@@ -102,32 +102,41 @@ public class GameStateManager : AreaColliderNotifiable {
   }
 
   private void ToOutside() {
-    ReplaceAnimatorCallbacks(new(end => {
-      DisplayOutside();
-      HideInside();
-    }));
-    outsideAnimator?.SetActive(true);
+    
+    outsideAnimator?.SetActive(false);
     insideAnimator?.SetActive(false);
+    transitionAnimator?.ClearOnAnimationEndCallbacks();
+    transitionAnimator?.SetOnAnimationEnd(endPosition => {
+      Debug.Log("Puertas cerradas. Ocultando el interior.");
+      HideInside();
+    });
+    transitionAnimator?.SetActive(false); 
+  }
+
+  private void ToInside() {
+    outsideAnimator?.SetActive(false);
+    insideAnimator?.SetActive(false);
+    transitionAnimator?.ClearOnAnimationEndCallbacks();
+    transitionAnimator?.SetOnAnimationEnd(endPosition => {
+      Debug.Log("Puertas cerradas. Ocultando el exterior.");
+      HideOutside();
+    });
     transitionAnimator?.SetActive(false);
   }
 
   private void ToTransition() {
+    // La lógica de transición no cambia: muestra todo y abre las puertas.
     DisplayOutside();
     DisplayInside();
     HideIntersecting();
+    
     outsideAnimator?.SetActive(false);
     insideAnimator?.SetActive(false);
+    
+    // Limpiamos callbacks para que no se ejecute una acción de ocultar por error.
+    transitionAnimator?.ClearOnAnimationEndCallbacks();
+    // Abre las puertas.
     transitionAnimator?.SetActive(true);
-  }
-
-  private void ToInside() {
-    ReplaceAnimatorCallbacks(new(end => {
-      HideOutside();
-      DisplayInside();
-    }));
-    outsideAnimator?.SetActive(false);
-    insideAnimator?.SetActive(true);
-    transitionAnimator?.SetActive(false);
   }
   private void ReplaceAnimatorCallbacks(CallbackWaiter<Vector3> waiter) {
     foreach (var animator in new List<MovementAnimator> {
@@ -139,6 +148,8 @@ public class GameStateManager : AreaColliderNotifiable {
       animator?.SetOnAnimationEnd(waiter.CreateCallback());
     }
   }
+  // En GameStateManager.cs
+
   public override void OnTransitionListener(AreaCollider.AreaCollider coll, Collider other) {
     var inside = InsiderCollider.GetPlayerInside().Count > 0;
     var transition = TransitionCollider.GetPlayerInside().Count > 0;
