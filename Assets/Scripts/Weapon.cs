@@ -56,7 +56,7 @@ public class Weapon : MonoBehaviour {
 
   protected virtual void StopShooting(DeactivateEventArgs interactor) { }
 
-  protected virtual void Shoot() {
+  public virtual void Shoot() {
     ApplyRecoil();
     audioManager.Play("shot", gameObject);
     audioManager.Play("shells", gameObject);

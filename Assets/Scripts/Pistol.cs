@@ -37,7 +37,7 @@ public class Pistol : Weapon
     Shoot();
   }
 
-  protected override void Shoot() {
+  public override void Shoot() {
     if (isSafetyOn) {
       SafetyStillActiveSound();
       return;
