@@ -18,6 +18,7 @@ namespace Menu {
     private void Start() {
       hostButton.onClick.AddListener(HostGame);
       joinButton.onClick.AddListener(JoinGame);
+      HostGame();
     }
 
     private async void StartGame(GameMode mode) {

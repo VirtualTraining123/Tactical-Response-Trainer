@@ -1,13 +1,14 @@
 ﻿using Fusion;
 using UnityEngine;
 
-namespace Networking
-{
-  public class NetworkGameLogic : NetworkBehaviour, IPlayerJoined, IPlayerLeft
-  {
+namespace Networking {
+  public class NetworkGameLogic : NetworkBehaviour, IPlayerJoined, IPlayerLeft {
     [Header("Prefabs")]
-    [SerializeField]
-    private NetworkPrefabRef playerPrefab;
+    [SerializeField] private NetworkPrefabRef playerPrefab;
+    [SerializeField] private Transform spawnPoint;
+
+    [Header("Follow Player")] [SerializeField]
+    private FollowPlayer followPlayer;
 
     [Networked, Capacity(12)] public NetworkDictionary<PlayerRef, NetworkedPlayer> Players => default;
 
@@ -27,12 +28,14 @@ namespace Networking
 
       var playerObject = Runner.Spawn(playerPrefab, spawnPosition, Quaternion.identity, player);
       var networkedPlayer = playerObject.GetComponentInChildren<NetworkedPlayer>();
+      playerObject.transform.SetParent(spawnPoint);
       if (networkedPlayer == null)
       {
         Debug.LogError("NetworkedPlayer component not found in player prefab.");
         return;
       }
 
+      // Keep the player tracked
       Players.Add(player, networkedPlayer);
     }
 

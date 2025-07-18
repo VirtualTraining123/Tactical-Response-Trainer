@@ -461,7 +461,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6caf03ee0de488ea33f36b0506d98c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xrRigRoot: {fileID: 0}
   leftController: {fileID: 2321518876920074633}
   rightController: {fileID: 4901327217173937749}
   gaze: {fileID: 7920007182681953515}
