@@ -38,7 +38,7 @@ private List<GameObject> InsideMeshes;
 
 [SerializeField]
 
-private List<GameObject> IntersectingMeshes;
+private List<GameObject> IntersectingMeshes = new List<GameObject>();
 
 [SerializeField] private GameState currentGameState = GameState.Outside;
 
