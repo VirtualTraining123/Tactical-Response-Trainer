@@ -26,119 +26,122 @@ namespace Networking
     [SerializeField]
     private float speed = 5f;
 
-    private Vector3 relativeTransform = Vector3.zero;
     [HideInInspector]
     [Networked]
     public Weapon_ProjectileDataBuffer_Hitscan CurrentWeapon { get; set; }
+
     [Networked]
     private NetworkButtons _previousButtons { get; set; }
 
-public override void Spawned()
+    [Networked] private Vector3 NetworkedGazePos { get; set; }
+    [Networked] private Quaternion NetworkedGazeRot { get; set; }
+    [Networked] private Vector3 NetworkedLeftCtrlPos { get; set; }
+    [Networked] private Quaternion NetworkedLeftCtrlRot { get; set; }
+    [Networked] private Vector3 NetworkedRightCtrlPos { get; set; }
+    [Networked] private Quaternion NetworkedRightCtrlRot { get; set; }
+
+    private void Start()
+    {
+      Debug.Log($"NetworkedPlayer Start - Object: {Object?.Id}, HasInputAuthority: {Object?.HasInputAuthority}");
+    }
+
+    public override void Spawned()
     {
       base.Spawned();
 
       Controller = GetComponent<NetworkCharacterController>();
-      Debug.Log($"Player {Object.Id} spawned! HasStateAuthority: {HasStateAuthority}");
-      
-      // Deactivate a generic UI camera if it exists, as the XR rig will take over.
-      GameObject uiCamObject = GameObject.Find("UI Camera"); 
+      Debug.Log($"Player {Object.Id} spawned! HasStateAuthority: {HasStateAuthority}, HasInputAuthority: {Object.HasInputAuthority}");
+
+      GameObject uiCamObject = GameObject.Find("UI Camera");
       if (uiCamObject != null)
       {
-        uiCamObject.SetActive(false); 
+        uiCamObject.SetActive(false);
       }
 
-      if (Object.HasInputAuthority) 
+      if (Object.HasInputAuthority)
       {
-        Debug.Log($"Local player {Object.Id}: Setting up local player visuals and camera follow.");
+        Debug.Log($"LOCAL player {Object.Id}: Setting up local player visuals and camera follow.");
         playerHead.ForEach(x =>
         {
           if (x.TryGetComponent<MeshRenderer>(out var meshRenderer)) meshRenderer.enabled = false;
           if (x.TryGetComponent<SkinnedMeshRenderer>(out var skinnedMeshRenderer)) skinnedMeshRenderer.enabled = false;
         });
 
-        if (xrRigRoot != null) 
-        {
-            xrRigRoot.SetActive(true); 
-        } else {
-            Debug.LogWarning($"xrRigRoot is null on local player {Object.Id}. Camera might not attach correctly.");
-        }
+        if (xrRigRoot != null) xrRigRoot.SetActive(true);
+        else Debug.LogWarning($"xrRigRoot is null on local player {Object.Id}.");
 
-        FollowPlayer sceneFollowPlayer = FindFirstObjectByType <FollowPlayer>(); 
-        if (sceneFollowPlayer != null) 
+        FollowPlayer sceneFollowPlayer = FindFirstObjectByType<FollowPlayer>();
+        if (sceneFollowPlayer != null)
         {
-            sceneFollowPlayer.player = this; 
-            Debug.Log($"Local player {Object.Id} has set itself as the target for FollowPlayer '{sceneFollowPlayer.gameObject.name}'.");
-        } else {
-            Debug.LogError($"Local player {Object.Id} could not find a FollowPlayer instance in the scene. Camera will not follow.");
+          sceneFollowPlayer.player = this;
+          Debug.Log($"LOCAL player {Object.Id}: Set itself as target for FollowPlayer.");
         }
+        else Debug.LogError($"LOCAL player {Object.Id} could not find a FollowPlayer instance.");
       }
       else
       {
-        Debug.Log($"Remote player {Object.Id}: Setting up remote player visuals.");
-        if (xrRigRoot != null) 
-        {
-            xrRigRoot.SetActive(false);
-        }
-
+        Debug.Log($"REMOTE player {Object.Id}: Setting up remote player visuals.");
+        if (xrRigRoot != null) xrRigRoot.SetActive(false);
         playerHead.ForEach(x =>
-       {
-         if (x.TryGetComponent<MeshRenderer>(out var meshRenderer)) meshRenderer.enabled = true;
-         if (x.TryGetComponent<SkinnedMeshRenderer>(out var skinnedMeshRenderer)) skinnedMeshRenderer.enabled = true;
-       });
+        {
+          if (x.TryGetComponent<MeshRenderer>(out var meshRenderer)) meshRenderer.enabled = true;
+          if (x.TryGetComponent<SkinnedMeshRenderer>(out var skinnedMeshRenderer)) skinnedMeshRenderer.enabled = true;
+        });
       }
     }
 
     public override void FixedUpdateNetwork()
     {
-      if (!HasStateAuthority) return;
-      if (!GetInput<NetInput>(out var input)) return;
-      //Debug.Log($"Player input: {input.Direction}");
-      var dir = input.GazeDirection * new Vector3(input.Direction.x, 0, input.Direction.y);
-      dir.y = 0;
-      relativeTransform += dir.normalized * speed;
-      // var targetPosition = input.GazePosition + relativeTransform;
-
-      // Mover el PlayerMaker (marca de jugador)
-      if (Controller.Velocity.magnitude > 10)
+      // Only host runs this logic
+      if (HasStateAuthority && GetInput<NetInput>(out var input))
       {
-        Controller.Velocity = Vector3.zero;
-      }
-      Controller.Move(speed * dir.normalized * Runner.DeltaTime);
+        var dir = input.GazeDirection * new Vector3(input.Direction.x, 0, input.Direction.y);
+        dir.y = 0;
+        Controller.Move(speed * dir.normalized * Runner.DeltaTime);
 
-      // Actualizar las posiciones y rotaciones de los elementos del PlayerMarker
+        NetworkedGazePos = input.GazePosition;
+        NetworkedGazeRot = input.GazeDirection;
+        NetworkedLeftCtrlPos = input.LeftControllerPosition;
+        NetworkedLeftCtrlRot = input.LeftControllerRotation;
+        NetworkedRightCtrlPos = input.RightControllerPosition;
+        NetworkedRightCtrlRot = input.RightControllerRotation;
+
+        if (input.Buttons.WasPressed(_previousButtons, InputButton.Shoot))
+        {
+          if (CurrentWeapon != null)
+          {
+            CurrentWeapon.Fire();
+          }
+        }
+        _previousButtons = input.Buttons;
+      }
+    }
+
+    public override void Render()
+    {
       if (gaze != null)
       {
-        gaze.transform.position = input.GazePosition + transform.position;
-        gaze.transform.rotation = input.GazeDirection;
+        gaze.transform.position = transform.position + NetworkedGazePos;
+        gaze.transform.rotation = NetworkedGazeRot;
       }
 
       if (leftController != null)
       {
-        leftController.transform.position = input.LeftControllerPosition + transform.position;
-        leftController.transform.rotation = input.LeftControllerRotation;
+        leftController.transform.position = transform.position + NetworkedLeftCtrlPos;
+        leftController.transform.rotation = NetworkedLeftCtrlRot;
       }
 
       if (rightController != null)
       {
-        rightController.transform.position = input.RightControllerPosition + transform.position;
-        rightController.transform.rotation = input.RightControllerRotation;
+        rightController.transform.position = transform.position + NetworkedRightCtrlPos;
+        rightController.transform.rotation = NetworkedRightCtrlRot;
       }
-
-      if (input.Buttons.WasPressed(_previousButtons, InputButton.Shoot))
-      {
-        if (CurrentWeapon != null)
-        {
-          // Call Fire() from the correct network context
-          CurrentWeapon.Fire();
-        }
-      }
-      _previousButtons = input.Buttons;
     }
+
     public void SetCurrentWeapon(Weapon_ProjectileDataBuffer_Hitscan weapon)
     {
       Debug.Log($"Player setting current weapon: {(weapon != null ? weapon.name : "null")}");
       CurrentWeapon = weapon;
     }
   }
-
 }
