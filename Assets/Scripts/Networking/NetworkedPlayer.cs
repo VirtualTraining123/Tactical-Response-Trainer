@@ -54,6 +54,7 @@ namespace Networking {
 
     public override void FixedUpdateNetwork() {
       if (!GetInput<NetInput>(out var input)) return;
+      Debug.Log($"Player {Object.Id} FixedUpdateNetwork: HasInputAuthority: {HasInputAuthority}, Input: {input}");
       var inputDir = new Vector3(input.Direction.x, 0, input.Direction.y);
       var dir = input.GazeDirection * inputDir;
       dir.y = 0;
