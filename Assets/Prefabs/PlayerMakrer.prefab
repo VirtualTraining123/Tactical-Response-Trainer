@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 2980393498313479075}
   - component: {fileID: 6893582938377747025}
   - component: {fileID: 6144291992987860675}
+  - component: {fileID: 3881516611442040979}
   m_Layer: 0
   m_Name: LeftController
   m_TagString: Untagged
@@ -173,6 +174,22 @@ CapsuleCollider:
   m_Height: 1.9999999
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3881516611442040979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2321518876920074633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0
 --- !u!1 &3485271344973014715
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,6 +233,7 @@ GameObject:
   - component: {fileID: 1649721101693948294}
   - component: {fileID: 7064241108630895195}
   - component: {fileID: 1015219776495655527}
+  - component: {fileID: 5436274937509293406}
   m_Layer: 0
   m_Name: RightController
   m_TagString: Untagged
@@ -315,6 +333,22 @@ CapsuleCollider:
   m_Height: 1.9999999
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5436274937509293406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4901327217173937749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0
 --- !u!1 &5051461125818841322
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,6 +583,9 @@ MonoBehaviour:
   - {fileID: 4088374842578659559}
   NetworkedBehaviours:
   - {fileID: 6970234887090320045}
+  - {fileID: 3564978826874631522}
+  - {fileID: 3881516611442040979}
+  - {fileID: 5436274937509293406}
 --- !u!114 &6970234887090320045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,6 +635,7 @@ GameObject:
   - component: {fileID: 7039537714389720336}
   - component: {fileID: 3729249814333773441}
   - component: {fileID: 8423763747027577198}
+  - component: {fileID: 3564978826874631522}
   m_Layer: 0
   m_Name: Gaze
   m_TagString: Untagged
@@ -697,6 +735,22 @@ CapsuleCollider:
   m_Height: 1.9999999
   m_Direction: 1
   m_Center: {x: 0.00000005960464, y: 0, z: -0.00000008940696}
+--- !u!114 &3564978826874631522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7920007182681953515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0
 --- !u!1001 &7378333238723850320
 PrefabInstance:
   m_ObjectHideFlags: 0
