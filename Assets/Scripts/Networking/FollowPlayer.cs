@@ -3,59 +3,47 @@ using Unity.XR.CoreUtils;
 using UnityEngine;
 using Fusion;
 
-namespace Networking
-{
-  public class FollowPlayer : MonoBehaviour
-  {
+namespace Networking {
+  public class FollowPlayer : MonoBehaviour {
     [CanBeNull] public NetworkedPlayer player;
     public XROrigin origin;
 
     private NetworkRunner _cachedRunner;
 
-    private void Start()
-    {
+    private void Start() {
       _cachedRunner = FindFirstObjectByType<NetworkRunner>();
     }
 
-    public void Update()
-    {
-      if (!_cachedRunner)
-      {
+    public void Update() {
+      if (!_cachedRunner) {
         _cachedRunner = FindFirstObjectByType<NetworkRunner>();
-        if (!_cachedRunner)
-        {
+        if (!_cachedRunner) {
           return;
         }
       }
 
-      if (!player)
-      {
+      if (!player) {
         Debug.Log("FollowPlayer: No player assigned");
         return;
       }
 
       Debug.Log($"FollowPlayer: Following player {player.Object.Id}, HasInputAuthority: {player.Object.HasInputAuthority}, Position: {(player.gaze != null ? player.gaze.transform.position : Vector3.zero)}");
 
-      if (player.Object == null || !player.Object.IsValid)
-      {
+      if (!player.Object || !player.Object.IsValid) {
         Debug.LogWarning($"FollowPlayer: Player object {player.Object?.Id} is null or invalid. Clearing reference.");
         player = null;
         return;
       }
 
-      if (!player.Object.HasInputAuthority)
-      {
+      if (!player.Object.HasInputAuthority) {
         Debug.Log($"FollowPlayer: Player {player.Object.Id} does not have input authority, not following");
         return;
       }
 
-      if (player.gaze != null)
-      {
+      if (player.gaze) {
         origin.MoveCameraToWorldLocation(player.gaze.transform.position);
         Debug.Log($"FollowPlayer: Moving camera to {player.gaze.transform.position} for player {player.Object.Id}");
-      }
-      else
-      {
+      } else {
         Debug.LogWarning($"FollowPlayer: Player {player.Object.Id} gaze is null.");
       }
     }

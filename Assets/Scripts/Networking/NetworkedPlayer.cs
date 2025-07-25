@@ -36,6 +36,7 @@ namespace Networking {
       Controller = GetComponent<NetworkCharacterController>();
       Debug.Log($"Player {Object.Id} spawned! HasStateAuthority: {HasStateAuthority}");
 
+      if (!HasInputAuthority) return;
       Debug.Log($"Local player {Object.Id}: Setting up local player visuals and camera follow.");
       playerHead.ForEach(x => {
         if (x.TryGetComponent<MeshRenderer>(out var meshRenderer)) meshRenderer.enabled = false;
