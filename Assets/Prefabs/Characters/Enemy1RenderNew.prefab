@@ -41,15 +41,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8b973a0501b7b3b44b0e3623be4fb879, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.047
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b973a0501b7b3b44b0e3623be4fb879, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.0423584
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b973a0501b7b3b44b0e3623be4fb879, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 33.084
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b973a0501b7b3b44b0e3623be4fb879, type: 3}
       propertyPath: m_LocalRotation.w
@@ -328,12 +328,12 @@ MonoBehaviour:
   minAimTime: 0.5
   maxAimTime: 1.2
   bulletRadius: 0.05
-  headTransform: {fileID: 0}
+  headTransform: {fileID: 7373530578387638542}
   minShotsToTake: 4
   maxShotsToTake: 8
   damage: 110
   shootingAccuracy: 100
-  shootingPosition: {fileID: 0}
+  shootingPosition: {fileID: 6581237028485172663}
 --- !u!82 &6754577659121783821
 AudioSource:
   m_ObjectHideFlags: 0
