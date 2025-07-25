@@ -470,6 +470,7 @@ MonoBehaviour:
   - {fileID: 353961168228044532}
   - {fileID: 6659178411323305780}
   - {fileID: 624893538266000683}
+  distanceBeforeCorrection: 0.25
   speed: 2
   _CurrentWeapon: {fileID: 0}
 --- !u!114 &4088374842578659559

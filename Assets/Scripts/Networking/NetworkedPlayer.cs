@@ -16,7 +16,7 @@ namespace Networking {
     [SerializeField] public GameObject rightController;
     [SerializeField] public GameObject gaze;
     [SerializeField] public List<GameObject> playerHead;
-    public double distanceBeforeCorrection = 0.85;
+    public double distanceBeforeCorrection = 0.25;
 
     [Header("Movement Settings")]
     [SerializeField]
@@ -36,38 +36,22 @@ namespace Networking {
       Controller = GetComponent<NetworkCharacterController>();
       Debug.Log($"Player {Object.Id} spawned! HasStateAuthority: {HasStateAuthority}");
 
-      // Deactivate a generic UI camera if it exists, as the XR rig will take over.
-      GameObject uiCamObject = GameObject.Find("UI Camera");
-      if (uiCamObject != null) {
-        uiCamObject.SetActive(false);
-      }
+      Debug.Log($"Local player {Object.Id}: Setting up local player visuals and camera follow.");
+      playerHead.ForEach(x => {
+        if (x.TryGetComponent<MeshRenderer>(out var meshRenderer)) meshRenderer.enabled = false;
+        if (x.TryGetComponent<SkinnedMeshRenderer>(out var skinnedMeshRenderer)) skinnedMeshRenderer.enabled = false;
+      });
 
-      if (Object.HasInputAuthority) {
-        Debug.Log($"Local player {Object.Id}: Setting up local player visuals and camera follow.");
-        playerHead.ForEach(x => {
-          if (x.TryGetComponent<MeshRenderer>(out var meshRenderer)) meshRenderer.enabled = false;
-          if (x.TryGetComponent<SkinnedMeshRenderer>(out var skinnedMeshRenderer)) skinnedMeshRenderer.enabled = false;
-        });
-
-        FollowPlayer sceneFollowPlayer = FindFirstObjectByType<FollowPlayer>();
-        if (sceneFollowPlayer != null) {
-          sceneFollowPlayer.player = this;
-          Debug.Log($"Local player {Object.Id} has set itself as the target for FollowPlayer '{sceneFollowPlayer.gameObject.name}'.");
-        } else {
-          Debug.LogError($"Local player {Object.Id} could not find a FollowPlayer instance in the scene. Camera will not follow.");
-        }
+      FollowPlayer sceneFollowPlayer = FindFirstObjectByType<FollowPlayer>();
+      if (sceneFollowPlayer != null) {
+        sceneFollowPlayer.player = this;
+        Debug.Log($"Local player {Object.Id} has set itself as the target for FollowPlayer '{sceneFollowPlayer.gameObject.name}'.");
       } else {
-        Debug.Log($"Remote player {Object.Id}: Setting up remote player visuals.");
-
-        playerHead.ForEach(x => {
-          if (x.TryGetComponent<MeshRenderer>(out var meshRenderer)) meshRenderer.enabled = true;
-          if (x.TryGetComponent<SkinnedMeshRenderer>(out var skinnedMeshRenderer)) skinnedMeshRenderer.enabled = true;
-        });
+        Debug.LogError($"Local player {Object.Id} could not find a FollowPlayer instance in the scene. Camera will not follow.");
       }
     }
 
     public override void FixedUpdateNetwork() {
-      if (!HasStateAuthority) return;
       if (!GetInput<NetInput>(out var input)) return;
       var inputDir = new Vector3(input.Direction.x, 0, input.Direction.y);
       var dir = input.GazeDirection * inputDir;
@@ -81,9 +65,10 @@ namespace Networking {
 
       if (gaze != null) {
         var inputGazePosition = input.GazePosition + relativeTransform;
+        var inputGazePosition2d = new Vector2(inputGazePosition.x, inputGazePosition.z);
         gaze.transform.position = inputGazePosition + transform.position;
         gaze.transform.rotation = input.GazeDirection;
-        if (inputGazePosition.magnitude > distanceBeforeCorrection) {
+        if (inputGazePosition2d.magnitude > distanceBeforeCorrection) {
           Debug.DrawLine(gaze.transform.position, transform.position, Color.red);
           if (inputDir.magnitude < 0.9) {
             dir = inputGazePosition;
