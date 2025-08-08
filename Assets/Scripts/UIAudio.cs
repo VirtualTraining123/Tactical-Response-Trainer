@@ -8,7 +8,7 @@ public class UIAudio : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
   private AudioManager audioManager;
 
   private void Awake() {
-    audioManager = FindObjectOfType<AudioManager>();
+    audioManager = FindFirstObjectByType<AudioManager>();
     audioManager.Request(clickAudioName, gameObject);
     audioManager.Request(hoverEnterAudioName, gameObject);
     audioManager.Request(hoverExitAudioName, gameObject);

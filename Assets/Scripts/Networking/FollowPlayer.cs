@@ -40,11 +40,11 @@ namespace Networking {
         return;
       }
 
-      if (player.gaze) {
+      if (player.gaze && origin) {
         origin.MoveCameraToWorldLocation(player.gaze.transform.position);
         Debug.Log($"FollowPlayer: Moving camera to {player.gaze.transform.position} for player {player.Object.Id}");
       } else {
-        Debug.LogWarning($"FollowPlayer: Player {player.Object.Id} gaze is null.");
+        Debug.LogWarning($"FollowPlayer: Player {player.Object.Id} gaze is null or origin is not set");
       }
     }
   }
