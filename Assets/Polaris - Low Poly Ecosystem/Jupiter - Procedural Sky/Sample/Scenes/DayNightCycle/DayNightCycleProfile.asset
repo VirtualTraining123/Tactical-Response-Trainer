@@ -339,7 +339,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     gradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 0.78431374}
+      key0: {r: 0.5518868, g: 0.96127427, b: 1, a: 0.78431374}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0.96748763}
       key3: {r: 0, g: 0, b: 0, a: 0.78431374}
@@ -364,7 +364,7 @@ MonoBehaviour:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 4
   - name: StarsColor0

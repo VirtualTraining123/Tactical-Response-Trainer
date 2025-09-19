@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b37a8b90dd444a6438a1768d676375fb
+guid: 4dd6e4c9afffdbb45b5be17536ac5ea9
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -80,7 +80,37 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: policia_mendoza(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: input
+      parentName: policia_mendoza(Clone)
+      position: {x: -0.0003589522, y: 0.9858506, z: 0}
+      rotation: {x: -0.00000003774895, y: 0, z: -0, w: 1}
+      scale: {x: 100, y: 100, z: 100}
+    - name: manofinal.003
+      parentName: policia_mendoza(Clone)
+      position: {x: 0.909958, y: 1.5192993, z: -0.011984753}
+      rotation: {x: 0.9936566, y: -0.0062475326, z: 0.07216924, w: 0.08601868}
+      scale: {x: -2.4616623, y: -2.4616623, z: -2.461662}
+    - name: manofinal.004
+      parentName: policia_mendoza(Clone)
+      position: {x: -0.9123113, y: 1.5203929, z: -0.030459091}
+      rotation: {x: -0.00000003769795, y: 0.051967204, z: 0.0000000019617072, w: 0.9986488}
+      scale: {x: 2.3557234, y: 2.3557236, z: 2.3557234}
+    - name: rp_nathan_animated_003_walking_geo
+      parentName: policia_mendoza(Clone)
+      position: {x: 0.0010598768, y: 1.788078, z: 0.021615645}
+      rotation: {x: 0.020589616, y: -0.051177032, z: 0.0010553198, w: 0.9984768}
+      scale: {x: 1.1416715, y: 1.1416717, z: 1.1416715}
+    - name: w_eq_armor.vmdl_c.w_eq_armor_bg_studio_lod0
+      parentName: policia_mendoza(Clone)
+      position: {x: 0.014480459, y: 1.3766754, z: -0.02670341}
+      rotation: {x: 0.9993362, y: 0.0006614032, z: 0.02684438, w: -0.024622113}
+      scale: {x: 3.0301225, y: 3.0300953, z: 3.0879364}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5

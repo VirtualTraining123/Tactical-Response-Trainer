@@ -3308,7 +3308,6 @@ MonoBehaviour:
   updateAI: 0
   state: 0
   rotationSpeed: 250
-  targetSpot: {fileID: 0}
   minCrouchTimeMS: 10000
   maxCrouchTimeMS: 50000
   maxShootingDistance: 20
@@ -3318,6 +3317,7 @@ MonoBehaviour:
   minAimTime: 0.5
   maxAimTime: 1.2
   bulletRadius: 0.15
+  headTransform: {fileID: 0}
   minShotsToTake: 4
   maxShotsToTake: 8
   damage: 110

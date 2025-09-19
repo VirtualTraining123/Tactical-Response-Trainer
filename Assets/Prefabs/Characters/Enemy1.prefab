@@ -2237,7 +2237,7 @@ MonoBehaviour:
   minShotsToTake: 4
   maxShotsToTake: 8
   damage: 110
-  shootingAccuracy: 100
+  shootingAccuracy: 0
   shootingPosition: {fileID: 3058126443458833854}
 --- !u!82 &-5316055009322670356
 AudioSource:
