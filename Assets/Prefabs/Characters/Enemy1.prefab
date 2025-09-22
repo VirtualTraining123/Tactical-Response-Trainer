@@ -2236,7 +2236,7 @@ MonoBehaviour:
   headTransform: {fileID: 8636926368577821337}
   minShotsToTake: 4
   maxShotsToTake: 8
-  damage: 110
+  damage: 0
   shootingAccuracy: 0
   shootingPosition: {fileID: 3058126443458833854}
 --- !u!82 &-5316055009322670356

@@ -256,6 +256,10 @@ PrefabInstance:
       value: Enemy1RenderNew
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8b973a0501b7b3b44b0e3623be4fb879, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8b973a0501b7b3b44b0e3623be4fb879, type: 3}
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
@@ -555,7 +559,7 @@ Animator:
   m_GameObject: {fileID: 995923009468688187}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 8b973a0501b7b3b44b0e3623be4fb879, type: 3}
-  m_Controller: {fileID: 9100000, guid: cd643ba7e64cabb4a83ff5ca5fc8cab8, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9ba1bfcb11622ad4f8961ecb3bfe8009, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -619,7 +623,7 @@ MonoBehaviour:
   headTransform: {fileID: 7373530578387638542}
   minShotsToTake: 4
   maxShotsToTake: 8
-  damage: 110
+  damage: 0
   shootingAccuracy: 0
   shootingPosition: {fileID: 6581237028485172663}
 --- !u!82 &6754577659121783821

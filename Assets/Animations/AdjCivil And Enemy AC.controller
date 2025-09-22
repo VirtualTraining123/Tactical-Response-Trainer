@@ -45,7 +45,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 4482f0b60a2cba24982115a38413b3e9, type: 3}
+  m_Motion: {fileID: -203655887218126122, guid: 71e418fdd0d5a114e9b7bc2258845cd9, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -553,7 +553,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 0b1860af267405a4e8b643fbeb1dbbf8, type: 3}
+  m_Motion: {fileID: -203655887218126122, guid: 79eddd03b37aaba4c869222ffae32a33, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -565,7 +565,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Civil And Enemy AC
+  m_Name: AdjCivil And Enemy AC
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Run
@@ -745,11 +745,11 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -390059293748913663}
-  m_Solo: 0
+  m_Solo: 1
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.014657952
+  m_TransitionDuration: 0.013604343
   m_TransitionOffset: 0
   m_ExitTime: 0.029999997
   m_HasExitTime: 0

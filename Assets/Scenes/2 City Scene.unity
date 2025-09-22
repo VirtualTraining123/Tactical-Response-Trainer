@@ -8001,11 +8001,9 @@ MonoBehaviour:
   spawnPoints: {fileID: 1397821636}
   enemies:
   - {fileID: 1622659923973746621, guid: b48fcbab99de6c147977cd98cb2cefa6, type: 3}
-  - {fileID: 1089849248926301649, guid: c46eb07f88a333a48abe6d759590a456, type: 3}
   - {fileID: 5727995734271827610, guid: 8060b2b474f4b65409df3611476ffaf3, type: 3}
   civilians:
   - {fileID: 5535759298972492369, guid: e14fd9c070edf2f40a73fe3d2abb7e52, type: 3}
-  - {fileID: 1570614751163769452, guid: 2b6ef004d26ff354bac1dddc26c6d1bc, type: 3}
   - {fileID: 280947635738620782, guid: bc10e2733eb90b446b3ac8ba2d5d500a, type: 3}
   enemiesToSpawn: 3
   civiliansToSpawn: 3
@@ -8914,7 +8912,7 @@ Transform:
   m_GameObject: {fileID: 738529345}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.95351744, z: -0, w: -0.30133805}
-  m_LocalPosition: {x: -13.204, y: -5.918, z: 35.885}
+  m_LocalPosition: {x: -12.463, y: -5.918, z: 33.261}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -27275,7 +27273,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8900343497467657010, guid: d9100cd9f575e6e4b919c1d5e167a415, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.204
+      value: -12.463
       objectReference: {fileID: 0}
     - target: {fileID: 8900343497467657010, guid: d9100cd9f575e6e4b919c1d5e167a415, type: 3}
       propertyPath: m_LocalPosition.y
@@ -27283,7 +27281,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8900343497467657010, guid: d9100cd9f575e6e4b919c1d5e167a415, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 35.885
+      value: 33.261
       objectReference: {fileID: 0}
     - target: {fileID: 8900343497467657010, guid: d9100cd9f575e6e4b919c1d5e167a415, type: 3}
       propertyPath: m_LocalRotation.w
