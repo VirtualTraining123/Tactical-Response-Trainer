@@ -51,6 +51,12 @@ ExportedObj/
 *.opendb
 *.VC.db
 
+# Lightmaps y datos de iluminación
+Assets/*/Lightmap-.exr
+Assets/**/LightingData.asset
+Assets/*/ReflectionProbe-.exr
+Assets/**/OcclusionCullingData.asset
+
 # Unity3D generated meta files
 *.pidb.meta
 *.pdb.meta
