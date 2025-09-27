@@ -623,8 +623,8 @@ MonoBehaviour:
   headTransform: {fileID: 7373530578387638542}
   minShotsToTake: 4
   maxShotsToTake: 8
-  damage: 0
-  shootingAccuracy: 0
+  damage: 110
+  shootingAccuracy: 25.4
   shootingPosition: {fileID: 6581237028485172663}
 --- !u!82 &6754577659121783821
 AudioSource:
