@@ -92,4 +92,4 @@ crashlytics-build.properties
 /obj*
 **/*.exr
 *_DoNotShip
-*/*Lightmap*
+**/*Lightmap*
