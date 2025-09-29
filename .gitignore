@@ -77,6 +77,16 @@ crashlytics-build.properties
 # Packed Addressables
 /[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
 
+# Lightmaps
+/[Aa]ssets/*[Ll]ightmap[Dd]ata/
+/[Aa]ssets/*[Ll]ightmap[Dd]ata.meta
+*[Ll]ightmap*.exr
+*[Ll]ightmap*.exr.meta
+*[Ll]ightmap*.hdr
+*[Ll]ightmap*.hdr.meta
+*[Ll]ightmap*.asset
+*[Ll]ightmap*.asset.meta
+
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
@@ -92,4 +102,4 @@ crashlytics-build.properties
 /obj*
 **/*.exr
 *_DoNotShip
-**/*Lightmap*
+
