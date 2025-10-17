@@ -1,13 +1,16 @@
 ﻿using Fusion;
 using UnityEngine;
 
-namespace Networking {
-  public class NetworkGameLogic : NetworkBehaviour, IPlayerJoined, IPlayerLeft {
+namespace Networking
+{
+  public class NetworkGameLogic : NetworkBehaviour, IPlayerJoined, IPlayerLeft
+  {
     [Header("Prefabs")]
     [SerializeField] private NetworkPrefabRef playerPrefab;
     [SerializeField] private Transform spawnPoint;
 
-    [Header("Follow Player")] [SerializeField]
+    [Header("Follow Player")]
+    [SerializeField]
     private FollowPlayer followPlayer;
 
     [Networked, Capacity(12)] public NetworkDictionary<PlayerRef, NetworkedPlayer> Players => default;
@@ -24,7 +27,15 @@ namespace Networking {
     {
       if (!HasStateAuthority) return;
 
-      Vector3 spawnPosition = Vector3.up * 2f + Vector3.right * (player.PlayerId * 3f);
+      Vector3 baseSpawnPosition = spawnPoint != null ? spawnPoint.position : transform.position;
+      Vector3 lateralOffset = spawnPoint != null ? spawnPoint.right : Vector3.right;
+      Vector3 spawnPosition = baseSpawnPosition + lateralOffset * (player.PlayerId * 3f);
+
+      if (Physics.Raycast(spawnPosition + Vector3.up * 5f, Vector3.down, out var groundHit, 10f,
+        Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+      {
+        spawnPosition = groundHit.point;
+      }
 
       var playerObject = Runner.Spawn(playerPrefab, spawnPosition, Quaternion.identity, player);
       var networkedPlayer = playerObject.GetComponentInChildren<NetworkedPlayer>();
