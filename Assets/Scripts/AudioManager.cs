@@ -13,7 +13,7 @@ public class AudioManager : MonoBehaviour {
   private Dictionary<Tuple<string, GameObject>, AudioSource> audioSources = new();
 
   public void Play(string clipName, GameObject obj) {
-    var s = audioSources[new Tuple<string, GameObject>(clipName, obj)];
+    var s = audioSources.GetValueOrDefault(new(clipName, obj), null);
     if (s == null) {
       Debug.LogWarning("Sound: " + clipName + " not found");
       return;
@@ -23,7 +23,7 @@ public class AudioManager : MonoBehaviour {
   }
 
   public void Request(string clipName, GameObject obj) {
-    if (audioSources.ContainsKey(new Tuple<string, GameObject>(clipName, obj))) return;
+    if (audioSources.ContainsKey(new(clipName, obj))) return;
     var s = Array.Find(sounds, sound => sound.name == clipName);
     if (s == null) {
       Debug.LogWarning("Sound: " + clipName + " not found");
@@ -42,6 +42,6 @@ public class AudioManager : MonoBehaviour {
     audioSource.spread = 0;
     audioSource.clip = s.clip;
     audioSource.clip.LoadAudioData();
-    audioSources.Add(new Tuple<string, GameObject>(clipName, obj), audioSource);
+    audioSources.Add(new(clipName, obj), audioSource);
   }
 }

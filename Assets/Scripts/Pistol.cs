@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
-public class Pistol : Weapon {
+public class Pistol : Weapon
+{
   private static readonly int PistolShoot = Animator.StringToHash("PistolShoot");
-  [SerializeField] private Projectile bulletPrefab;
+  [SerializeField] protected BaseProjectile projectilePrefab;
   [SerializeField] private float debugRayDuration = 2f;
   [SerializeField] private bool isEvaluated = true;
   [SerializeField] private int maxBullets = 100;
@@ -19,7 +20,7 @@ public class Pistol : Weapon {
 
   protected void Start() {
     currentBullets = maxBullets;
-    if (isEvaluated)  evaluator = FindFirstObjectByType<Evaluator>();
+    if (isEvaluated) evaluator = FindFirstObjectByType<Evaluator>();
   }
 
   public void OnPistolAnimationEnd(AnimationEvent eventInfo) {
@@ -36,7 +37,7 @@ public class Pistol : Weapon {
     Shoot();
   }
 
-  protected override void Shoot() {
+  public override void Shoot() {
     if (isSafetyOn) {
       SafetyStillActiveSound();
       return;
@@ -53,9 +54,7 @@ public class Pistol : Weapon {
     evaluator?.OnBulletUsed();
     currentBullets--;
 
-    var projectileInstance = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
-    projectileInstance.Init(this);
-    projectileInstance.Launch();
+    SpawnProjectile();
 
     if (currentInteractor != null) SendHapticImpulse(currentInteractor);
   }
@@ -87,5 +86,11 @@ public class Pistol : Weapon {
     var controller = controllerInteractor.xrController;
     if (controller == null) return;
     controller.SendHapticImpulse(1f, 0.3f);
+  }
+
+  protected virtual void SpawnProjectile() {
+    var projectileInstance = Instantiate(projectilePrefab, bulletSpawn.position, bulletSpawn.rotation);
+    projectileInstance.Init(this);
+    projectileInstance.Launch();
   }
 }

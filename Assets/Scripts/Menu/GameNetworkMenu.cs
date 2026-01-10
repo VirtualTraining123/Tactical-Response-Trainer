@@ -7,17 +7,25 @@ using UnityEngine.SceneManagement;
 
 namespace Menu {
   public class GameNetworkMenu : MonoBehaviour {
+    public bool autoHost = true;
+    public bool autoJoin = false;
     public Button hostButton;
     public Button joinButton;
     
     public ConnectedPlayersDisplay connectedPlayersDisplay;
     public NetworkRunner runner;
     public InputManager inputManager;
+    
 
 
     private void Start() {
       hostButton.onClick.AddListener(HostGame);
       joinButton.onClick.AddListener(JoinGame);
+      if (! (autoHost ^ autoJoin)) {
+        Debug.LogWarning("Both autoHost and autoJoin are set to true. Only one should be true at a time.");
+      }
+      if (autoHost) HostGame();
+      else if (autoJoin) JoinGame();
     }
 
     private async void StartGame(GameMode mode) {
